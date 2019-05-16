@@ -119,29 +119,29 @@ public class LoginPageValidator extends BaseWebUIValidator<LoginPageMap> {
 }
 ```
 ## Implement test methods for each test suite/ test cases
-1. BaseTest class is supported for something such as:**
-- Integrating to the Extent Report: 
-  - Initialize Test Report in @BeforeSuite method.
-  - Create and add test suites/ test cases information in @BeforeMethod method.
-  - Log test status for each test step, test case (Pass, Fail, Skip).  
-- Support option of starting browser at @BeforeMethod, and options of stop browser at @AfterMethod or @AfterClass
-- Loading the specified config file in @BeforeSuite.
-- Refer to [this file](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/core/testexecution/BaseTest.java) to get more.
-_So each Test Class should extents to BaseTest class._
+1. BaseTest class is supported for something such as:
+  - Integrating to the Extent Report: 
+    - Initialize Test Report in @BeforeSuite method.
+    - Create and add test suites/ test cases information in @BeforeMethod method.
+    - Log test status for each test step, test case (Pass, Fail, Skip).  
+  - Support option of starting browser at @BeforeMethod, and options of stop browser at @AfterMethod or @AfterClass
+  - Loading the specified config file in @BeforeSuite.
+  - Refer to [this file](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/core/testexecution/BaseTest.java) to get more.
+  _So each Test Class should extents to BaseTest class._
 2. WebAction class is wrapper of Selenium Webdriver.
-- Can access to Selenium Web Driver to start/ stop browser.
-- Support some web actions in visually.
-- This object should be passed through all UI control (see ## Apply Page Object Pattern section ).
+  - Can access to Selenium Web Driver to start/ stop browser.
+  - Support some web actions in visually.
+  - This object should be passed through all UI control (see ## Apply Page Object Pattern section ).
 3. APIAction class is wrapper of Rest Assured library.
-- Support the methods for API Testing via Rest Assured.
+  - Support the methods for API Testing via Rest Assured.
 
 ## Using Test Report
-- The Extent Test Report is built by singleton class, so we can call TestReportManager.getIntance() to set Test Steps information in Test Method easily.
+  - The Extent Test Report is built by singleton class, so we can call TestReportManager.getIntance() to set Test Steps information in Test Method easily.
 Eg:  
 > TestReportManager.getInstance().setStepInfo("Login to SauceDemo Page with user name ='" + user + "', password ='" + password + "'");
 
 ## Some words.
-- Thanks for all of the support you guys (my colleagues) given me to complete this framework regardless of how big or small. Especially you [Nguyen Trong Tuyen](https://github.com/trongtuyen96) who have contributed many good ideas for this framework.
-- Beside, thanks Anton Angelov for your sharing knowlege about the professional automation testing framework via https://www.automatetheplanet.com/
+  - Thanks for all of the support you guys (my colleagues) given me to complete this framework regardless of how big or small. Especially you [Nguyen Trong Tuyen](https://github.com/trongtuyen96) who have contributed many good ideas for this framework.
+  - Beside, thanks Anton Angelov for your sharing knowlege about the professional automation testing framework via https://www.automatetheplanet.com/
 - Finally, all contributions are welcome.
 
