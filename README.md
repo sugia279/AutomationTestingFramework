@@ -1,4 +1,4 @@
-# Automation Testing Framework using JSON Data driven
+# Automation Testing Framework using JSON Data Driven
 A framework helps the automation engineer build the complete test automation easily by integrating the various automation libraries, tools and supporting the way to execute Test Suite/ Test case using JSON for Data Driven.
 ## The automation libraries, tools are using in this framework.
 - [TestNG](https://testng.org/doc/index.html)                - A Testing framework
