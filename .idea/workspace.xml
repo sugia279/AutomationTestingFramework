@@ -1,0 +1,1100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a35b099b-09cc-48d5-b970-20085f971a4b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.15.08.19.39.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.15.08.27.10.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.15.23.58.58.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.15.23.59.44.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.16.01.06.30.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.16.01.08.32.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.16.01.13.27.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.16.01.17.04.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.16.01.49.06.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.16.01.54.52.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.16.01.58.29.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.16.02.00.24.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.16.02.02.40.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reports/TestReport_2019.05.16.02.03.46.html" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="561">
+              <caret line="41" column="5" selection-start-line="38" selection-start-column="4" selection-end-line="41" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/inventory/InventoryTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="268">
+              <caret line="51" column="31" lean-forward="true" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/Math.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="16150">
+              <caret line="1008" column="22" selection-start-line="1008" selection-start-column="22" selection-end-line="1008" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/core/testexecution/BaseTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1241">
+              <caret line="89" column="19" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/headercontainer/HeaderContainer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="15" column="63" selection-start-line="15" selection-start-column="63" selection-end-line="15" selection-end-column="63" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/headercontainer/HeaderContainerValidator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/inventory/AddToCartTest.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/mainmenu/MainMenu.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/mainmenu/MainMenuMap.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/inventoryitem/InventoryItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>requestWriter</find>
+      <find>requestCapture</find>
+      <find>builder</find>
+      <find>validRes</find>
+      <find>isE</find>
+      <find>findElem</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/test/java/wordpress_webuitesting/uiwebview/pages/login/LoginPageValidator.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/pages/login/LoginPageValidator.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/pages/login/LoginPageMap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/pages/login/LoginPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.json" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/headercontainer/headerpanel.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/headercontainer/HeaderContainerValidator.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/mainmenu/MainMenuValidator.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/mainmenu/MainMenu.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/headercontainer/HeaderContainer.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/headercontainer/HeaderContainerMap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/UIControl.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/mainmenu/MainMenuMap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/core/extentreport/TestReportManager.java" />
+        <option value="$PROJECT_DIR$/src/test/java/core/testexecution/BaseTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/pages/main/MainPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/pages/main/inventory/InventoryPageValidator.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/pages/main/inventory/InventoryPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/inventoryitem/InventoryItemValidator.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/inventoryitem/InventoryItemMap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/controls/inventoryitem/InventoryItem.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiwebview/pages/main/inventory/InventoryPageMap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/core/utilities/Log.java" />
+        <option value="$PROJECT_DIR$/src/test/java/core/extentreport/Log.java" />
+        <option value="$PROJECT_DIR$/src/test/java/core/extentreport/ReportLog.java" />
+        <option value="$PROJECT_DIR$/src/test/java/core/extentreport/ReportLogLevel.java" />
+        <option value="$PROJECT_DIR$/src/test/java/core/testdatamanager/TestDataManager.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/configFiles/WebUI_Firefox.properties" />
+        <option value="$PROJECT_DIR$/src/test/resources/configFiles/WebUI_Chrome.properties" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/shoppingcart/ShoppingCartTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/inventory/ShoppingCartTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/core/testdatamanager/TestCase.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/inventoryitem/InventoryItem.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/main/inventory/InventoryPageValidator.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/inventoryitem/InventoryItemValidator.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/main/inventory/InventoryPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/headercontainer/HeaderContainerMap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/main/MainPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/core/utilities/CustomCondition.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/inventoryitem/InventoryItemMap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/main/inventory/InventoryPageMap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/headercontainer/HeaderContainerValidator.java" />
+        <option value="$PROJECT_DIR$/src/test/executionfile/saucedemo_webuitesting/smoketest.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/login/LoginPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/core/actionbase/WebAction.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/mainmenu/MainMenuMap.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/headercontainer/HeaderContainer.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/mainmenu/MainMenu.java" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/inventory/AddToCartTest.json" />
+        <option value="$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/inventory/InventoryTest.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="3832" />
+    <option name="y" value="312" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="reports" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="executionfile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="executionfile" type="462c0819:PsiDirectoryNode" />
+              <item name="saucedemo_webuitesting" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="saucedemo_webuitesting" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="saucedemo_webuitesting" type="462c0819:PsiDirectoryNode" />
+              <item name="suites" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="saucedemo_webuitesting" type="462c0819:PsiDirectoryNode" />
+              <item name="suites" type="462c0819:PsiDirectoryNode" />
+              <item name="functional" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="saucedemo_webuitesting" type="462c0819:PsiDirectoryNode" />
+              <item name="suites" type="462c0819:PsiDirectoryNode" />
+              <item name="functional" type="462c0819:PsiDirectoryNode" />
+              <item name="inventory" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="saucedemo_webuitesting" type="462c0819:PsiDirectoryNode" />
+              <item name="suites" type="462c0819:PsiDirectoryNode" />
+              <item name="functional" type="462c0819:PsiDirectoryNode" />
+              <item name="logon" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="autoTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="saucedemo_webuitesting" type="462c0819:PsiDirectoryNode" />
+              <item name="uiview" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557947476070" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="saucedemo_webuitesting.uiwebview.controls.inventoryitem" />
+      <recent name="saucedemo_webuitesting.uiwebview.pages.main.inventory" />
+      <recent name="saucedemo_webuitesting.uiwebview.controls.mainmenu" />
+      <recent name="saucedemo_webuitesting.uiwebview.controls.headercontainer" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Working\OutsideProjects\AutoTest\src\test\resources" />
+      <recent name="D:\Working\OutsideProjects\AutoTest\src\test" />
+      <recent name="D:\Working\OutsideProjects\AutoTest\src\test\java\wordpress_webuitesting\suites\ui\functional" />
+      <recent name="D:\Working\OutsideProjects\AutoTest\src\test\java\core\ui_base" />
+      <recent name="D:\Working\OutsideProjects\AutoTest\src\test\java" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="TestNG.D:/Working/OutsideProjects/AutoTest/src/test/executionfile/saucedemo_webuitesting/smoketest.xml">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="D:/Working/OutsideProjects/AutoTest/src/test/executionfile/saucedemo_webuitesting/smoketest.xml" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="AutoTest" />
+      <option name="SUITE_NAME" value="$PROJECT_DIR$/src/test/executionfile/saucedemo_webuitesting/smoketest.xml" />
+      <option name="TEST_OBJECT" value="SUITE" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InventoryTest.AddToCartTest (3)" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="AutoTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="saucedemo_webuitesting.suites.ui.functional.inventory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="saucedemo_webuitesting.suites.ui.functional.inventory" />
+      <option name="MAIN_CLASS_NAME" value="saucedemo_webuitesting.suites.ui.functional.inventory.InventoryTest" />
+      <option name="METHOD_NAME" value="AddToCartTest" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InventoryTest.AddToCartTest (4)" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="AutoTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="saucedemo_webuitesting.suites.ui.functional.inventory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="saucedemo_webuitesting.suites.ui.functional.inventory" />
+      <option name="MAIN_CLASS_NAME" value="saucedemo_webuitesting.suites.ui.functional.inventory.InventoryTest" />
+      <option name="METHOD_NAME" value="AddToCartTest" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InventoryTest.AddToCartTest (5)" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="AutoTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="saucedemo_webuitesting.suites.ui.functional.inventory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="saucedemo_webuitesting.suites.ui.functional.inventory" />
+      <option name="MAIN_CLASS_NAME" value="saucedemo_webuitesting.suites.ui.functional.inventory.InventoryTest" />
+      <option name="METHOD_NAME" value="AddToCartTest" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InventoryTest.AddToCartTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="AutoTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="saucedemo_webuitesting.suites.ui.functional.inventory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="saucedemo_webuitesting.suites.ui.functional.inventory" />
+      <option name="MAIN_CLASS_NAME" value="saucedemo_webuitesting.suites.ui.functional.inventory.InventoryTest" />
+      <option name="METHOD_NAME" value="AddToCartTest" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="TestNG.D:/Working/OutsideProjects/AutoTest/src/test/executionfile/saucedemo_webuitesting/smoketest.xml" />
+        <item itemvalue="TestNG.InventoryTest.AddToCartTest" />
+        <item itemvalue="TestNG.InventoryTest.AddToCartTest (5)" />
+        <item itemvalue="TestNG.InventoryTest.AddToCartTest (4)" />
+        <item itemvalue="TestNG.InventoryTest.AddToCartTest (3)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a35b099b-09cc-48d5-b970-20085f971a4b" name="Default Changelist" comment="" />
+      <created>1557555663618</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1557555663618</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="InventoryTest_AddToCartTest - 2019.05.16 at 01h 33m 22s.xml">
+      <configuration name="InventoryTest.AddToCartTest" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="InventoryTest_AddToCartTest - 2019.05.16 at 01h 46m 15s.xml">
+      <configuration name="InventoryTest.AddToCartTest" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="InventoryTest_AddToCartTest - 2019.05.16 at 01h 49m 30s.xml">
+      <configuration name="InventoryTest.AddToCartTest" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="InventoryTest_AddToCartTest - 2019.05.16 at 01h 53m 57s.xml">
+      <configuration name="InventoryTest.AddToCartTest" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="InventoryTest_AddToCartTest - 2019.05.16 at 01h 55m 15s.xml">
+      <configuration name="InventoryTest.AddToCartTest" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="InventoryTest_AddToCartTest - 2019.05.16 at 01h 58m 51s.xml">
+      <configuration name="InventoryTest.AddToCartTest" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="InventoryTest_AddToCartTest - 2019.05.16 at 02h 00m 39s.xml">
+      <configuration name="InventoryTest.AddToCartTest" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="InventoryTest_AddToCartTest - 2019.05.16 at 02h 02m 54s.xml">
+      <configuration name="InventoryTest.AddToCartTest" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="InventoryTest_AddToCartTest - 2019.05.16 at 02h 04m 09s.xml">
+      <configuration name="InventoryTest.AddToCartTest" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="D__Working_OutsideProjects_AutoTest_src_test_executionfile_saucedemo_webuitesting_smoketest_xml - 2019.05.16 at 02h 06m 51s.xml">
+      <configuration name="D:/Working/OutsideProjects/AutoTest/src/test/executionfile/saucedemo_webuitesting/smoketest.xml" configurationId="TestNG" />
+    </history-entry>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="3832" y="312" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.44738835" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.8010204" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32993197" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39965987" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32993197" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32993197" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="JSON Utils" order="8" />
+    </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/core/utilities/CustomCondition.java</url>
+          <line>19</line>
+          <properties />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/headercontainer/HeaderContainer.java</url>
+          <line>16</line>
+          <properties />
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>inventoryItem.findElement(By.cssSelector(&quot;.btn_primary&quot;))</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>inventoryItem</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>inventoryItem.findElement(By.cssSelector(&quot;button.btn_primary&quot;)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Map().getBtnMenu()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/action_base/Action.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/ui_base/BaseUIValidator.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/ui_base/BaseUI.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/ui_base/BaseUIMap.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/action_base/Driver.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/actionbase/BrowserType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/actionbase/SoftAssertExt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/suites/ui/FossilBaseTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/uibase/BaseWebUIValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/actionbase/APIAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-980">
+          <caret line="47" column="26" lean-forward="true" selection-start-line="47" selection-start-column="26" selection-end-line="47" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/login/LoginPageMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-14">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/login/LoginPageValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/mainmenu/MainMenuValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/UIControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/modals/UIModalDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/extentreport/TestReportManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="46" column="50" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/uibase/BaseWebUIMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/utilities/AlgorithmHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/extentreport/ReportLogLevel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/testdatamanager/TestDataManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="146" column="24" selection-start-line="146" selection-start-column="24" selection-end-line="146" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/recources.properties" />
+    <entry file="file://$PROJECT_DIR$/src/test/resources/configFiles/RestEndpoint.properties" />
+    <entry file="file://$PROJECT_DIR$/src/test/resources/configFiles/WebUI_Chrome.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/configFiles/WebUI_Firefox.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-support/3.11.0/selenium-support-3.11.0.jar!/org/openqa/selenium/support/ui/FluentWait.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="98" column="17" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/util/List.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="543" column="6" selection-start-line="543" selection-start-column="6" selection-end-line="543" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/main/inventory/InventoryPageValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/inventoryitem/InventoryItemValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/testdatamanager/TestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="151" selection-start-line="151" selection-end-line="151" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/main/inventory/InventoryPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/headercontainer/HeaderContainerMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/main/MainPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/utilities/CustomCondition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/uibase/BaseWebUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding>
+            <element signature="e#476#477#0" expanded="true" />
+            <element signature="e#505#506#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.14.3/testng-6.14.3.jar!/org/testng/internal/Invoker.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="452" selection-start-line="452" selection-end-line="452" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/main/inventory/InventoryPageMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1220#1221#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/inventoryitem/InventoryItemMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="e#1765#1766#0" expanded="true" />
+            <element signature="e#1853#1854#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/executionfile/saucedemo_webuitesting/smoketest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/pages/login/LoginPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="21" column="51" selection-start-line="21" selection-start-column="51" selection-end-line="21" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/actionbase/WebAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="142" column="30" selection-start-line="142" selection-start-column="30" selection-end-line="142" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4714#4715#0" expanded="true" />
+            <element signature="e#4752#4753#0" expanded="true" />
+            <element signature="e#6586#6587#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6728#6729#0" expanded="true" />
+            <element signature="e#6777#6778#0" expanded="true" />
+            <element signature="e#7385#7386#0" expanded="true" />
+            <element signature="e#7418#7419#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="41" column="5" selection-start-line="38" selection-start-column="4" selection-end-line="41" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/Math.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16150">
+          <caret line="1008" column="22" selection-start-line="1008" selection-start-column="22" selection-end-line="1008" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/core/testexecution/BaseTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1241">
+          <caret line="89" column="19" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/headercontainer/HeaderContainer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="15" column="63" selection-start-line="15" selection-start-column="63" selection-end-line="15" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/headercontainer/HeaderContainerValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/inventory/AddToCartTest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/mainmenu/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/mainmenu/MainMenuMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/uiview/controls/inventoryitem/InventoryItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/saucedemo_webuitesting/suites/ui/functional/inventory/InventoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="51" column="31" lean-forward="true" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>AutoTest</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: com.aventstack:extentreports:4.0.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

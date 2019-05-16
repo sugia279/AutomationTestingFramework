@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Smoke_Test" parallel="tests" thread-count="2">
+    <parameter name="config-file" value="src/test/resources/configFiles/WebUI_Chrome.properties" />
+    <test name="Logon">
+        <classes>
+            <class name="saucedemo_webuitesting.suites.ui.functional.logon.LogOnTest"/>
+        </classes>
+    </test>
+    <test name="Inventory">
+        <classes>
+            <class name="saucedemo_webuitesting.suites.ui.functional.inventory.InventoryTest"/>
+        </classes>
+    </test>
+
+</suite>
