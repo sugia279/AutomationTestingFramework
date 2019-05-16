@@ -1,6 +1,6 @@
 # Automation Testing Framework using JSON Data Driven
 A framework helps the automation engineer build the complete test automation easily by integrating the various automation libraries, tools and supporting the way to execute Test Suite/ Test case using JSON for Data Driven.
-## The automation libraries, tools are using in this framework.
+## The automation libraries, tools are used in this framework.
 - [TestNG](https://testng.org/doc/index.html)                - A Testing framework
 - [Selenium WebDriver](https://www.seleniumhq.org/)    - A library you can use to test Web Application.
 - [Rest Assured](http://rest-assured.io/)          - A library you can use to test HTTP-based REST services.
