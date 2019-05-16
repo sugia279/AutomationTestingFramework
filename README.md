@@ -14,7 +14,7 @@ A framework helps the automation engineer build the complete test automation eas
 
 ## Using JSON for Data Driven
 A test suite is defined in a JSON file that contains a collection of test cases, and a collection of test step with specified parameters in repectively.
-1. Testsuite/ testcase Format.  
+1. Testsuite/ testcase format.  
 ```
 {
   "suiteName": "Verify [Add To Cart] feature",
