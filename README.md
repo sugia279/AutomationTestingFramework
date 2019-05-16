@@ -6,6 +6,15 @@ A framework helps the automation engineer build the complete test automation eas
 - [Rest Assured](http://rest-assured.io/)          - A library you can use to test HTTP-based REST services.
 - [Extent Report 4.0](http://extentreports.com/)     - A framework for creating a test report
 
+**It can:**
+- Support WebUI Testing, APIs Testing.
+- Integrating Extent Report 4.0 to generate a well-formed test report as HTML.
+- Apply Page Object pattern.
+- Write tests with multi data sets (data-driven) from JSON file.
+- Run tests in parallel — TestNG feature.
+- Run tests remotely (Selenium Grid or a cloud testing provider).
+- It can be executed from Jenkins or any other CI tool.
+
 ## Execution Diagram
 - Below diagram illustrates how the project works when running an execution file:
 ![Execution Diagram](https://github.com/sugia279/AutomationTestingFramework/blob/master/TestExecutionDiagram.png)
@@ -139,6 +148,7 @@ public class LoginPageValidator extends BaseWebUIValidator<LoginPageMap> {
   - The Extent Test Report is built by singleton class, so we can call TestReportManager.getIntance() to set Test Steps information in Test Method easily.
 Eg:  
 > TestReportManager.getInstance().setStepInfo("Login to SauceDemo Page with user name ='" + user + "', password ='" + password + "'");
+![Test Report](https://github.com/sugia279/AutomationTestingFramework/blob/master/TestReportReadme.PNG)
 
 ## Some words.
   - Thanks for all of the support you guys (my colleagues) given me to complete this framework regardless of how big or small. Especially you [Nguyen Trong Tuyen](https://github.com/trongtuyen96) who have contributed many good ideas for this framework.
