@@ -67,7 +67,7 @@ A test suite is defined in a JSON file that contains a collection of test cases,
 Refer to [this for example](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.java)
 
 ## Apply Page Object Pattern
-Based on the serries of Test Automation Design Pattern from site "https://www.automatetheplanet.com/advanced-page-object-pattern/", this framework supports 3 base classes are BaseUI<M,V>, BaseUIMap and BaseUIValidator<M>. So a UI Control as page/modal dialog or any UI control should be a set of 3 classes that extent to above 3 classes.
+Based on the series of Test Automation Design Pattern from site "https://www.automatetheplanet.com/advanced-page-object-pattern/", this framework supports 3 base classes are BaseUI<M,V>, BaseUIMap and BaseUIValidator<M>. So a UI Control as page/modal dialog or any UI control should be a set of 3 classes that extent to above 3 classes.
  - A class extents BaseUI<M,V>: where defining the highlevel action methods in page/modal dialog/ control.
  - A class extents BaseUIMap: where finding the elements in page, control or modal dialog for mapping, and this class is used by Map() functions in BaseUI class and BaseUIValidator class.
  - A class extents BaseUIValidator<M>: where defining the validate methods for the class. 
