@@ -10,7 +10,7 @@ A framework helps the automation engineer build the complete test automation eas
 - Below diagram illustrates how the project works when running an execution file:
 ![Execution Diagram](https://github.com/sugia279/AutomationTestingFramework/blob/master/ExecutionDiagram.png)
 
-- The TestNG runs the **Test Suite** file which is formed by [xml file](https://github.com/sugia279/AutomationTestingFramework/tree/master/src/test/executionfile/saucedemo_webuitesting).
+- The TestNG runs the **Test Suite** file which is formed by [xml file](https://github.com/sugia279/AutomationTestingFramework/blob/master/TestExecutionDiagram.png).
 
 ## Using JSON for Data Driven
 A test suite is defined in a JSON file that contains a collection of test cases, and a collection of test step with specified parameters in repectively.
