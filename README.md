@@ -132,6 +132,6 @@ Eg:
 > TestReportManager.getInstance().setStepInfo("Login to SauceDemo Page with user name ='" + user + "', password ='" + password + "'");
 
 ## Some words.
-Thanks for all of the support you guys (my colleagues) given me to complete this framework. Expecially is Nguyen Trong Tuyen who have contributed you many good ideas for me.
-Thanks Anton Angelov for your sharing knowlege about the professional automation testing framework via https://www.automatetheplanet.com/
+- Thanks for all of the support you guys (my colleagues) given me to complete this framework regardless of how big or small. Especially you [Nguyen Trong Tuyen](https://github.com/trongtuyen96) who have contributed many good ideas for this framework.
+- Beside, thanks Anton Angelov for your sharing knowlege about the professional automation testing framework via https://www.automatetheplanet.com/
 
