@@ -65,7 +65,7 @@ Based on the serries of Test Automation Design Pattern from site "https://www.au
  - A class extents BaseUIValidator<M>: where defining the validate methods for the class. 
 Eg: Define LoginPage object
 ```
-public class **LoginPage** extends BaseWebUI<LoginPageMap,LoginPageValidator> {
+public class LoginPage extends BaseWebUI<LoginPageMap,LoginPageValidator> {
     public LoginPage(WebAction action) {
         super(new LoginPageMap(), new LoginPageValidator(), action);
     }
@@ -79,7 +79,7 @@ public class **LoginPage** extends BaseWebUI<LoginPageMap,LoginPageValidator> {
 ```
 > LoginPageMap
 ```
-public class **LoginPageMap** extends BaseWebUIMap {
+public class LoginPageMap extends BaseWebUIMap {
     @FindBy(id = "user-name")
     private WebElement txtUser;
     @FindBy(id = "password")
@@ -101,7 +101,7 @@ public class **LoginPageMap** extends BaseWebUIMap {
 ```
 > LoginPageValidator
 ```
-public class **LoginPageValidator** extends BaseWebUIValidator<LoginPageMap> {
+public class LoginPageValidator extends BaseWebUIValidator<LoginPageMap> {
     //validate notify message when logon
     public void validateLoginError(String expectedMessage)    {
         softAssert.assertEquals(Map().getDivLoginError().getText(),expectedMessage,"Ensure the error login show message [" + expectedMessage + "]");
@@ -134,4 +134,5 @@ Eg:
 ## Some words.
 - Thanks for all of the support you guys (my colleagues) given me to complete this framework regardless of how big or small. Especially you [Nguyen Trong Tuyen](https://github.com/trongtuyen96) who have contributed many good ideas for this framework.
 - Beside, thanks Anton Angelov for your sharing knowlege about the professional automation testing framework via https://www.automatetheplanet.com/
+- Finally, all contributions are welcome.
 
