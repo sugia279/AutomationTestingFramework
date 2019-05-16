@@ -46,8 +46,8 @@ public class InventoryTest extends BaseTest {
         InventoryPage invPage = new InventoryPage(webAction);
         invPage.waitForPageLoadComplete();
 
-        TestReportManager.getInstance().setStepInfo("Add item [" + item_names + "] to cart, and then validating the Remove button is presented.");
         for(Object item: item_names){
+            TestReportManager.getInstance().setStepInfo("Add item [" + (String)item + "] to cart, and then validating the Remove button is presented.");
             invPage.Map().getInventoryItem((String)item)
                             .clickAddToCart()
                     .Validator().validateAddedItemToCart();

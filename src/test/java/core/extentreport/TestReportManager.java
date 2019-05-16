@@ -36,7 +36,7 @@ public class TestReportManager {
                         put("OS version", System.getProperty("os.name"));
                         put("Java Version", System.getProperty("java.version"));
                         put("Host Name", System.getenv("COMPUTERNAME"));
-                        put("Project", "Fossil Testing");
+                        put("Project", "Sauce Demo");
                     }
                 });
     }

@@ -17,7 +17,7 @@
         <documentTitle>HiAffinity</documentTitle>
 
         <!-- report name - displayed at top-nav -->
-        <reportName>HiAffinity Automation Report</reportName>
+        <reportName>Sauce Demo Report</reportName>
 
         <!-- global date format override -->
         <!-- defaults to yyyy-MM-dd -->
