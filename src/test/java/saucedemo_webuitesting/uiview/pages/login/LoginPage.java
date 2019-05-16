@@ -11,7 +11,6 @@ public class LoginPage extends BaseWebUI<LoginPageMap,LoginPageValidator> {
     }
 
     public LoginPage navigate(String url) {
-        //https://www.saucedemo.com/index.html
         webAction.getToUrl(url, true);
         return this;
     }

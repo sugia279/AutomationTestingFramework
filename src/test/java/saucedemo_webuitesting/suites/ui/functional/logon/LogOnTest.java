@@ -7,6 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import saucedemo_webuitesting.uiview.pages.login.LoginPage;
+import saucedemo_webuitesting.uiview.pages.main.inventory.InventoryPage;
 
 public class LogOnTest extends BaseTest {
 
@@ -21,13 +22,14 @@ public class LogOnTest extends BaseTest {
         String password = (String)curTestCase.getParamValueFromTestStep(0,"password");
         String errorMessage = (String)curTestCase.getParamValueFromTestStep(0,"errorMessage");
 
-        TestReportManager.getInstance().setStepInfo("Login to HiAffinity Page with user name ='" + user + "', password ='" + password + "'");
+        TestReportManager.getInstance().setStepInfo("Login to SauceDemo Page with user name ='" + user + "', password ='" + password + "'");
         LoginPage lg = new LoginPage(webAction);
         lg.navigate("https://www.saucedemo.com/index.html")
                 .login(user,password);
 
         if(errorMessage == null){
-            TestReportManager.getInstance().setStepInfo("The popup notification show message '" + "Welcome " + user + "'");
+            TestReportManager.getInstance().setStepInfo("Navigate to Inventory page");
+            new InventoryPage(webAction).Validator().validateInventoryPageIsDisplayed();
 
         }
         else {

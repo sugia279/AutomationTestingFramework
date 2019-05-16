@@ -13,6 +13,9 @@ public class InventoryPageMap extends BaseWebUIMap {
     @FindBy(css = ".product_sort_container")
     private WebElement selectSortContainer;
 
+    @FindBy(id = "inventory_container")
+    private WebElement divInventoryContainer;
+
     public List<InventoryItem> getInventoryItems(){
         List<WebElement> items = webAction.findElements(By.cssSelector("div.inventory_list > div.inventory_item"));
         List<InventoryItem> inventoryItems = new ArrayList<>();
@@ -34,5 +37,9 @@ public class InventoryPageMap extends BaseWebUIMap {
 
     public WebElement getSelectSortContainer() {
         return selectSortContainer;
+    }
+
+    public WebElement getDivInventoryContainer() {
+        return divInventoryContainer;
     }
 }
