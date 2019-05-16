@@ -64,6 +64,7 @@ Based on the serries of Test Automation Design Pattern from site "https://www.au
  - A class extents BaseUIMap: where finding the elements in page, control or modal dialog for mapping, and this class is used by Map() functions in BaseUI class and BaseUIValidator class.
  - A class extents BaseUIValidator<M>: where defining the validate methods for the class. 
 Eg: Define LoginPage object
+> LoginPage
 ```
 public class LoginPage extends BaseWebUI<LoginPageMap,LoginPageValidator> {
     public LoginPage(WebAction action) {
