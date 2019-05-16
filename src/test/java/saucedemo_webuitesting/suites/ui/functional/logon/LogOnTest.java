@@ -37,9 +37,4 @@ public class LogOnTest extends BaseTest {
             lg.Validator().validateLoginError(errorMessage);
         }
     }
-
-    @AfterMethod
-    public void afterMethod(Object[] params, ITestResult result) {
-        afterTestMethod(curTestCase, result,true);
-    }
 }
