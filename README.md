@@ -2,7 +2,7 @@
 A framework helps the automation engineer build the complete test automation easily by integrating the various automation libraries, tools and supporting the way to execute Test Suite/ Test case using JSON for Data Driven.
 ## The automation libraries, tools are using in this framework.
 - [TestNG](https://testng.org/doc/index.html)                - A Testing framework
-- [Selenium WebDriver](https://www.seleniumhq.org/)    - A Web Application Testing framework.
+- [Selenium WebDriver](https://www.seleniumhq.org/)    - A library you can use to test Web Application.
 - [Rest Assured](http://rest-assured.io/)          - A library you can use to test HTTP-based REST services.
 - [Extent Report 4.0](http://extentreports.com/)     - A framework for creating a test report
 
@@ -59,9 +59,79 @@ A test suite is defined in a JSON file that contains a collection of test cases,
 Refer to [this for example](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.java)
 
 ## Apply Page Object Pattern
-...
-## Implement test methods for each test suite/ test cases?
-...
+Based on the serries of Test Automation Design Pattern from site "https://www.automatetheplanet.com/advanced-page-object-pattern/", this framework supports 3 base classes are BaseUI<M,V>, BaseUIMap and BaseUIValidator<M>. So a UI Control as page/modal dialog or any UI control should be a set of 3 classes that extent to above 3 classes.
+ - A class extents BaseUI<M,V>: where defining the highlevel action methods in page/modal dialog/ control.
+ - A class extents BaseUIMap: where finding the elements in page, control or modal dialog for mapping, and this class is used by Map() functions in BaseUI class and BaseUIValidator class.
+ - A class extents BaseUIValidator<M>: where defining the validate methods for the class. 
+Eg: Define LoginPage object
+```
+public class **LoginPage** extends BaseWebUI<LoginPageMap,LoginPageValidator> {
+    public LoginPage(WebAction action) {
+        super(new LoginPageMap(), new LoginPageValidator(), action);
+    }
+    public LoginPage login(String user, String password) {
+        webAction.type(Map().getTxtUser(), "User Name", user);
+        webAction.type(Map().getTxtPassword(), "Password", password);
+        webAction.click(Map().getBtnLogIn(), "Login");
+        return this;
+    }
+}
+```
+> LoginPageMap
+```
+public class **LoginPageMap** extends BaseWebUIMap {
+    @FindBy(id = "user-name")
+    private WebElement txtUser;
+    @FindBy(id = "password")
+    private WebElement txtPassword;
+    @FindBy(css = ".btn_action")
+    private WebElement btnLogIn;
+    public WebElement getTxtUser()    {
+        return txtUser;
+    }
+
+    public WebElement getTxtPassword()    {
+        return txtPassword;
+    }
+
+    public WebElement getBtnLogIn()    {
+        return btnLogIn;
+    }
+}
+```
+> LoginPageValidator
+```
+public class **LoginPageValidator** extends BaseWebUIValidator<LoginPageMap> {
+    //validate notify message when logon
+    public void validateLoginError(String expectedMessage)    {
+        softAssert.assertEquals(Map().getDivLoginError().getText(),expectedMessage,"Ensure the error login show message [" + expectedMessage + "]");
+        softAssert.assertAll();
+    }
+}
+```
+## Implement test methods for each test suite/ test cases
+1. BaseTest class is supported for something such as:**
+- Integrating to the Extent Report: 
+  - Initialize Test Report in @BeforeSuite method.
+  - Create and add test suites/ test cases information in @BeforeMethod method.
+  - Log test status for each test step, test case (Pass, Fail, Skip).  
+- Support option of starting browser at @BeforeMethod, and options of stop browser at @AfterMethod or @AfterClass
+- Loading the specified config file in @BeforeSuite.
+- Refer to [this file](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/core/testexecution/BaseTest.java) to get more.
+_So each Test Class should extents to BaseTest class._
+2. WebAction class is wrapper of Selenium Webdriver.
+- Can access to Selenium Web Driver to start/ stop browser.
+- Support some web actions in visually.
+- This object should be passed through all UI control (see ## Apply Page Object Pattern section ).
+3. APIAction class is wrapper of Rest Assured library.
+- Support the methods for API Testing via Rest Assured.
+
 ## Using Test Report
-...
-## References
+- The Extent Test Report is built by singleton class, so we can call TestReportManager.getIntance() to set Test Steps information in Test Method easily.
+Eg:  
+> TestReportManager.getInstance().setStepInfo("Login to SauceDemo Page with user name ='" + user + "', password ='" + password + "'");
+
+## Some words.
+Thanks for all of the support you guys (my colleagues) given me to complete this framework. Expecially is Nguyen Trong Tuyen who have contributed you many good ideas for me.
+Thanks Anton Angelov for your sharing knowlege about the professional automation testing framework via https://www.automatetheplanet.com/
+
