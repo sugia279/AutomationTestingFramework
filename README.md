@@ -1,6 +1,6 @@
-# Automation Testing Framework using JSON Data driven
+# Automation Testing Framework using JSON Data Driven
 A framework helps the automation engineer build the complete test automation easily by integrating the various automation libraries, tools and supporting the way to execute Test Suite/ Test case using JSON for Data Driven.
-## The automation libraries, tools are using in this framework.
+## The automation libraries, tools are used in this framework.
 - [TestNG](https://testng.org/doc/index.html)                - A Testing framework
 - [Selenium WebDriver](https://www.seleniumhq.org/)    - A library you can use to test Web Application.
 - [Rest Assured](http://rest-assured.io/)          - A library you can use to test HTTP-based REST services.
@@ -8,9 +8,9 @@ A framework helps the automation engineer build the complete test automation eas
 
 ## Execution Diagram
 - Below diagram illustrates how the project works when running an execution file:
-![Execution Diagram](https://github.com/sugia279/AutomationTestingFramework/blob/master/ExecutionDiagram.png)
+![Execution Diagram](https://github.com/sugia279/AutomationTestingFramework/blob/master/TestExecutionDiagram.png)
 
-- The TestNG runs the **Test Suite** file which is formed by [xml file](https://github.com/sugia279/AutomationTestingFramework/tree/master/src/test/executionfile/saucedemo_webuitesting).
+- The TestNG runs the **Test Suite** file which is formed by [xml file](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/executionfile/saucedemo_webuitesting/smoketest.xml).
 
 ## Using JSON for Data Driven
 A test suite is defined in a JSON file that contains a collection of test cases, and a collection of test step with specified parameters in repectively.
@@ -67,7 +67,7 @@ A test suite is defined in a JSON file that contains a collection of test cases,
 Refer to [this for example](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.java)
 
 ## Apply Page Object Pattern
-Based on the serries of Test Automation Design Pattern from site "https://www.automatetheplanet.com/advanced-page-object-pattern/", this framework supports 3 base classes are BaseUI<M,V>, BaseUIMap and BaseUIValidator<M>. So a UI Control as page/modal dialog or any UI control should be a set of 3 classes that extent to above 3 classes.
+Based on the series of Test Automation Design Pattern from site "https://www.automatetheplanet.com/advanced-page-object-pattern/", this framework supports 3 base classes are BaseUI<M,V>, BaseUIMap and BaseUIValidator<M>. So a UI Control as page/modal dialog or any UI control should be a set of 3 classes that extent to above 3 classes.
  - A class extents BaseUI<M,V>: where defining the highlevel action methods in page/modal dialog/ control.
  - A class extents BaseUIMap: where finding the elements in page, control or modal dialog for mapping, and this class is used by Map() functions in BaseUI class and BaseUIValidator class.
  - A class extents BaseUIValidator<M>: where defining the validate methods for the class. 
@@ -119,29 +119,29 @@ public class LoginPageValidator extends BaseWebUIValidator<LoginPageMap> {
 }
 ```
 ## Implement test methods for each test suite/ test cases
-1. BaseTest class is supported for something such as:**
-- Integrating to the Extent Report: 
-  - Initialize Test Report in @BeforeSuite method.
-  - Create and add test suites/ test cases information in @BeforeMethod method.
-  - Log test status for each test step, test case (Pass, Fail, Skip).  
-- Support option of starting browser at @BeforeMethod, and options of stop browser at @AfterMethod or @AfterClass
-- Loading the specified config file in @BeforeSuite.
-- Refer to [this file](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/core/testexecution/BaseTest.java) to get more.
-_So each Test Class should extents to BaseTest class._
+1. BaseTest class is supported for something such as:
+  - Integrating to the Extent Report: 
+    - Initialize Test Report in @BeforeSuite method.
+    - Create and add test suites/ test cases information in @BeforeMethod method.
+    - Log test status for each test step, test case (Pass, Fail, Skip).  
+  - Support option of starting browser at @BeforeMethod, and options of stop browser at @AfterMethod or @AfterClass
+  - Loading the specified config file in @BeforeSuite.
+  - Refer to [this file](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/core/testexecution/BaseTest.java) to get more.
+  _So each Test Class should extents to BaseTest class._
 2. WebAction class is wrapper of Selenium Webdriver.
-- Can access to Selenium Web Driver to start/ stop browser.
-- Support some web actions in visually.
-- This object should be passed through all UI control (see ## Apply Page Object Pattern section ).
+  - Can access to Selenium Web Driver to start/ stop browser.
+  - Support some web actions in visually.
+  - This object should be passed through all UI control (see ## Apply Page Object Pattern section ).
 3. APIAction class is wrapper of Rest Assured library.
-- Support the methods for API Testing via Rest Assured.
+  - Support the methods for API Testing via Rest Assured.
 
 ## Using Test Report
-- The Extent Test Report is built by singleton class, so we can call TestReportManager.getIntance() to set Test Steps information in Test Method easily.
+  - The Extent Test Report is built by singleton class, so we can call TestReportManager.getIntance() to set Test Steps information in Test Method easily.
 Eg:  
 > TestReportManager.getInstance().setStepInfo("Login to SauceDemo Page with user name ='" + user + "', password ='" + password + "'");
 
 ## Some words.
-- Thanks for all of the support you guys (my colleagues) given me to complete this framework regardless of how big or small. Especially you [Nguyen Trong Tuyen](https://github.com/trongtuyen96) who have contributed many good ideas for this framework.
-- Beside, thanks Anton Angelov for your sharing knowlege about the professional automation testing framework via https://www.automatetheplanet.com/
+  - Thanks for all of the support you guys (my colleagues) given me to complete this framework regardless of how big or small. Especially you [Nguyen Trong Tuyen](https://github.com/trongtuyen96) who have contributed many good ideas for this framework.
+  - Beside, thanks Anton Angelov for your sharing knowlege about the professional automation testing framework via https://www.automatetheplanet.com/
 - Finally, all contributions are welcome.
 
