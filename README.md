@@ -47,6 +47,14 @@ A test suite is defined in a JSON file that contains a collection of test cases,
 ```
 2. How to use?
 - Specify the JSON file path in Data Provider function. And then, in test method, we can use **curTestCase** var to get param value from the specified test step (cast the value to the specified type).
+> DataProvider method
+```
+    @DataProvider
+    protected Object[] loginTestDataSet(){
+        return fetchDataToDataSet("saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.json");
+    }
+```
+>  Get param value from the specified test step
 ```
   public Object getParamValueFromTestStep(int stepOrder, String paramName){
        return get_testSteps().get(stepOrder).getTestParams().get(paramName);
