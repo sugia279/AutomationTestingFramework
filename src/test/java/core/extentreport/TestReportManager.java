@@ -11,12 +11,19 @@ import java.util.LinkedHashMap;
 public class TestReportManager {
     protected static String REPORT_CONFIG = "src/test/java/core/extentreport/extReportConfig.xml";
     protected static String REPORT_OUTPUT = System.getProperty("user.dir") + "\\reports\\TestReport_date.html";
-    public static TestReportManager instance;
+    public static volatile TestReportManager instance;
+    private static Object mutex = new Object();
+
     public static TestReportManager getInstance(){
-        if(instance == null) {
-            instance = new TestReportManager();
+        TestReportManager result = instance;
+        if (result == null) {
+            synchronized (mutex) {
+                result = instance;
+                if (result == null)
+                    instance = result = new TestReportManager();
+            }
         }
-        return instance;
+        return result;
     }
     private TestReport testReport = null;
     private int actionOrder = 0;
