@@ -129,6 +129,7 @@ hs_err_pid*
 
 ### Maven ###
 target/
+report/
 .idea/
 pom.xml.tag
 pom.xml.releaseBackup
