@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing'
+                sh 'mvn clean test -DtestSuiteName=./src/test/executionfile/saucedemo_webuitesting/smoketest.xml'
             }
         }
         stage('Deploy') {
