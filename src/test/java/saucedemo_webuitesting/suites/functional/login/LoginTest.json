@@ -1,0 +1,120 @@
+{
+  "suiteName": "Log On Test",
+  "suiteDescription": "Test cases collection for Log On feature",
+  "testCases": [
+    {
+      "testId":"LO1",
+      "testName": "Valid logon credentials",
+      "testDescription":"Validate business logic of Log On page",
+      "testObjectives":"Login successful",
+      "note": "",
+      "testSteps": [
+        {
+          "name": "Login by standard_user",
+          "class": "LoginAction",
+          "method": "login",
+          "parameters": {
+            "user": "standard_user",
+            "password": "secret_sauce",
+            "errorMessage": null
+          }
+        }
+      ]
+    },
+    {
+      "testId":"LO2",
+      "testName": "Invalid logon credentials",
+      "testDescription":"Validate business logic of Log On page",
+      "testObjectives":"error message [Username and password do not match any user in this service]",
+      "note": "",
+      "testSteps": [
+        {
+          "name": "Login by standard",
+          "class": "LoginAction",
+          "method": "login",
+          "parameters": {
+            "user": "standard",
+            "password": "secret_sauce",
+            "errorMessage": "Epic sadface: Username and password do not match any user in this service"
+          }
+        }
+      ]
+    },
+    {
+      "testId":"LO3",
+      "testName": "Invalid logon credentials with locked user",
+      "testDescription":"Validate business logic of Log On page",
+      "testObjectives":"error message [Sorry, this user has been locked out.]",
+      "note": "",
+      "testSteps": [
+        {
+          "name": "Login by locked_out_user",
+          "class": "LoginAction",
+          "method": "login",
+          "parameters": {
+            "user": "locked_out_user",
+            "password": "secret_sauce",
+            "errorMessage": "Epic sadface: Sorry, this user has been locked out."
+          }
+        }
+      ]
+    },
+    {
+      "testId":"LO3",
+      "testName": "Invalid logon with empty user",
+      "testDescription":"Validate business logic of Log On page",
+      "testObjectives":"error message [Username is required]",
+      "note": "",
+      "testSteps": [
+        {
+          "name": "Login by empty user",
+          "class": "LoginAction",
+          "method": "login",
+          "parameters": {
+            "user": "",
+            "password": "secret_sauce",
+            "errorMessage": "Epic sadface: Username is required"
+          }
+        }
+      ]
+    },
+    {
+      "testId":"LO4",
+      "testName": "Invalid logon with empty password",
+      "testDescription":"Validate business logic of Log On page",
+      "testObjectives":"error message [Password is required]",
+      "note": "",
+      "testSteps": [
+        {
+          "name": "Login by standard_user and empty password",
+          "class": "LoginAction",
+          "method": "login",
+          "parameters": {
+            "user": "standard_user",
+            "password": "",
+            "errorMessage": "Epic sadface: Password is required"
+          }
+        }
+      ]
+    },
+    {
+      "testId":"LO5",
+      "testName": "Invalid logon with empty user and password",
+      "testDescription":"Validate business logic of Log On page",
+      "testObjectives":"error message [Username is required\n]",
+      "note": "",
+      "testSteps": [
+        {
+          "name": "Login by empty value",
+          "class": "LoginAction",
+          "method": "login",
+          "parameters": {
+            "user": "",
+            "password": "",
+            "errorMessage": "Epic sadface: Username is required"
+          }
+        }
+      ]
+    }
+  ]
+}

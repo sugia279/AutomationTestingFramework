@@ -1,13 +1,13 @@
 package saucedemo_webuitesting.uiview.modals;
 
-import core.actionbase.WebAction;
-import core.uibase.BaseWebUI;
+import core.base_action.WebAction;
+import core.base_ui.BaseWebUI;
 
-public class UIModalDialog<M,V> extends BaseWebUI<M,V> {
+public class UIModalDialog<M> extends BaseWebUI<M> {
 
-    public UIModalDialog(M m, V v, WebAction action)
+    public UIModalDialog(M m, WebAction action)
     {
-        super(m,v, action);
+        super(m, action);
     }
 
 }

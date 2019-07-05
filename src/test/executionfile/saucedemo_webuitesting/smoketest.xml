@@ -3,12 +3,12 @@
     <parameter name="config-file" value="src/test/resources/configFiles/WebUI_Chrome.properties" />
     <test name="Logon">
         <classes>
-            <class name="saucedemo_webuitesting.suites.ui.functional.logon.LogOnTest"/>
+            <class name="saucedemo_webuitesting.suites.functional.login.LoginTest"/>
         </classes>
     </test>
     <test name="Inventory">
         <classes>
-            <class name="saucedemo_webuitesting.suites.ui.functional.inventory.InventoryTest"/>
+            <class name="saucedemo_webuitesting.suites.functional.inventory.InventoryTest"/>
         </classes>
     </test>
 </suite>

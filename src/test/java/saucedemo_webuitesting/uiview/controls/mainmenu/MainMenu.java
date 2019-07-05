@@ -1,13 +1,13 @@
 package saucedemo_webuitesting.uiview.controls.mainmenu;
 
-import core.actionbase.WebAction;
+import core.base_action.WebAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import saucedemo_webuitesting.uiview.controls.UIControl;
 
-public class MainMenu extends UIControl<MainMenuMap, MainMenuValidator> {
+public class MainMenu extends UIControl<MainMenuMap> {
     public MainMenu(WebAction action){
-        super(new MainMenuMap(), new MainMenuValidator(), action);
+        super(new MainMenuMap(), action);
     }
 
     public MainMenu waitForMenuDisplay(){

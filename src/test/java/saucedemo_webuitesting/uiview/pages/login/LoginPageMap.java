@@ -1,6 +1,6 @@
 package saucedemo_webuitesting.uiview.pages.login;
 
-import core.uibase.BaseWebUIMap;
+import core.base_ui.BaseWebUIMap;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 

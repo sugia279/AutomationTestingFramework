@@ -1,17 +1,17 @@
 package saucedemo_webuitesting.uiview.pages.main;
 
-import core.actionbase.WebAction;
-import core.uibase.BaseWebUI;
+import core.base_action.WebAction;
+import core.base_ui.BaseWebUI;
 import saucedemo_webuitesting.uiview.controls.headercontainer.HeaderContainer;
 import saucedemo_webuitesting.uiview.controls.mainmenu.MainMenu;
 
-public class MainPage<M,V> extends BaseWebUI<M,V> {
+public class MainPage<M> extends BaseWebUI<M> {
     private HeaderContainer headerContainer;
     private MainMenu mainMenu;
 
-    public MainPage(M m, V v, WebAction action)
+    public MainPage(M m, WebAction action)
     {
-        super(m,v, action);
+        super(m, action);
         headerContainer = new HeaderContainer(action);
         mainMenu = new MainMenu(action);
     }

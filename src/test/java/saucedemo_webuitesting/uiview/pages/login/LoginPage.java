@@ -1,13 +1,13 @@
 package saucedemo_webuitesting.uiview.pages.login;
 
-import core.actionbase.WebAction;
-import core.uibase.BaseWebUI;
+import core.base_action.WebAction;
+import core.base_ui.BaseWebUI;
 
 
-public class LoginPage extends BaseWebUI<LoginPageMap,LoginPageValidator> {
+public class LoginPage extends BaseWebUI<LoginPageMap> {
 
     public LoginPage(WebAction action) {
-        super(new LoginPageMap(), new LoginPageValidator(), action);
+        super(new LoginPageMap(), action);
     }
 
     public LoginPage navigate(String url) {
@@ -16,8 +16,8 @@ public class LoginPage extends BaseWebUI<LoginPageMap,LoginPageValidator> {
     }
 
     public LoginPage login(String user, String password) {
-        webAction.type(Map().getTxtUser(), "User Name", user);
-        webAction.type(Map().getTxtPassword(), "Password", password);
+        webAction.type(Map().getTxtUser(), user,"User Name");
+        webAction.type(Map().getTxtPassword(), password, "Password");
         webAction.click(Map().getBtnLogIn(), "Login");
         return this;
     }

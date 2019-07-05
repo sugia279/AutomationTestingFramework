@@ -1,12 +1,12 @@
 package saucedemo_webuitesting.uiview.pages.main.inventory;
 
-import core.actionbase.WebAction;
+import core.base_action.WebAction;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import saucedemo_webuitesting.uiview.pages.main.MainPage;
 
-public class InventoryPage extends MainPage<InventoryPageMap,InventoryPageValidator> {
+public class InventoryPage extends MainPage<InventoryPageMap> {
     public InventoryPage(WebAction action){
-        super(new InventoryPageMap(), new InventoryPageValidator(), action);
+        super(new InventoryPageMap(), action);
     }
 
     public InventoryPage waitForPageLoadComplete(){

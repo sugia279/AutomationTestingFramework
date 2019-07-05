@@ -1,12 +1,12 @@
 package saucedemo_webuitesting.uiview.controls;
 
-import core.actionbase.WebAction;
-import core.uibase.BaseWebUI;
+import core.base_action.WebAction;
+import core.base_ui.BaseWebUI;
 
-public class UIControl<M,V> extends BaseWebUI<M,V> {
+public class UIControl<M> extends BaseWebUI<M> {
 
-    public UIControl(M m, V v, WebAction action)
+    public UIControl(M m, WebAction action)
     {
-        super(m,v, action);
+        super(m,action);
     }
 }
