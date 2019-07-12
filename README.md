@@ -146,8 +146,33 @@ public class LoginPageMap extends BaseWebUIMap {
 ```
 
 ## Implement test methods for each test suite/ test cases
-1. BaseTest class is supported for something such as:
-  - Contain RunTest method which is used to run all testcases are specified by testDataSet DataProvider method.
+1. BaseTest class is supported for running test by 1 test method:
+  - Contain RunTest method which is used to run all testcases are specified by testDataSet DataProvider method. The reflection technique is used for loading action class and then invoking the action method inside that action class for each step.
+  ```
+   @Test(dataProvider = "testDataSet")
+    public void runTestCase(Object[] params){
+        String stepInfo = "";
+        for (TestStep step: curTestCase.get_testSteps()) {
+            stepInfo = step.getName() + "</br><u>Action Class:</u> " + step.getClassExecution() + "</br><u>Action:</u> " + step.getMethod();
+            TestReportManager.getInstance().setStepInfo(stepInfo);
+            try {
+                Class<?> cl = Class.forName(highLevelActionFolder + step.getClassExecution());
+                Constructor<?> cons = cl.getConstructor(WebAction.class);
+                Object actionClass = cons.newInstance(webAction);
+                Method setTestVars = actionClass.getClass().getMethod("setTestVars",vars.getClass());
+                setTestVars.invoke(actionClass, vars);
+                Method action = actionClass.getClass().getMethod(step.getMethod(),step.getClass());
+                action.invoke(actionClass, step);
+            }
+            catch(Exception e){
+                webAction.getSoftAssert().assertTrue(false, e.toString());
+            }
+        }
+        webAction.getSoftAssert().assertAll();
+    }
+
+  ```
+  
   - Integrating to the Extent Report: 
     - Initialize Test Report in @BeforeSuite method.
     - Create and add test suites/ test cases information in @BeforeMethod method.
