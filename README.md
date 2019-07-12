@@ -37,14 +37,18 @@ A test suite is defined in a JSON file that contains a collection of test cases,
       "note": "",
       "testSteps": [
         {
-          "name": "Logon",
+          "name": "Login with standard_user",
+          "class": "LoginAction",
+          "method": "login",
           "parameters": {
             "user": "standard_user",
             "password": "secret_sauce"
           }
         },
         {
-          "name": "Add item to cart",
+          "name": "Add item [Sauce Labs Backpack] to cart",
+          "class": "InventoryAction",
+          "method": "addToCartTest",
           "parameters": {
             "Item Names": ["Sauce Labs Backpack"],
             "Counter": 1
@@ -52,35 +56,26 @@ A test suite is defined in a JSON file that contains a collection of test cases,
         }
       ]
     }
-  }
+   ]
+}
 ```
 2. How to use?
 - Specify the JSON file path in Data Provider function. And then, in test method, we can use **curTestCase** var to get param value from the specified test step (cast the value to the specified type).
 > DataProvider method
 ```
     @DataProvider
-    protected Object[] loginTestDataSet(){
-        return fetchDataToDataSet("saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.json");
+    protected Object[] testDataSet(){
+        return fetchDataToDataSet("functional/inventory/AddToCartTest.json");
     }
 ```
->  Get param value from the specified test step
-```
-  public Object getParamValueFromTestStep(int stepOrder, String paramName){
-       return get_testSteps().get(stepOrder).getTestParams().get(paramName);
-  }
 
-  public Object[] getParamArrayValueFromTestStep(int stepOrder, String paramName){
-      return ((JSONArray) get_testSteps().get(stepOrder).getTestParams().get(paramName)).toArray();
-  }
-```
-Refer to [this for example](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/saucedemo_webuitesting/suites/ui/functional/logon/LogOnTest.java)
+Refer to [this for example](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/saucedemo_webuitesting/suites/functional/inventory/AddToCartTest.json)
 
 ## Apply Page Object Pattern
-Based on the series of Test Automation Design Pattern from site "https://www.automatetheplanet.com/advanced-page-object-pattern/", this framework supports 3 base classes are BaseUI<M,V>, BaseUIMap and BaseUIValidator<M>. So a UI Control as page/modal dialog or any UI control should be a set of 3 classes that extent to above 3 classes.
- - A class extents BaseUI<M,V>: where defining the highlevel action methods in page/modal dialog/ control.
+Based on the series of Test Automation Design Pattern from site "https://www.automatetheplanet.com/advanced-page-object-pattern/", this framework supports 2 base classes are BaseUI<M>, BaseUIMap. So a UI Control as page/modal dialog or any UI control should be a set of 3 classes that extent to above 3 classes.
+ - A class extents BaseUI<M>: where defining the highlevel action methods in page/modal dialog/ control.
  - A class extents BaseUIMap: where finding the elements in page, control or modal dialog for mapping, and this class is used by Map() functions in BaseUI class and BaseUIValidator class.
- - A class extents BaseUIValidator<M>: where defining the validate methods for the class. 
-Eg: Define LoginPage object
+
 > LoginPage
 ```
 public class LoginPage extends BaseWebUI<LoginPageMap,LoginPageValidator> {
@@ -117,26 +112,18 @@ public class LoginPageMap extends BaseWebUIMap {
     }
 }
 ```
-> LoginPageValidator
-```
-public class LoginPageValidator extends BaseWebUIValidator<LoginPageMap> {
-    //validate notify message when logon
-    public void validateLoginError(String expectedMessage)    {
-        softAssert.assertEquals(Map().getDivLoginError().getText(),expectedMessage,"Ensure the error login show message [" + expectedMessage + "]");
-        softAssert.assertAll();
-    }
-}
-```
+
 ## Implement test methods for each test suite/ test cases
 1. BaseTest class is supported for something such as:
+  - Contain RunTest method which is used to run all testcases are specified by testDataSet DataProvider method.
   - Integrating to the Extent Report: 
     - Initialize Test Report in @BeforeSuite method.
     - Create and add test suites/ test cases information in @BeforeMethod method.
     - Log test status for each test step, test case (Pass, Fail, Skip).  
   - Support option of starting browser at @BeforeMethod, and options of stop browser at @AfterMethod or @AfterClass
   - Loading the specified config file in @BeforeSuite.
-  - Refer to [this file](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/core/testexecution/BaseTest.java) to get more.
-  _So each Test Class should extents to BaseTest class._
+  - Refer to [this file](https://github.com/sugia279/AutomationTestingFramework/blob/master/src/test/java/core/test_execution/BaseTest.java) to get more.
+  
 2. WebAction class is wrapper of Selenium Webdriver.
   - Can access to Selenium Web Driver to start/ stop browser.
   - Support some web actions in visually.
