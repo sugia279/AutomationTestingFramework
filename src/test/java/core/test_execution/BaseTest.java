@@ -137,15 +137,18 @@ public abstract class BaseTest {
                 TestReportManager.getInstance().setStepSkip(tc.getId() + ": " + tc.getName(), result.getThrowable().getMessage(), "ORANGE");
                 break;
             case ITestResult.FAILURE:
-                String failed = "";
+                String failedString = "";
                 if (result.getThrowable().getMessage() != null) {
                     String[] failedMsgs = result.getThrowable().getMessage().split("\n\t");
-                    for(int i=1; i<= failedMsgs.length;i++){
-                        failed = failed + "<br>" + i + ". " + failedMsgs[i] ;
+                    for (int i = 1; i < failedMsgs.length; i++) {
+                        failedString = failedString + "<br>" + i + ". " + failedMsgs[i];
+                    }
+                    if(failedString.equals("")){
+                        failedString = result.getThrowable().getMessage();
                     }
                 }
                 String scrFile = ((TakesScreenshot) webAction.getBrowser()).getScreenshotAs(OutputType.BASE64);
-                TestReportManager.getInstance().setStepFail(failed, scrFile, tc.getId() + ": " + tc.getName());
+                TestReportManager.getInstance().setStepFail(failedString, scrFile, tc.getId() + ": " + tc.getName());
                 break;
         }
         TestReportManager.getInstance().saveDurationTime("[" + tc.getId() + "] " + tc.getName());
