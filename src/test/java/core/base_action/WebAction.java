@@ -196,11 +196,11 @@ public class WebAction {
 
     public boolean waitForElement(WebElement ele) {
         boolean res = false;
-        res = (Boolean)waitUntil(CustomCondition.elementPresent(ele));
-        if(res) {
+        //res = (Boolean)waitUntil(CustomCondition.elementPresent(ele));
+        if(ele!=null && !ele.isDisplayed()){
             scrollIntoView(ele);
-            res = waitUntil(ExpectedConditions.visibilityOf(ele)) != null;
         }
+        res = waitUntil(ExpectedConditions.visibilityOf(ele)) != null;
         return res;
     }
 
