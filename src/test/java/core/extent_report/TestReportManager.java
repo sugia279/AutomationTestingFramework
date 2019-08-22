@@ -9,14 +9,21 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class TestReportManager {
-    protected static String REPORT_CONFIG = "src/test/java/core/extent_report/extReportConfig.xml";
-    protected static String REPORT_OUTPUT = System.getProperty("user.dir") + "\\reports\\TestReport_date.html";
-    public static TestReportManager instance;
+    protected static String REPORT_CONFIG = "src/test/java/core/extent_report/extReportConfig_3.xml";
+    private String reportOutput = System.getProperty("user.dir") + "\\reports\\TestReport_[date].html";
+
+    public static volatile TestReportManager instance;
+    private static Object mutex = new Object();
     public static TestReportManager getInstance(){
-        if(instance == null) {
-            instance = new TestReportManager();
+        TestReportManager result = instance;
+        if (result == null) {
+            synchronized (mutex) {
+                result = instance;
+                if (result == null)
+                    instance = result = new TestReportManager();
+            }
         }
-        return instance;
+        return result;
     }
     private TestReport testReport = null;
     private int actionOrder = 0;
@@ -29,19 +36,21 @@ public class TestReportManager {
     }
 
     public void initializeReport(){
-        getTestReport().initReport(REPORT_CONFIG,REPORT_OUTPUT = REPORT_OUTPUT.replaceFirst("date", DateTimeHandler.currentDateAsString("yyyy.MM.dd.HH.mm.ss")),
+        String date = DateTimeHandler.currentDateAsString("yyyy.MM.dd.HH.mm.ss");
+        reportOutput = getReportOutput().replace("[date]", date);
+        getTestReport().initReport(REPORT_CONFIG, reportOutput,
                 new HashMap<String, String>() {
                     {
                         put("User Name", System.getProperty("user.name"));
                         put("OS version", System.getProperty("os.name"));
                         put("Java Version", System.getProperty("java.version"));
                         put("Host Name", System.getenv("COMPUTERNAME"));
-                        put("Project", "Fossil Testing");
+                        put("Project", "HiAffinity");
                     }
                 });
     }
 
-    public void setTestInfo(TestCase tc, String... suiteNames) {
+    public void setTestInfo(TestCase tc, String[] suiteNames) {
         String testCaseDesciption = "";
         if (!tc.getDescription().equals("")) {
             testCaseDesciption = tc.getDescription();
@@ -63,8 +72,10 @@ public class TestReportManager {
             tName = "[" + tc.getId() + "] ";
         }
         tName = tName + tc.getName();
+        //<span class=\"badge white-text red\">" + label + "</span><br>"
+
         testReport.addTestcaseToTEST(tName, testCaseDesciption, "<b>" + suiteNames[0] + "</b>"
-                , "<b>&emsp;" + suiteNames[1] + "</b>");
+                , "<b>---- " + suiteNames[1] + "</b>", "&emsp;&emsp;" + suiteNames[2]);
 
         actionOrder = 0;
 
@@ -77,10 +88,14 @@ public class TestReportManager {
 
     public void setStepInfo(String log, boolean resetOrder){
         String action = "<b>" + log + "</b>";
-            actionOrder = resetOrder ? 1 : actionOrder + 1;
-            action = "<b><font color=\"blue\"><u>Step " + actionOrder + "</u></font> - " + log + "</b>";
+        actionOrder = resetOrder ? 1 : actionOrder + 1;
+        action = "<b><font color=\"blue\"><u>Step " + actionOrder + "</u></font> " + log + "</b>";
 
         testReport.testLog(action);
+    }
+
+    public void setSubStepTitle(String log){
+        testReport.testLog("<b><u>" + log + "</u></b>");
     }
 
     public void setSubStepInfo(String log, String level){
@@ -91,8 +106,16 @@ public class TestReportManager {
         testReport.testPass(level + log,"");
     }
 
+    public void setSubStepPass(String log, String image, String level){
+        testReport.testPass(level + log, image);
+    }
+
+    public void setSubStepFail(String log, String level){
+        testReport.testFail(level + log,"");
+    }
+
     public void setSubStepFail(String log, String image, String level){
-        testReport.testFail(level + log,image);
+        testReport.testFail(level + log, image);
     }
 
     public void setStepPass(String log)    {
@@ -108,34 +131,50 @@ public class TestReportManager {
         testReport.testFail(log, "");
     }
 
-    public void setStepFail(String log, String imageSource, String label){
-        log = "<span class=\"badge white-text red\">" + label + "</span><br>" + log;
-        testReport.testFail(log, imageSource);
-    }
-
-    public void setStepPass(String log, String colorMarkupLabel)    {
-        testReport.testPass(log, colorMarkupLabel);
-    }
-
     public void setStepSkip(String log, String msg, String colorMarkupLabel)    {
         testReport.testLog("<br>" + log);
         testReport.testSkip("<br>" + msg, colorMarkupLabel);
     }
 
+    public void setStepFail(String log, String label){
+        log = "<span class=\"badge white-text red\">" + label + "</span><br>" + log;
+        testReport.testFail(log, "");
+    }
+
+    public void setStepFail(String log, String imageSource, String label){
+        log = "<span class=\"badge white-text red\">" + label + "</span><br>" + log;
+        testReport.testFail(log, imageSource);
+    }
+
+    public void setStepPass(String log, String imageSource)    {
+        testReport.testPass(log, imageSource);
+    }
+
+    public void setStepPass(String log, String imageSource, String label)    {
+        log = "<span class=\"badge white-text green\">" + label + "</span><br>" + log;
+        testReport.testPass(log, imageSource);
+    }
+
     public void saveDurationTime(String testName)
     {
         String modifiedKey =  "<span class='test-name'>" + testName + "</span>\r\n" +
+                //"\t\t\t\t\t\t<span class='test-time'>" + new SimpleDateFormat("MMM d, yyyy hh:mm:ss a").format(testReport.getTestSuiteStartTime()) + "</span>";
                 "\t\t\t\t\t\t<span class='test-time'>" + new SimpleDateFormat("MMM d, yyyy hh:mm:ss a").format(testReport.getTestCaseStartTime()) + "</span>";
+        //String modifiedValue =  modifiedKey + "\t<span class=\"label time-taken grey lighten-1 white-text\">" + testReport.getTestSuiteDurationTime() + "</span>";
         String modifiedValue =  modifiedKey + "\t<span class=\"label time-taken grey lighten-1 white-text\">" + testReport.getTestCaseDurationTime() + "</span>";
         durationTimes.put(modifiedKey, modifiedValue);
     }
 
     public void updateRunDurationForTestInLeft()    {
-        FileHandler.modifyFileByHashMap(REPORT_OUTPUT,durationTimes);
+        FileHandler.modifyFileByHashMap(getReportOutput(),durationTimes);
         durationTimes.clear();
     }
 
     public TestReport getTestReport() {
         return testReport;
+    }
+
+    public String getReportOutput() {
+        return reportOutput;
     }
 }

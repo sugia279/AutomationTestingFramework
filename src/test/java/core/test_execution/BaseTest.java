@@ -1,6 +1,6 @@
 package core.test_execution;
 
-import core.base_action.APIAction;
+import core.base_action.RestAction;
 import core.base_action.WebAction;
 import core.extent_report.TestReportManager;
 import core.testdata_manager.TestCase;
@@ -9,33 +9,35 @@ import core.testdata_manager.TestDataManager;
 import core.testdata_manager.TestStep;
 import core.utilities.Config;
 import core.utilities.DateTimeHandler;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import core.utilities.NumberHandler;
 import org.testng.*;
 import org.testng.annotations.*;
+import org.testng.annotations.Optional;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 public abstract class BaseTest {
     protected String[] testIdList;
     protected String testDataPath;
     protected TestCase curTestCase = null;
     protected TestDataManager testDataManager;
-    protected APIAction api;
+    protected RestAction api;
     protected WebAction webAction;
     protected String highLevelActionFolder;
-    protected LinkedHashMap<String, Object> vars;
+    protected LinkedHashMap<String,Object> actionClasses;
+    protected LinkedHashMap<String, Object> systemVars;
+    protected LinkedHashMap<String, Object> runtimeVars;
 
     public BaseTest(){
         webAction = new WebAction();
-        api = new APIAction();
+        api = new RestAction();
         testDataManager = new TestDataManager();
-
+        actionClasses = new LinkedHashMap<>();
         loadSystemVariables();
+        runtimeVars = new LinkedHashMap();
     }
 
     @BeforeSuite
@@ -53,7 +55,7 @@ public abstract class BaseTest {
     @AfterSuite
     public void close() {
         TestReportManager.getInstance().getTestReport().flush();
-        TestReportManager.getInstance().updateRunDurationForTestInLeft();
+        //TestReportManager.getInstance().updateRunDurationForTestInLeft();
     }
 
     @BeforeClass
@@ -75,9 +77,11 @@ public abstract class BaseTest {
         Object[] testCaseInfo = (Object[])params[0];
         testDataPath = (String) testCaseInfo[0];
         curTestCase = (TestCase) testCaseInfo[1];
-        testDataManager.updateVariable(curTestCase, vars);
+        testDataManager.updateVariable(curTestCase, systemVars);
         webAction.initSoftAssert();
-        String[] suiteNames = {testContext.getSuite().getName().toUpperCase() , testDataManager.getTestSuiteMap().get(testDataPath).get_name()};
+        String[] suiteNames = {testContext.getSuite().getName().toUpperCase() ,
+                ((TestRunner) testContext).getTest().getName().replace(" ", "&thinsp;"),
+                testDataManager.getTestSuiteMap().get(testDataPath).get_name().replace(" ", "&thinsp;")};
         TestReportManager.getInstance().setTestInfo(curTestCase, suiteNames);
     }
 
@@ -87,14 +91,23 @@ public abstract class BaseTest {
         for (TestStep step: curTestCase.get_testSteps()) {
             stepInfo = step.getName() + "</br><u>Action Class:</u> " + step.getClassExecution() + "</br><u>Action:</u> " + step.getMethod();
             TestReportManager.getInstance().setStepInfo(stepInfo);
+
             try {
-                Class<?> cl = Class.forName(highLevelActionFolder + step.getClassExecution());
-                Constructor<?> cons = cl.getConstructor(WebAction.class);
-                Object actionClass = cons.newInstance(webAction);
-                Method setTestVars = actionClass.getClass().getMethod("setTestVars",vars.getClass());
-                setTestVars.invoke(actionClass, vars);
+                Object actionClass = actionClasses.get(step.getClassExecution());
+                if(actionClass == null){
+                    Class<?> cl = Class.forName(highLevelActionFolder + step.getClassExecution());
+                    Constructor<?> cons = cl.getConstructor(WebAction.class);
+                    actionClass = cons.newInstance(webAction);
+                    actionClasses.put(step.getClassExecution(),actionClass);
+                }
+
+                Method setTestVars = actionClass.getClass().getMethod("setTestVars", runtimeVars.getClass());
+                setTestVars.invoke(actionClass, runtimeVars);
                 Method action = actionClass.getClass().getMethod(step.getMethod(),step.getClass());
                 action.invoke(actionClass, step);
+            }
+            catch(InvocationTargetException e){
+                webAction.getSoftAssert().assertTrue(false, e.getTargetException().getMessage());
             }
             catch(Exception e){
                 webAction.getSoftAssert().assertTrue(false, e.toString());
@@ -130,7 +143,7 @@ public abstract class BaseTest {
 
         switch (result.getStatus()) {
             case ITestResult.SUCCESS:
-                TestReportManager.getInstance().setStepPass(tc.getId() + ": " + tc.getName(), "GREEN");
+                TestReportManager.getInstance().setStepPass("", "",tc.getId() + ": " + tc.getName());
                 break;
             case ITestResult.SKIP:
                 Reporter.log(result.getThrowable().toString());
@@ -147,11 +160,11 @@ public abstract class BaseTest {
                         failedString = result.getThrowable().getMessage();
                     }
                 }
-                String scrFile = ((TakesScreenshot) webAction.getBrowser()).getScreenshotAs(OutputType.BASE64);
-                TestReportManager.getInstance().setStepFail(failedString, scrFile, tc.getId() + ": " + tc.getName());
+
+                TestReportManager.getInstance().setStepFail(failedString, tc.getId() + ": " + tc.getName());
                 break;
         }
-        TestReportManager.getInstance().saveDurationTime("[" + tc.getId() + "] " + tc.getName());
+        //TestReportManager.getInstance().saveDurationTime("[" + tc.getId() + "] " + tc.getName());
 
         if(stopBrowser){
             webAction.stopBrowser();
@@ -160,45 +173,51 @@ public abstract class BaseTest {
 
     protected void afterTestClass(boolean stopBrowser){
         testDataManager.clearTestSuiteMap();
-        vars.clear();
+        systemVars.clear();
+        actionClasses.clear();
         if(stopBrowser && webAction.getBrowser() != null){
             webAction.stopBrowser();
         }
     }
 
     public void loadSystemVariables(){
-        vars = new LinkedHashMap<>();
-        vars.put("CURTIME_HH:mm", DateTimeHandler.currentDayPlus("HH:mm", 0));
-        vars.put("CURTIME_HHmm", DateTimeHandler.currentDayPlus("HHmm", 0));
-        vars.put("CURTIME_hhmma", DateTimeHandler.currentDayPlus("hhmma", 0));
-        vars.put("CURTIME_HHmmss", DateTimeHandler.currentDayPlus("HHmmss", 0));
-        vars.put("CURTIME-1_HHmm", DateTimeHandler.currentDayMinutePlus("HHmm", -1));
-        vars.put("CURTIME-1_hhmma", DateTimeHandler.currentDayMinutePlus("hhmma", -1));
-        vars.put("CURTIME-60_hhmma", DateTimeHandler.currentDayMinutePlus("hhmma", -60));
-        vars.put("NOW+1_HH:mm", DateTimeHandler.currentDayMinutePlus("HH:mm", 1));
-        vars.put("CURTIME+1_HHmm", DateTimeHandler.currentDayMinutePlus("HHmm", 1));
-        vars.put("CURTIME+1_hhmma", DateTimeHandler.currentDayMinutePlus("hhmma", 1));
-        vars.put("TODAY", DateTimeHandler.currentDayPlus("yyyy-MM-dd_HH-mm-ss", 0));
-        vars.put("TODAY_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", 0));
-        vars.put("TODAY_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", 0));
-        vars.put("TODAY_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", 0));
-        vars.put("TODAY_yyyyMMdd", DateTimeHandler.currentDayPlus("yyyyMMdd", 0));
-        vars.put("YESTERDAY_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", -1));
-        vars.put("YESTERDAY_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", -1));
-        vars.put("YESTERDAY_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", -1));
-        vars.put("TOMORROW_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", +1));
-        vars.put("TOMORROW_yyyyMMdd", DateTimeHandler.currentDayPlus("yyyyMMdd", +1));
-        vars.put("TOMORROW_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", +1));
-        vars.put("TOMORROW_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", +1));
-        vars.put("NEXTMONTH_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", +30));
-        vars.put("NEXTMONTH_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", +30));
-        vars.put("NEXTMONTH_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", +30));
-        vars.put("NEXTMONTH_yyyyMMdd", DateTimeHandler.currentDayPlus("yyyyMMdd", +30));
-        vars.put("NEXTMONTH+2_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", +32));
-        vars.put("NEXTMONTH+2_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", +32));
-        vars.put("PREVIOUSMONTH_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", -30));
-        vars.put("PREVIOUSMONTH_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", -30));
-        vars.put("PREVIOUSMONTH_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", -30));
+        systemVars = new LinkedHashMap<>();
+        systemVars.put("CURTIME_HH:mm", DateTimeHandler.currentDayPlus("HH:mm", 0));
+        systemVars.put("CURTIME_HHmm", DateTimeHandler.currentDayPlus("HHmm", 0));
+        systemVars.put("CURTIME_hhmma", DateTimeHandler.currentDayPlus("hhmma", 0));
+        systemVars.put("CURTIME_HHmmss", DateTimeHandler.currentDayPlus("HHmmss", 0));
+        systemVars.put("CURTIME-1_HHmm", DateTimeHandler.currentDayMinutePlus("HHmm", -1));
+        systemVars.put("CURTIME-1_hhmma", DateTimeHandler.currentDayMinutePlus("hhmma", -1));
+        systemVars.put("CURTIME-60_hhmma", DateTimeHandler.currentDayMinutePlus("hhmma", -60));
+        systemVars.put("NOW+1_HH:mm", DateTimeHandler.currentDayMinutePlus("HH:mm", 1));
+        systemVars.put("CURTIME+1_HHmm", DateTimeHandler.currentDayMinutePlus("HHmm", 1));
+        systemVars.put("CURTIME+1_hhmma", DateTimeHandler.currentDayMinutePlus("hhmma", 1));
+        systemVars.put("TODAY", DateTimeHandler.currentDayPlus("yyyy-MM-dd_HH-mm-ss", 0));
+        systemVars.put("TODAY_dd-MM-yyyy_HH-mm-ss", DateTimeHandler.currentDayPlus("yyyy-MM-dd_HH-mm-ss", 0));
+        systemVars.put("TODAY_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", 0));
+        systemVars.put("TODAY_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", 0));
+        systemVars.put("TODAY_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", 0));
+        systemVars.put("TODAY_yyyyMMdd", DateTimeHandler.currentDayPlus("yyyyMMdd", 0));
+        systemVars.put("YESTERDAY_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", -1));
+        systemVars.put("YESTERDAY_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", -1));
+        systemVars.put("YESTERDAY_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", -1));
+        systemVars.put("TOMORROW_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", +1));
+        systemVars.put("TOMORROW_yyyyMMdd", DateTimeHandler.currentDayPlus("yyyyMMdd", +1));
+        systemVars.put("TOMORROW_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", +1));
+        systemVars.put("TOMORROW_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", +1));
+        systemVars.put("NEXTMONTH_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", +30));
+        systemVars.put("NEXTMONTH_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", +30));
+        systemVars.put("NEXTMONTH_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", +30));
+        systemVars.put("NEXTMONTH_yyyyMMdd", DateTimeHandler.currentDayPlus("yyyyMMdd", +30));
+        systemVars.put("NEXTMONTH+2_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", +32));
+        systemVars.put("NEXTMONTH+2_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", +32));
+        systemVars.put("PREVIOUSMONTH_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", -30));
+        systemVars.put("PREVIOUSMONTH_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", -30));
+        systemVars.put("PREVIOUSMONTH_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", -30));
+        systemVars.put("RANDOM_Integer_7", (new Random()).nextInt(9999999) + 1);
+        systemVars.put("RANDOM_IntegerString_7", "" + ((new Random()).nextInt(9999999) + 1));
+        systemVars.put("RANDOM_DoubleString_9_2", "" + NumberHandler.getNumberFormat("##0.00",2).format(NumberHandler.getRandomDoubleBetweenRange(0,999999999)));
+        systemVars.put("RANDOM_DoubleString_5_6", "" + NumberHandler.getNumberFormat("##0.00",6).format(NumberHandler.getRandomDoubleBetweenRange(0,99999)));
     }
 }
 

@@ -5,7 +5,7 @@ import core.test_execution.BaseTest;
 
 public abstract class SauceDemoBaseTest extends BaseTest {
     public SauceDemoBaseTest(){
-        vars.put("loginPageURL","https://www.saucedemo.com/index.html");
+        runtimeVars.put("loginPageURL","https://www.saucedemo.com/index.html");
         highLevelActionFolder= "saucedemo_webuitesting.highlevel_action.";
         webAction.setAttributeAsElementName("aria-label","ng-click","ng-model");
         testDataManager.setTestDataFolder("src/test/java/saucedemo_webuitesting/suites/");

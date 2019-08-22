@@ -19,7 +19,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.config.JsonConfig.jsonConfig;
 import static io.restassured.path.json.config.JsonPathConfig.NumberReturnType;
 
-public class APIAction {
+public class RestAction {
     private StringWriter requestWriter;
     protected static PrintStream requestCapture;
     private StringWriter responseWriter;
@@ -28,7 +28,7 @@ public class APIAction {
     private NumberReturnType numberReturnType;
 
 
-    public APIAction() {
+    public RestAction() {
         initLogWriter();
         contentType = ContentType.JSON;
         numberReturnType = NumberReturnType.BIG_DECIMAL;

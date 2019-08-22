@@ -150,26 +150,35 @@ public class LoginPageMap extends BaseWebUIMap {
   - Contain RunTest method which is used to run all testcases are specified by testDataSet DataProvider method. The reflection technique is used for loading action class and then invoking the action method inside that action class for each step.
   ```
    @Test(dataProvider = "testDataSet")
-    public void runTestCase(Object[] params){
-        String stepInfo = "";
-        for (TestStep step: curTestCase.get_testSteps()) {
-            stepInfo = step.getName() + "</br><u>Action Class:</u> " + step.getClassExecution() + "</br><u>Action:</u> " + step.getMethod();
-            TestReportManager.getInstance().setStepInfo(stepInfo);
-            try {
-                Class<?> cl = Class.forName(highLevelActionFolder + step.getClassExecution());
-                Constructor<?> cons = cl.getConstructor(WebAction.class);
-                Object actionClass = cons.newInstance(webAction);
-                Method setTestVars = actionClass.getClass().getMethod("setTestVars",vars.getClass());
-                setTestVars.invoke(actionClass, vars);
-                Method action = actionClass.getClass().getMethod(step.getMethod(),step.getClass());
-                action.invoke(actionClass, step);
-            }
-            catch(Exception e){
-                webAction.getSoftAssert().assertTrue(false, e.toString());
-            }
-        }
-        webAction.getSoftAssert().assertAll();
-    }
+       public void runTestCase(Object[] params){
+           String stepInfo = "";
+           for (TestStep step: curTestCase.get_testSteps()) {
+               stepInfo = step.getName() + "</br><u>Action Class:</u> " + step.getClassExecution() + "</br><u>Action:</u> " + step.getMethod();
+               TestReportManager.getInstance().setStepInfo(stepInfo);
+
+               try {
+                   Object actionClass = actionClasses.get(step.getClassExecution());
+                   if(actionClass == null){
+                       Class<?> cl = Class.forName(highLevelActionFolder + step.getClassExecution());
+                       Constructor<?> cons = cl.getConstructor(WebAction.class);
+                       actionClass = cons.newInstance(webAction);
+                       actionClasses.put(step.getClassExecution(),actionClass);
+                   }
+
+                   Method setTestVars = actionClass.getClass().getMethod("setTestVars", runtimeVars.getClass());
+                   setTestVars.invoke(actionClass, runtimeVars);
+                   Method action = actionClass.getClass().getMethod(step.getMethod(),step.getClass());
+                   action.invoke(actionClass, step);
+               }
+               catch(InvocationTargetException e){
+                   webAction.getSoftAssert().assertTrue(false, e.getTargetException().getMessage());
+               }
+               catch(Exception e){
+                   webAction.getSoftAssert().assertTrue(false, e.toString());
+               }
+           }
+           webAction.getSoftAssert().assertAll();
+       }
 
   ```
   

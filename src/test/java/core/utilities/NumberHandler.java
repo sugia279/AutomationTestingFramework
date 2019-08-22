@@ -15,4 +15,17 @@ public class NumberHandler {
         df.setMinimumFractionDigits(fractionNumber);
         return df;
     }
+
+    public static String addCurrencySign(String currencySign, String number){
+        if(number.startsWith("-")){
+            return number.replace("-","-" + currencySign);
+        }
+        return currencySign + number;
+    }
+
+
+    public static double getRandomDoubleBetweenRange(double min, double max){
+        double x = (Math.random()*((max-min)+1))+min;
+        return x;
+    }
 }
