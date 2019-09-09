@@ -18,6 +18,7 @@ import core.extent_report.ReportLogLevel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class WebAction {
     protected final String ACTION_LOG_LVL = ReportLogLevel.LOG_LVL_4;
@@ -39,6 +40,10 @@ public class WebAction {
     //region set/get method
     public WebDriver getBrowser() {
         return browser;
+    }
+
+    public void setBrowser(WebDriver browser){
+        this.browser = browser;
     }
 
     public WebDriverWait getBrowserWait() {
@@ -87,13 +92,23 @@ public class WebAction {
 
     public String getElementName(WebElement ele) {
         String name = ele.getText();
-        for(String att : attributeAsElementName) {
+        for (String att : attributeAsElementName) {
             if (name.isEmpty() && isAttributePresent(ele, att)) {
                 name = ele.getAttribute(att);
                 break;
             }
         }
         return name;
+    }
+
+    public String getText(WebElement ele){
+        waitForElement(ele);
+        return ele.getText();
+    }
+
+    public String getAttribute(WebElement ele, String attributeName){
+        waitForElement(ele);
+        return ele.getAttribute(attributeName);
     }
     //endregion
 
@@ -110,6 +125,7 @@ public class WebAction {
                 break;
             default:
                 InternetExplorerDriverManager.getInstance(DriverManagerType.IEXPLORER).setup();
+
                 browser = new InternetExplorerDriver();
                 break;
         }
@@ -143,7 +159,7 @@ public class WebAction {
     public void openLinkInNewTab(String url) {
         executor.executeScript("window.open('');");
         ArrayList<String> tabs = new ArrayList<>(getBrowser().getWindowHandles());
-        getBrowser().switchTo().window(tabs.get(tabs.size()-1));
+        getBrowser().switchTo().window(tabs.get(tabs.size() - 1));
         //Launch URL in the new tab
         getBrowser().get(url);
     }
@@ -156,8 +172,15 @@ public class WebAction {
     }
 
     public void openLinkInNewWindow(String url) {
-        executor.executeScript("window.open(arguments[0])", url);
-        ArrayList<String> windows = new ArrayList<>(getBrowser().getWindowHandles());
+        WebDriver newWindow = new ChromeDriver();
+        newWindow.get(url);
+
+        // close old browser
+        getBrowser().quit();
+
+        // set new browser
+        setBrowser(newWindow);
+        ArrayList<String> windows = new ArrayList<>(newWindow.getWindowHandles());
         getBrowser().switchTo().window(windows.get(windows.size() - 1));
     }
     //endregion
@@ -186,12 +209,23 @@ public class WebAction {
         return getBrowser().findElements(by);
     }
 
+    public List<WebElement> findElements(WebElement parent, By by) {
+        waitForElement(parent);
+        return parent.findElements(by);
+    }
+
     public Object waitUntil(ExpectedCondition condition) {
         return getBrowserWait().until(condition);
     }
 
     public Object waitUntil(ExpectedCondition condition, int timeOutInSec) {
         return new WebDriverWait(getBrowser(), timeOutInSec).until(condition);
+    }
+
+    public void waitUntilWithoutThrowException(ExpectedCondition condition) {
+        try {
+            getBrowserWait().until(condition);
+        }catch(Exception ex){}
     }
 
     public boolean waitForElement(WebElement ele) {
@@ -235,7 +269,7 @@ public class WebAction {
         WebDriverWait wait = new WebDriverWait(getBrowser(), timeoutDefault);
         ExpectedCondition<Boolean> elementPresent = arg0 -> {
             try {
-                return getBrowser().findElement(locator)!=null;
+                return getBrowser().findElement(locator) != null;
             } catch (Exception e) {
                 return false;
             }
@@ -247,12 +281,28 @@ public class WebAction {
         WebDriverWait wait = new WebDriverWait(getBrowser(), timeoutDefault);
         ExpectedCondition<Boolean> elementNotPresent = arg0 -> {
             try {
-                return getBrowser().findElement(locator)==null;
+                return getBrowser().findElement(locator) == null;
             } catch (Exception e) {
                 return true;
             }
         };
         wait.until(elementNotPresent);
+    }
+
+    public void waitForExpectedCondition(Callable<Boolean> function){
+        waitForExpectedCondition(function, getTimeoutDefault());
+    }
+
+    public void waitForExpectedCondition(Callable<Boolean> function, int timeOut){
+        WebDriverWait wait = new WebDriverWait(getBrowser(), timeOut);
+        ExpectedCondition<Boolean> funcCondition = arg0 -> {
+            try {
+                return function.call();
+            } catch (Exception e) {
+                return false;
+            }
+        };
+        wait.until(funcCondition);
     }
     //endregion
 
@@ -279,6 +329,7 @@ public class WebAction {
         WebDriverWait wait = new WebDriverWait(getBrowser(), timeout);
         ExpectedCondition<Boolean> elementIsClickable = arg0 -> {
             try {
+                scrollIntoView(ele);
                 ele.click();
                 if (expectedCondition != null) {
                     waitUntil(expectedCondition, 2);
@@ -301,8 +352,6 @@ public class WebAction {
     public void click(WebElement ele, String elementName) {
         delayTime();
         waitForElement(ele);
-        scrollIntoView(ele);
-
         if (elementName == null)
             elementName = getElementName(ele);
 
@@ -313,16 +362,21 @@ public class WebAction {
 
     //region type action
     public void type(WebElement ele, String txt) {
-        type(ele, txt, null,true);
+        type(ele, txt, null, true);
     }
+
     public void type(WebElement ele, String txt, String elementName) {
-        type(ele, txt, elementName,true);
+        type(ele, txt, elementName, true);
+    }
+
+    public void type(WebElement ele, String txt, boolean reTypeToMatchText) {
+        type(ele, txt, null, reTypeToMatchText);
     }
 
     public void type(WebElement ele, String txt, String elementName,boolean reTypeToMatchText) {
         delayTime();
         waitForElement(ele);
-        if(reTypeToMatchText) {
+        if (reTypeToMatchText) {
             WebDriverWait wait = new WebDriverWait(getBrowser(), timeoutDefault);
             ExpectedCondition<Boolean> textToBePresentInElementValue = arg0 -> {
                 try {
@@ -334,13 +388,12 @@ public class WebAction {
                 }
             };
             wait.until(textToBePresentInElementValue);
-        }
-        else{
+        } else {
             ele.clear();
             ele.sendKeys(txt);
         }
 
-        if(elementName==null){
+        if (elementName == null) {
             elementName = getElementName(ele);
         }
         TestReportManager.getInstance().getTestReport().testLog(String.format("%sType [%s] into [%s]", ACTION_LOG_LVL, txt, elementName));
@@ -429,7 +482,16 @@ public class WebAction {
 
     public boolean isElementPresent(By locatorKey, int timeout) {
         try {
-            return findElement(locatorKey, timeout)!=null;
+            return findElement(locatorKey, timeout) != null;
+        } catch (NoSuchElementException | TimeoutException e) {
+            return false;
+        }
+    }
+
+    public boolean isElementPresent(WebElement parent,By locatorKey, int timeout) {
+        try {
+            waitUntil(ExpectedConditions.presenceOfElementLocated(locatorKey), timeout);
+            return parent.findElement(locatorKey) != null;
         } catch (NoSuchElementException | TimeoutException e) {
             return false;
         }
@@ -439,7 +501,13 @@ public class WebAction {
         try {
             Thread.sleep(getTimeDelay());
         } catch (InterruptedException e) {
-            TestReportManager.getInstance().getTestReport().testFail(ACTION_LOG_LVL + "InterruptedException: " + e.getMessage(),"");
+            TestReportManager.getInstance().getTestReport().testFail(ACTION_LOG_LVL + "InterruptedException: " + e.getMessage(), "");
         }
+    }
+
+    public void delayTime(int timeDelay) {
+        setTimeDelay(timeDelay);
+        delayTime();
+        setTimeDelay(0);
     }
 }
