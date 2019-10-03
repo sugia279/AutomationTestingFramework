@@ -2,14 +2,15 @@ package core.base_action;
 
 import core.extent_report.TestReportManager;
 import core.utilities.DateTimeHandler;
-import io.github.bonigarcia.wdm.ChromeDriverManager;
-import io.github.bonigarcia.wdm.DriverManagerType;
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
-import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
+import io.github.bonigarcia.wdm.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.*;
 import core.utilities.CustomCondition;
@@ -123,10 +124,20 @@ public class WebAction {
                 FirefoxDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
                 browser = new FirefoxDriver();
                 break;
-            default:
+            case IE:
+                DesiredCapabilities caps = new DesiredCapabilities();
+                caps.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
                 InternetExplorerDriverManager.getInstance(DriverManagerType.IEXPLORER).setup();
 
-                browser = new InternetExplorerDriver();
+                browser = new InternetExplorerDriver(new InternetExplorerOptions(caps));
+            case EDGE:
+                EdgeDriverManager.getInstance(DriverManagerType.EDGE).setup();
+
+                browser = new EdgeDriver();
+                break;
+            default:
+                ChromeDriverManager.getInstance(DriverManagerType.CHROME).setup();
+                browser = new ChromeDriver();
                 break;
         }
         browserWait = new WebDriverWait(browser, getTimeoutDefault());

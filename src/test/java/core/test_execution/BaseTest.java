@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public abstract class BaseTest {
+    protected static String configFile;
     protected String[] testIdList;
     protected String testDataPath;
     protected TestCase curTestCase = null;
@@ -42,14 +43,9 @@ public abstract class BaseTest {
 
     @BeforeSuite
     @Parameters({"config-file"})
-    public void setup(@Optional String configFile) {
+    public void setup(@Optional String cfgFile) {
         TestReportManager.getInstance().initializeReport();
-        if(configFile!= null) {
-            String browser = Config.getProperty(configFile, "browser");
-            String timeout = Config.getProperty(configFile, "driverTimeout");
-            if(browser!= null && !browser.isEmpty()){ webAction.setBrowserType(BrowserType.find(browser));}
-            if(timeout!= null && !browser.isEmpty()){ webAction.setTimeoutDefault(Integer.parseInt(timeout));}
-        }
+        configFile = cfgFile!= null?cfgFile:null;
     }
 
     @AfterSuite
@@ -60,6 +56,16 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void beforeClass(){
+        if(configFile!=null && !configFile.equals("")) {
+            String browserType = Config.getProperty(configFile, "browser");
+            String driverTimeOut = Config.getProperty(configFile, "driverTimeout");
+            if (browserType != null && !browserType.isEmpty()) {
+                webAction.setBrowserType(BrowserType.find(browserType));
+            }
+            if (driverTimeOut != null && !driverTimeOut.isEmpty()) {
+                webAction.setTimeoutDefault(Integer.parseInt(driverTimeOut));
+            }
+        }
         if(webAction.getBrowser() == null || webAction.getBrowser().toString().contains("(null)"))
             webAction.startBrowser();
     }

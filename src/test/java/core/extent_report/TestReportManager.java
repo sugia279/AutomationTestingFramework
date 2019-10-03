@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class TestReportManager {
-    protected static String REPORT_CONFIG = "src/test/java/core/extent_report/extReportConfig_3.xml";
+    protected static String REPORT_CONFIG = "src/test/java/core/extent_report/extReportConfig.xml";
     private String reportOutput = System.getProperty("user.dir") + "\\reports\\TestReport_[date].html";
 
     public static volatile TestReportManager instance;

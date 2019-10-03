@@ -1,6 +1,7 @@
 package saucedemo_webuitesting.suites;
 
 
+import core.base_action.BrowserType;
 import core.test_execution.BaseTest;
 
 public abstract class SauceDemoBaseTest extends BaseTest {
