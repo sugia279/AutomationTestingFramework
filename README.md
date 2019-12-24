@@ -4,7 +4,7 @@ A framework helps the automation engineer build the complete test automation eas
 - [TestNG](https://testng.org/doc/index.html)                - A Testing framework
 - [Selenium WebDriver](https://www.seleniumhq.org/)    - A library you can use to test Web Application.
 - [Rest Assured](http://rest-assured.io/)          - A library you can use to test HTTP-based REST services.
-- [Extent Report 4.0](http://extentreports.com/)     - A framework for creating a test report
+- [Extent Report 3.0](http://extentreports.com/)     - A framework for creating a test report
 
 **It can:**
 - Support WebUI Testing, APIs Testing.
