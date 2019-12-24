@@ -1,20 +1,18 @@
 package core.base_action;
 
+import core.extent_report.ReportLogLevel;
 import core.extent_report.TestReportManager;
-import core.utilities.DateTimeHandler;
-import io.github.bonigarcia.wdm.*;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.DriverManagerType;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.ui.*;
-import core.utilities.CustomCondition;
-import core.extent_report.ReportLogLevel;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,14 +24,15 @@ public class WebAction {
     protected final String HIGHER_ACTION_LOG_LVL = ReportLogLevel.LOG_LVL_3;
     private WebDriver browser;
     private WebDriverWait browserWait;
+    private List<WebDriver> listBrowsers;
     private BrowserType browserType;
     private JavascriptExecutor executor;
     private int timeoutDefault;
-    private SoftAssertExt softAssert;
     private int timeDelay = 0;
     private List<String> attributeAsElementName;
 
     public WebAction() {
+        listBrowsers = new ArrayList<>();
         browserType = BrowserType.CHROME;
         timeoutDefault = 20;
     }
@@ -45,6 +44,8 @@ public class WebAction {
 
     public void setBrowser(WebDriver browser){
         this.browser = browser;
+        this.browserWait = new WebDriverWait(browser, getTimeoutDefault());
+        this.executor = (JavascriptExecutor) browser;
     }
 
     public WebDriverWait getBrowserWait() {
@@ -75,35 +76,27 @@ public class WebAction {
         this.timeDelay = timeDelay;
     }
 
-    public void setSoftAssert(SoftAssertExt softAssert) {
-        this.softAssert = softAssert;
-    }
-
-    public void initSoftAssert() {
-        setSoftAssert(new SoftAssertExt((TakesScreenshot) browser));
-    }
-
-    public SoftAssertExt getSoftAssert() {
-        return softAssert;
-    }
-
     public void setAttributeAsElementName(String... attributeAsElementName) {
         this.attributeAsElementName = Arrays.asList(attributeAsElementName);
     }
 
     public String getElementName(WebElement ele) {
         String name = ele.getText();
-        for (String att : attributeAsElementName) {
-            if (name.isEmpty() && isAttributePresent(ele, att)) {
-                name = ele.getAttribute(att);
-                break;
+        if(attributeAsElementName != null) {
+            for (String att : attributeAsElementName) {
+                if (name.isEmpty() && isAttributePresent(ele, att)) {
+                    name = ele.getAttribute(att);
+                    break;
+                }
             }
         }
+
         return name;
     }
 
     public String getText(WebElement ele){
         waitForElement(ele);
+        scrollIntoView(ele);
         return ele.getText();
     }
 
@@ -115,33 +108,28 @@ public class WebAction {
 
     //region browser action
     public void startBrowser() {
+        WebDriver newBrowser;
         switch (getBrowserType()) {
             case CHROME:
                 ChromeDriverManager.getInstance(DriverManagerType.CHROME).setup();
-                browser = new ChromeDriver();
+                newBrowser = new ChromeDriver();
                 break;
             case FIREFOX:
                 FirefoxDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
-                browser = new FirefoxDriver();
+                newBrowser = new FirefoxDriver();
                 break;
             case IE:
-                DesiredCapabilities caps = new DesiredCapabilities();
-                caps.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
-                InternetExplorerDriverManager.getInstance(DriverManagerType.IEXPLORER).setup();
-
-                browser = new InternetExplorerDriver(new InternetExplorerOptions(caps));
-            case EDGE:
-                EdgeDriverManager.getInstance(DriverManagerType.EDGE).setup();
-
-                browser = new EdgeDriver();
+                InternetExplorerDriverManager.getInstance(DriverManagerType.IEXPLORER).arch32().setup();
+                newBrowser = new InternetExplorerDriver();
                 break;
             default:
                 ChromeDriverManager.getInstance(DriverManagerType.CHROME).setup();
-                browser = new ChromeDriver();
+                newBrowser = new ChromeDriver();
                 break;
         }
-        browserWait = new WebDriverWait(browser, getTimeoutDefault());
-        executor = (JavascriptExecutor) browser;
+        //browser.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        getListBrowsers().add(newBrowser);
+        setBrowser(newBrowser);
     }
 
     public void stopBrowser() {
@@ -149,6 +137,16 @@ public class WebAction {
             browser.quit();
             browser = null;
             browserWait = null;
+        }
+    }
+
+    public void stopAllBrowsers(){
+        for(WebDriver brows : getListBrowsers()){
+            if (brows != null && !brows.toString().contains("(null)")) {
+                brows.quit();
+                brows = null;
+                browserWait = null;
+            }
         }
     }
 
@@ -160,13 +158,6 @@ public class WebAction {
         TestReportManager.getInstance().getTestReport().testLog(String.format("%sOpen and navigate to '[%s]'", ACTION_LOG_LVL, url));
     }
 
-    public void openLinkInNewTab(WebElement link) {
-        String selectLinkOpenInNewTab = Keys.chord(Keys.CONTROL, Keys.RETURN);
-        link.sendKeys(selectLinkOpenInNewTab);
-        ArrayList<String> tabs = new ArrayList<>(getBrowser().getWindowHandles());
-        getBrowser().switchTo().window(tabs.get(tabs.size() - 1));
-    }
-
     public void openLinkInNewTab(String url) {
         executor.executeScript("window.open('');");
         ArrayList<String> tabs = new ArrayList<>(getBrowser().getWindowHandles());
@@ -175,24 +166,17 @@ public class WebAction {
         getBrowser().get(url);
     }
 
-    public void openLinkInNewWindow(WebElement link) {
-        String selectLinkOpenInNewWindow = Keys.chord(Keys.SHIFT, Keys.RETURN);
-        link.sendKeys(selectLinkOpenInNewWindow);
-        ArrayList<String> windows = new ArrayList<>(getBrowser().getWindowHandles());
-        getBrowser().switchTo().window(windows.get(windows.size() - 1));
+    public void openLinkInNewWindow(String url) {
+        startBrowser();
+        browser.get(url);
     }
 
-    public void openLinkInNewWindow(String url) {
-        WebDriver newWindow = new ChromeDriver();
-        newWindow.get(url);
+    public void switchBrowser(int index){
+        setBrowser(getListBrowsers().get(index));
+    }
 
-        // close old browser
-        getBrowser().quit();
-
-        // set new browser
-        setBrowser(newWindow);
-        ArrayList<String> windows = new ArrayList<>(newWindow.getWindowHandles());
-        getBrowser().switchTo().window(windows.get(windows.size() - 1));
+    public List<WebDriver> getListBrowsers() {
+        return listBrowsers;
     }
     //endregion
 
@@ -221,7 +205,12 @@ public class WebAction {
     }
 
     public List<WebElement> findElements(WebElement parent, By by) {
-        waitForElement(parent);
+        return findElements(parent, by, timeoutDefault);
+    }
+
+
+    public List<WebElement> findElements(WebElement parent, By by, int timeout) {
+        waitForElement(parent, timeout);
         return parent.findElements(by);
     }
 
@@ -240,12 +229,15 @@ public class WebAction {
     }
 
     public boolean waitForElement(WebElement ele) {
+        return waitForElement(ele, timeoutDefault);
+    }
+
+    public boolean waitForElement(WebElement ele, int timeout) {
         boolean res = false;
-        //res = (Boolean)waitUntil(CustomCondition.elementPresent(ele));
         if(ele!=null && !ele.isDisplayed()){
             scrollIntoView(ele);
         }
-        res = waitUntil(ExpectedConditions.visibilityOf(ele)) != null;
+        res = waitUntil(ExpectedConditions.visibilityOf(ele),timeout) != null;
         return res;
     }
 
@@ -260,7 +252,6 @@ public class WebAction {
     public boolean waitForTextPresentOnElement(WebElement ele, String text) {
         return waitForTextPresentOnElement(ele, text, timeoutDefault);
     }
-
 
     public boolean waitForTextPresentOnElement(WebElement ele, String text, int timeout) {
         WebDriverWait wait = new WebDriverWait(getBrowser(), timeout);
@@ -277,7 +268,6 @@ public class WebAction {
     }
 
     public void waitForElementPresent(By locator) {
-        WebDriverWait wait = new WebDriverWait(getBrowser(), timeoutDefault);
         ExpectedCondition<Boolean> elementPresent = arg0 -> {
             try {
                 return getBrowser().findElement(locator) != null;
@@ -285,11 +275,10 @@ public class WebAction {
                 return false;
             }
         };
-        wait.until(elementPresent);
+        waitUntil(elementPresent);
     }
 
     public void waitForElementNotPresent(By locator) {
-        WebDriverWait wait = new WebDriverWait(getBrowser(), timeoutDefault);
         ExpectedCondition<Boolean> elementNotPresent = arg0 -> {
             try {
                 return getBrowser().findElement(locator) == null;
@@ -297,7 +286,7 @@ public class WebAction {
                 return true;
             }
         };
-        wait.until(elementNotPresent);
+        waitUntil(elementNotPresent);
     }
 
     public void waitForExpectedCondition(Callable<Boolean> function){
@@ -305,7 +294,6 @@ public class WebAction {
     }
 
     public void waitForExpectedCondition(Callable<Boolean> function, int timeOut){
-        WebDriverWait wait = new WebDriverWait(getBrowser(), timeOut);
         ExpectedCondition<Boolean> funcCondition = arg0 -> {
             try {
                 return function.call();
@@ -313,7 +301,11 @@ public class WebAction {
                 return false;
             }
         };
-        wait.until(funcCondition);
+        waitUntil(funcCondition, timeOut);
+    }
+
+    public void waitForPageLoadComplete(){
+        waitForExpectedCondition(() -> executor.executeScript("return document.readyState").equals("complete"));
     }
     //endregion
 
@@ -337,7 +329,6 @@ public class WebAction {
     public void retryClick(WebElement ele, ExpectedCondition expectedCondition, int timeout, String eleName) {
         delayTime();
         TestReportManager.getInstance().getTestReport().testLog(ACTION_LOG_LVL + "Click [" + eleName + "]");
-        WebDriverWait wait = new WebDriverWait(getBrowser(), timeout);
         ExpectedCondition<Boolean> elementIsClickable = arg0 -> {
             try {
                 scrollIntoView(ele);
@@ -350,7 +341,7 @@ public class WebAction {
                 return false;
             }
         };
-        wait.until(elementIsClickable);
+        waitUntil(elementIsClickable, timeout);
     }
 
     public void jsClick(WebElement ele) {
@@ -372,6 +363,20 @@ public class WebAction {
     //endregion
 
     //region type action
+    public void jsTypeByCss(String locatorString, String value, String elementName, WebElement foundElement){
+        delayTime();
+        waitForElement(foundElement);
+        executor.executeScript("$(\"" + locatorString + "\")[0].value = \"" + value + "\"");
+        TestReportManager.getInstance().getTestReport().testLog(String.format("%sType [%s] into [%s]", ACTION_LOG_LVL, value, elementName));
+    }
+
+    public void jsTypeByXPath(String locatorString, String value, String elementName, WebElement foundElement){
+        delayTime();
+        waitForElement(foundElement);
+        executor.executeScript("$x(\"" + locatorString + "\")[0].value = \"" + value + "\"");
+        TestReportManager.getInstance().getTestReport().testLog(String.format("%sType [%s] into [%s]", ACTION_LOG_LVL, value, elementName));
+    }
+
     public void type(WebElement ele, String txt) {
         type(ele, txt, null, true);
     }
@@ -384,11 +389,10 @@ public class WebAction {
         type(ele, txt, null, reTypeToMatchText);
     }
 
-    public void type(WebElement ele, String txt, String elementName,boolean reTypeToMatchText) {
+    public void type(WebElement ele, String txt, String elementName, boolean reTypeToMatchText) {
         delayTime();
         waitForElement(ele);
         if (reTypeToMatchText) {
-            WebDriverWait wait = new WebDriverWait(getBrowser(), timeoutDefault);
             ExpectedCondition<Boolean> textToBePresentInElementValue = arg0 -> {
                 try {
                     ele.clear();
@@ -398,7 +402,7 @@ public class WebAction {
                     return false;
                 }
             };
-            wait.until(textToBePresentInElementValue);
+            waitUntil(textToBePresentInElementValue,timeoutDefault);
         } else {
             ele.clear();
             ele.sendKeys(txt);
@@ -422,29 +426,6 @@ public class WebAction {
         waitForElement(ele);
         executor.executeScript("arguments[0].value = arguments[1];", ele, txt);
         TestReportManager.getInstance().getTestReport().testLog(ACTION_LOG_LVL + "Type '" + txt + "' into [" + ele.getText() + "]");
-    }
-
-    public void setDateValue(WebElement ele, String txt) {
-        setDateValue(ele, txt, 10, getElementName(ele));
-    }
-
-    public void setDateValue(WebElement ele, String txt, int timeout, String elementName) {
-        delayTime();
-        TestReportManager.getInstance().getTestReport().testLog(ACTION_LOG_LVL + "Type '" + txt + "' into [" + elementName + "] date input");
-        waitForElement(ele);
-        WebDriverWait wait = new WebDriverWait(getBrowser(), timeout);
-        ExpectedCondition<Boolean> dateToBePresentInElementValue = arg0 -> {
-            try {
-                ele.clear();
-                ele.sendKeys(txt);
-                String elementValue = ele.getAttribute("value");
-                return elementValue.equals(DateTimeHandler.formatDate(txt, "dd/MM/yyyy", "yyyy-MM-dd"));
-            } catch (Exception e) {
-                return false;
-            }
-        };
-        wait.until(dateToBePresentInElementValue);
-
     }
 
     public void setTimeValue(WebElement ele, String txt, String elementName) {
@@ -473,16 +454,6 @@ public class WebAction {
         return result;
     }
 
-    public Color GetBackgroundColour(WebElement element, String attribute) {
-        //return Color.fromString(element.getCssValue("background-color"));
-        return Color.fromString(element.getCssValue(attribute));
-    }
-
-    public Color GetColour(WebElement element, String attribute) {
-        //return Color.fromString(element.getCssValue("border-bottom-color"));
-        return Color.fromString(element.getCssValue(attribute));
-    }
-
     public boolean isElementVisible(By locatorKey, int timeout) {
         try {
             return findElement(locatorKey, timeout).isDisplayed();
@@ -493,17 +464,16 @@ public class WebAction {
 
     public boolean isElementPresent(By locatorKey, int timeout) {
         try {
-            return findElement(locatorKey, timeout) != null;
-        } catch (NoSuchElementException | TimeoutException e) {
+            return findElements(locatorKey, timeout).size() > 0;
+        }catch(NoSuchElementException | TimeoutException e){
             return false;
         }
     }
 
     public boolean isElementPresent(WebElement parent,By locatorKey, int timeout) {
         try {
-            waitUntil(ExpectedConditions.presenceOfElementLocated(locatorKey), timeout);
-            return parent.findElement(locatorKey) != null;
-        } catch (NoSuchElementException | TimeoutException e) {
+            return findElements(parent, locatorKey, timeout).size() > 0;
+        }catch(NoSuchElementException | TimeoutException e){
             return false;
         }
     }

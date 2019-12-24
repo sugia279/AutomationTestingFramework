@@ -1,5 +1,6 @@
 package core.utilities;
 
+import java.util.Base64;
 import java.util.LinkedHashMap;
 
 public class StringHandler {
@@ -41,5 +42,17 @@ public class StringHandler {
             return resultValue;
         }
         return null;
+    }
+
+    public static String encodeToBase64String(String input){
+        return Base64.getEncoder().encodeToString(input.getBytes());
+    }
+
+    public static String stringMultiply(String s, int n){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < n; i++){
+            sb.append(s);
+        }
+        return sb.toString();
     }
 }

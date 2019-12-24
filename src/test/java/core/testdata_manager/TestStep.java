@@ -42,7 +42,7 @@ public class TestStep {
     }
 
     public void setName(String _name) {
-        this.name = _name;
+        this.name = _name==null?"":_name;
     }
 
     public String getDescription() {

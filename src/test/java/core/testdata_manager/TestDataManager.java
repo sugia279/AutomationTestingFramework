@@ -1,13 +1,14 @@
 package core.testdata_manager;
 
-import core.utilities.*;
-import org.apache.commons.lang3.RandomStringUtils;
+import core.utilities.HashMapHandler;
+import core.utilities.JsonHandler;
+import core.utilities.JsonTableModel;
+import core.utilities.StringHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Properties;
-import java.util.Random;
 
 public class TestDataManager {
     protected String testDataFolder;
@@ -17,7 +18,7 @@ public class TestDataManager {
         return testDataFolder;
     }
 
-    public void setTestDataFolder(String testDataFolder) {
+    public void setTestDataPath(String testDataFolder) {
         this.testDataFolder = testDataFolder;
     }
 
@@ -83,17 +84,18 @@ public class TestDataManager {
     private TestCase applyTestValueFromRowData(TestCase tcSource, LinkedHashMap<String, Object> row)    {
         TestCase tcRefined = new TestCase();
         tcRefined.setId((String) StringHandler.replaceValueByMapData(tcSource.getId(),"@dataTable->","@",row));
-        tcRefined.setName((String)StringHandler.replaceValueByMapData(tcSource.getName(),"@dataTable->","@",row));
-        tcRefined.setDescription((String)StringHandler.replaceValueByMapData(tcSource.getDescription(),"@dataTable->","@",row));
-        tcRefined.setObjectives((String)StringHandler.replaceValueByMapData(tcSource.getObjectives(),"@dataTable->","@",row));
-        tcRefined.setNote((String)StringHandler.replaceValueByMapData(tcSource.getNote(),"@dataTable->","@",row));
+        tcRefined.setName((String) StringHandler.replaceValueByMapData(tcSource.getName(),"@dataTable->","@",row));
+        tcRefined.setDescription((String) StringHandler.replaceValueByMapData(tcSource.getDescription(),"@dataTable->","@",row));
+        tcRefined.setObjectives((String) StringHandler.replaceValueByMapData(tcSource.getObjectives(),"@dataTable->","@",row));
+        tcRefined.setNote((String) StringHandler.replaceValueByMapData(tcSource.getNote(),"@dataTable->","@",row));
 
         for(TestStep taSource : tcSource.get_testSteps() )
         {
             TestStep taRefined = new TestStep();
-            taRefined.setName((String)StringHandler.replaceValueByMapData(taSource.getName(),"@dataTable->","@",row));
-            taRefined.setMethod((String)StringHandler.replaceValueByMapData(taSource.getMethod(), "@dataTable->", "@", row));
-            taRefined.setDescription((String)StringHandler.replaceValueByMapData(taSource.getDescription(),"@dataTable->","@",row));
+            taRefined.setName((String) StringHandler.replaceValueByMapData(taSource.getName(),"@dataTable->","@",row));
+            taRefined.setClassExecution((String) StringHandler.replaceValueByMapData(taSource.getClassExecution(), "@dataTable->", "@", row));
+            taRefined.setMethod((String) StringHandler.replaceValueByMapData(taSource.getMethod(), "@dataTable->", "@", row));
+            taRefined.setDescription((String) StringHandler.replaceValueByMapData(taSource.getDescription(),"@dataTable->","@",row));
             taRefined.setTestParams(HashMapHandler.replaceValueByMapData(taSource.getTestParams(), "@dataTable->", "@", row));
             tcRefined.get_testSteps().add(taRefined);
         }
@@ -122,10 +124,17 @@ public class TestDataManager {
     }
 
     public void updateVariable(TestCase tc, LinkedHashMap<String, Object> vars){
-        tc.setObjectives(StringHandler.replaceValueByMapData(tc.getObjectives(), "@var->", "@", vars));
-        tc.setNote(StringHandler.replaceValueByMapData(tc.getNote(), "@var->", "@", vars));
+        updateTCInfoVariable(tc, vars);
         for(TestStep step:tc.get_testSteps()) {
             step.setTestParams(HashMapHandler.replaceValueByMapData(step.getTestParams(), "@var->", "@", vars));
         }
+    }
+
+    public void updateTCInfoVariable(TestCase tc, LinkedHashMap<String, Object> vars){
+        tc.setName(StringHandler.replaceValueByMapData(tc.getName(), "@var->", "@", vars));
+        tc.setDescription(StringHandler.replaceValueByMapData(tc.getDescription(), "@var->", "@", vars));
+        tc.setObjectives(StringHandler.replaceValueByMapData(tc.getObjectives(), "@var->", "@", vars));
+        tc.setTag(StringHandler.replaceValueByMapData(tc.getTag(), "@var->", "@", vars));
+        tc.setNote(StringHandler.replaceValueByMapData(tc.getNote(), "@var->", "@", vars));
     }
 }

@@ -1,7 +1,7 @@
 package core.test_execution;
 
-import core.base_action.RestAction;
-import core.base_action.WebAction;
+import core.base_action.BaseAction;
+import core.base_action.SoftAssertExt;
 import core.extent_report.TestReportManager;
 import core.testdata_manager.TestCase;
 import core.base_action.BrowserType;
@@ -21,105 +21,127 @@ import java.util.*;
 
 public abstract class BaseTest {
     protected static String configFile;
+    protected static String prodVer;
     protected String[] testIdList;
     protected String testDataPath;
     protected TestCase curTestCase = null;
     protected TestDataManager testDataManager;
-    protected RestAction api;
-    protected WebAction webAction;
-    protected String highLevelActionFolder;
-    protected LinkedHashMap<String,Object> actionClasses;
+    protected BaseAction baseAction;
+    private String highLevelActionPackage;
+    protected LinkedHashMap<String, Object> actionClasses;
     protected LinkedHashMap<String, Object> systemVars;
     protected LinkedHashMap<String, Object> runtimeVars;
+    protected Boolean bStartBrowserAtBeforeClass;
 
-    public BaseTest(){
-        webAction = new WebAction();
-        api = new RestAction();
+    public BaseTest() {
+        baseAction = new BaseAction();
         testDataManager = new TestDataManager();
         actionClasses = new LinkedHashMap<>();
-        loadSystemVariables();
         runtimeVars = new LinkedHashMap();
+        bStartBrowserAtBeforeClass = true;
     }
 
     @BeforeSuite
-    @Parameters({"config-file"})
-    public void setup(@Optional String cfgFile) {
-        TestReportManager.getInstance().initializeReport();
-        configFile = cfgFile!= null?cfgFile:null;
+    @Parameters({"config-file","product-version"})
+    public void setup(@Optional String cfgFile, @Optional String prodVer, ITestContext testContext) {
+        configFile = cfgFile != null ? cfgFile : null;
+        prodVer = prodVer!=null? prodVer:null;
+        TestReportManager.getInstance().initializeReport(testContext.getSuite().getName().toUpperCase());
+        if (configFile != null && !configFile.equals("")) {
+            String browserType = Config.getProperty(configFile, "browser");
+            TestReportManager.getInstance().setSystemInfo("Browser", baseAction.getWebAction().getBrowserType().name());
+        }
     }
 
     @AfterSuite
     public void close() {
         TestReportManager.getInstance().getTestReport().flush();
-        //TestReportManager.getInstance().updateRunDurationForTestInLeft();
+//        TestReportManager.getInstance().updateRunDurationForTestInLeft();
     }
 
     @BeforeClass
-    public void beforeClass(){
-        if(configFile!=null && !configFile.equals("")) {
+    public void beforeClass() {
+        if (configFile != null && !configFile.equals("")) {
             String browserType = Config.getProperty(configFile, "browser");
             String driverTimeOut = Config.getProperty(configFile, "driverTimeout");
             if (browserType != null && !browserType.isEmpty()) {
-                webAction.setBrowserType(BrowserType.find(browserType));
+                baseAction.getWebAction().setBrowserType(BrowserType.find(browserType));
             }
             if (driverTimeOut != null && !driverTimeOut.isEmpty()) {
-                webAction.setTimeoutDefault(Integer.parseInt(driverTimeOut));
+                baseAction.getWebAction().setTimeoutDefault(Integer.parseInt(driverTimeOut));
             }
         }
-        if(webAction.getBrowser() == null || webAction.getBrowser().toString().contains("(null)"))
-            webAction.startBrowser();
+        TestReportManager.getInstance().setSystemInfo("Product Version", prodVer);
+        if (baseAction.getWebAction().getBrowser() == null && bStartBrowserAtBeforeClass) {
+            baseAction.getWebAction().startBrowser();
+        }
     }
 
     @AfterClass
-    public void afterClass(){
+    public void afterClass() {
         afterTestClass(true);
     }
 
     @DataProvider
-    protected abstract Object[] testDataSet() ;
+    protected abstract Object[] testDataSet();
 
     @BeforeMethod
-    public void beforeMethod(Object[] params, ITestContext testContext){
-        Object[] testCaseInfo = (Object[])params[0];
+    public void beforeMethod(Object[] params, ITestContext testContext) {
+        Object[] testCaseInfo = (Object[]) params[0];
         testDataPath = (String) testCaseInfo[0];
         curTestCase = (TestCase) testCaseInfo[1];
+        loadSystemVariables();
         testDataManager.updateVariable(curTestCase, systemVars);
-        webAction.initSoftAssert();
-        String[] suiteNames = {testContext.getSuite().getName().toUpperCase() ,
-                ((TestRunner) testContext).getTest().getName().replace(" ", "&thinsp;"),
+        testDataManager.updateTCInfoVariable(curTestCase, runtimeVars);
+        baseAction.initSoftAssert();
+        String[] suiteNames = {testContext.getSuite().getName().toUpperCase(),
+                ((TestRunner) testContext).getTest().getName().toUpperCase().replace(" ", "&thinsp;"),
                 testDataManager.getTestSuiteMap().get(testDataPath).get_name().replace(" ", "&thinsp;")};
         TestReportManager.getInstance().setTestInfo(curTestCase, suiteNames);
     }
 
     @Test(dataProvider = "testDataSet")
-    public void runTestCase(Object[] params){
+    public void runTestCase(Object[] params) {
         String stepInfo = "";
-        for (TestStep step: curTestCase.get_testSteps()) {
-            stepInfo = step.getName() + "</br><u>Action Class:</u> " + step.getClassExecution() + "</br><u>Action:</u> " + step.getMethod();
-            TestReportManager.getInstance().setStepInfo(stepInfo);
+        if (curTestCase.isActive()) {
+            for (TestStep step : curTestCase.get_testSteps()) {
+                stepInfo = step.getName() + "</br><u>Action Class:</u> " + step.getClassExecution() + "</br><u>Action:</u> " + step.getMethod();
+                TestReportManager.getInstance().setStepInfo(stepInfo);
 
-            try {
-                Object actionClass = actionClasses.get(step.getClassExecution());
-                if(actionClass == null){
-                    Class<?> cl = Class.forName(highLevelActionFolder + step.getClassExecution());
-                    Constructor<?> cons = cl.getConstructor(WebAction.class);
-                    actionClass = cons.newInstance(webAction);
-                    actionClasses.put(step.getClassExecution(),actionClass);
+                if(step.getClassExecution() != null) {
+                    try {
+                        Object actionClass = actionClasses.get(step.getClassExecution());
+                        if (actionClass == null) {
+                            Class<?> cl = Class.forName(getHighLevelActionPackage() + "." + step.getClassExecution());
+                            Constructor<?> cons = cl.getConstructor(BaseAction.class);
+                            actionClass = cons.newInstance(baseAction);
+                            actionClasses.put(step.getClassExecution(), actionClass);
+                        }
+
+                        Method setSAAction = actionClass.getClass().getMethod("setSoftAssert", baseAction.getSoftAssert().getClass());
+                        setSAAction.invoke(actionClass, baseAction.getSoftAssert());
+
+                        Method setTestVars = actionClass.getClass().getMethod("setTestVars", runtimeVars.getClass());
+                        setTestVars.invoke(actionClass, runtimeVars);
+                        Method action = actionClass.getClass().getMethod(step.getMethod(), step.getClass());
+                        action.invoke(actionClass, step);
+
+                        Method getSAAction = actionClass.getClass().getMethod("getSoftAssert");
+                        baseAction.setSoftAssert((SoftAssertExt) getSAAction.invoke(actionClass));
+                    } catch (InvocationTargetException e) {
+                        if (e.getTargetException() instanceof SkipException) {
+                            throw (SkipException) e.getTargetException();
+                        } else
+                            baseAction.getSoftAssert().assertTrue(false, e.getTargetException().getMessage());
+                    } catch (Exception e) {
+                        baseAction.getSoftAssert().assertTrue(false, e.toString());
+                    }
                 }
-
-                Method setTestVars = actionClass.getClass().getMethod("setTestVars", runtimeVars.getClass());
-                setTestVars.invoke(actionClass, runtimeVars);
-                Method action = actionClass.getClass().getMethod(step.getMethod(),step.getClass());
-                action.invoke(actionClass, step);
             }
-            catch(InvocationTargetException e){
-                webAction.getSoftAssert().assertTrue(false, e.getTargetException().getMessage());
-            }
-            catch(Exception e){
-                webAction.getSoftAssert().assertTrue(false, e.toString());
-            }
+            baseAction.getSoftAssert().assertAll();
+        } else {
+            TestReportManager.getInstance().getTestReport().testSkip(curTestCase.getNote());
         }
-        webAction.getSoftAssert().assertAll();
     }
 
     @AfterMethod
@@ -127,33 +149,33 @@ public abstract class BaseTest {
         afterTestMethod(curTestCase, result, false);
     }
 
-    protected Object[] fetchDataToDataSet(String... dataPaths){
+    protected Object[] fetchDataToDataSet(String... dataPaths) {
         ArrayList<Object[]> arrTestData = new ArrayList<Object[]>();
 
-        for(String path : dataPaths){
+        for (String path : dataPaths) {
             testDataManager.setTestData(path);
             ArrayList<TestCase> allTestCase = testDataManager.getTestSuiteMap().get(path).get_testCases();
             for (int i = 0; i < allTestCase.size(); i++) {
                 if (testIdList != null && !Arrays.stream(testIdList).anyMatch(allTestCase.get(i).getId()::equals)) {
                     continue;
                 }
-                arrTestData.add(new Object[]{ path, allTestCase.get(i)});
+                arrTestData.add(new Object[]{path, allTestCase.get(i)});
             }
         }
 
         return arrTestData.toArray();
     }
 
-    protected void afterTestMethod(TestCase tc, ITestResult result, boolean stopBrowser){
+    protected void afterTestMethod(TestCase tc, ITestResult result, boolean stopBrowser) {
         Reporter.log(tc.getName());
 
         switch (result.getStatus()) {
             case ITestResult.SUCCESS:
-                TestReportManager.getInstance().setStepPass("", "",tc.getId() + ": " + tc.getName());
+                TestReportManager.getInstance().setStepPass("", "", tc.getId() + ": " + tc.getName());
                 break;
             case ITestResult.SKIP:
                 Reporter.log(result.getThrowable().toString());
-                TestReportManager.getInstance().setStepSkip(tc.getId() + ": " + tc.getName(), result.getThrowable().getMessage(), "ORANGE");
+                TestReportManager.getInstance().setStepSkip(result.getThrowable().getMessage(), tc.getId() + ": " + tc.getName());
                 break;
             case ITestResult.FAILURE:
                 String failedString = "";
@@ -162,31 +184,32 @@ public abstract class BaseTest {
                     for (int i = 1; i < failedMsgs.length; i++) {
                         failedString = failedString + "<br>" + i + ". " + failedMsgs[i];
                     }
-                    if(failedString.equals("")){
+                    if (failedString.equals("")) {
                         failedString = result.getThrowable().getMessage();
                     }
                 }
-
                 TestReportManager.getInstance().setStepFail(failedString, tc.getId() + ": " + tc.getName());
                 break;
         }
-        //TestReportManager.getInstance().saveDurationTime("[" + tc.getId() + "] " + tc.getName());
 
-        if(stopBrowser){
-            webAction.stopBrowser();
+        //keep duration time of test case running
+        TestReportManager.getInstance().saveDurationTime("[" + tc.getId() + "] " + tc.getName());
+
+        if (stopBrowser) {
+            baseAction.getWebAction().stopAllBrowsers();
         }
     }
 
-    protected void afterTestClass(boolean stopBrowser){
+    protected void afterTestClass(boolean stopBrowser) {
         testDataManager.clearTestSuiteMap();
         systemVars.clear();
         actionClasses.clear();
-        if(stopBrowser && webAction.getBrowser() != null){
-            webAction.stopBrowser();
+        if (stopBrowser && baseAction.getWebAction().getBrowser() != null) {
+            baseAction.getWebAction().stopAllBrowsers();
         }
     }
 
-    public void loadSystemVariables(){
+    public void loadSystemVariables() {
         systemVars = new LinkedHashMap<>();
         systemVars.put("CURTIME_HH:mm", DateTimeHandler.currentDayPlus("HH:mm", 0));
         systemVars.put("CURTIME_HHmm", DateTimeHandler.currentDayPlus("HHmm", 0));
@@ -217,13 +240,22 @@ public abstract class BaseTest {
         systemVars.put("NEXTMONTH_yyyyMMdd", DateTimeHandler.currentDayPlus("yyyyMMdd", +30));
         systemVars.put("NEXTMONTH+2_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", +32));
         systemVars.put("NEXTMONTH+2_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", +32));
+        systemVars.put("NEXTMONTH+2_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", +32));
         systemVars.put("PREVIOUSMONTH_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", -30));
         systemVars.put("PREVIOUSMONTH_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", -30));
         systemVars.put("PREVIOUSMONTH_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", -30));
         systemVars.put("RANDOM_Integer_7", (new Random()).nextInt(9999999) + 1);
         systemVars.put("RANDOM_IntegerString_7", "" + ((new Random()).nextInt(9999999) + 1));
-        systemVars.put("RANDOM_DoubleString_9_2", "" + NumberHandler.getNumberFormat("##0.00",2).format(NumberHandler.getRandomDoubleBetweenRange(0,999999999)));
-        systemVars.put("RANDOM_DoubleString_5_6", "" + NumberHandler.getNumberFormat("##0.00",6).format(NumberHandler.getRandomDoubleBetweenRange(0,99999)));
+        systemVars.put("RANDOM_DoubleString_9_2", "" + NumberHandler.getNumberFormat("##0.00", 2).format(NumberHandler.getRandomDoubleBetweenRange(0, 999999999)));
+        systemVars.put("RANDOM_DoubleString_5_6", "" + NumberHandler.getNumberFormat("##0.00", 6).format(NumberHandler.getRandomDoubleBetweenRange(0, 99999)));
+    }
+
+    public String getHighLevelActionPackage() {
+        return highLevelActionPackage;
+    }
+
+    public void setHighLevelActionPackage(String highLevelActionPackage) {
+        this.highLevelActionPackage = highLevelActionPackage;
     }
 }
 

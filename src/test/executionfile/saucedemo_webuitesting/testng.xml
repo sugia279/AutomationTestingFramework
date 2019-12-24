@@ -5,12 +5,12 @@
     <parameter name="config-file" value="src/test/resources/configFiles/WebUI_IE.properties" />
     <test name="Logon">
         <classes>
-            <class name="saucedemo_webuitesting.suites.functional.login.LoginTest"/>
+            <class name="saucedemo_webuitesting.testclasses.login.LoginTest"/>
         </classes>
     </test>
     <test name="Inventory">
         <classes>
-            <class name="saucedemo_webuitesting.suites.functional.inventory.InventoryTest"/>
+            <class name="saucedemo_webuitesting.testclasses.inventory.InventoryTest"/>
         </classes>
     </test>
 </suite>

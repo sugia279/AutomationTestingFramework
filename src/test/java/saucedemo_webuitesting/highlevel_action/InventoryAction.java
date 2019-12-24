@@ -9,7 +9,7 @@ import saucedemo_webuitesting.uiview.controls.inventoryitem.InventoryItem;
 import saucedemo_webuitesting.uiview.pages.main.inventory.InventoryPage;
 
 public class InventoryAction extends BaseAction {
-    public InventoryAction(WebAction action){
+    public InventoryAction(BaseAction action){
         super(action);
     }
 
@@ -18,7 +18,7 @@ public class InventoryAction extends BaseAction {
         Long counter = (Long)step.getTestParams().get("Counter");
 
         //2. Navigate to Inventory page
-        InventoryPage invPage = new InventoryPage(webAction);
+        InventoryPage invPage = new InventoryPage(getWebAction());
         invPage.waitForPageLoadComplete();
 
         for(Object item: item_names){
@@ -26,12 +26,12 @@ public class InventoryAction extends BaseAction {
                     .clickAddToCart();
             TestReportManager.getInstance().setStepInfo("validate the Remove button is presented.");
 
-            webAction.getSoftAssert().assertEquals(inItem.Map().isBtnRemovePresent(), true, "Ensure Remove button is presented.");
-            webAction.getSoftAssert().assertEquals(inItem.Map().isBtnAddToCartPresent(), false, "Ensure Add To Cart button is not presented.");
+            getSoftAssert().assertEquals(inItem.Map().isBtnRemovePresent(), true, "Ensure Remove button is presented.");
+            getSoftAssert().assertEquals(inItem.Map().isBtnAddToCartPresent(), false, "Ensure Add To Cart button is not presented.");
 
         }
 
         TestReportManager.getInstance().setStepInfo("Validate the shopping cart counter");
-        webAction.getSoftAssert().assertEquals(invPage.getHeaderContainer().Map().getLinkShoppingCart().getText(),Integer.toString(counter.intValue()), "Ensure number of added items is [" + webAction.getSoftAssert() + "]");
+        getSoftAssert().assertEquals(invPage.getHeaderContainer().Map().getLinkShoppingCart().getText(),Integer.toString(counter.intValue()), "Ensure number of added items is [" + getSoftAssert() + "]");
     }
 }

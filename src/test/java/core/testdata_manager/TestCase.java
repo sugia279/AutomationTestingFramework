@@ -1,7 +1,5 @@
 package core.testdata_manager;
 
-import org.json.simple.JSONArray;
-
 import java.util.ArrayList;
 
 public class TestCase implements Cloneable {
@@ -144,10 +142,6 @@ public class TestCase implements Cloneable {
     }
 
     public Object getParamValueFromTestStep(int stepOrder, String paramName){
-        return get_testSteps().get(stepOrder).getTestParams().get(paramName);
-    }
-
-    public Object[] getParamArrayValueFromTestStep(int stepOrder, String paramName){
-        return ((JSONArray) get_testSteps().get(stepOrder).getTestParams().get(paramName)).toArray();
+        return get_testSteps().get(stepOrder - 1).getTestParams().get(paramName);
     }
 }

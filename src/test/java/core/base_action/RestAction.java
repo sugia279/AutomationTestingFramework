@@ -27,7 +27,6 @@ public class RestAction {
     private ContentType contentType;
     private NumberReturnType numberReturnType;
 
-
     public RestAction() {
         initLogWriter();
         contentType = ContentType.JSON;
@@ -50,6 +49,12 @@ public class RestAction {
     }
 
     public Response runPutMethod(String url, String bodyRequest) {
+        TestReportManager.getInstance().setSubStepInfo("Request Method: PUT<br> <pre>Url: <a href='" + url + "'>" + url + "</a></pre><br>Body:<br><pre>" + bodyRequest + "</pre>", ReportLogLevel.LOG_LVL_4);
+        Response response = executeMethod("put", url, specifyRequest().body(bodyRequest));
+        return response;
+    }
+
+    public Response runPutMethod(String url, LinkedHashMap<String, Object>  bodyRequest) {
         TestReportManager.getInstance().setSubStepInfo("Request Method: PUT<br> <pre>Url: <a href='" + url + "'>" + url + "</a></pre><br>Body:<br><pre>" + bodyRequest + "</pre>", ReportLogLevel.LOG_LVL_4);
         Response response = executeMethod("put", url, specifyRequest().body(bodyRequest));
         return response;
