@@ -10,8 +10,6 @@ public class BaseAction {
     protected LinkedHashMap<String, Object> testVars;
     protected SoftAssertExt softAssert;
     public BaseAction(){
-        setWebAction(new WebAction());
-        setRestAction(new RestAction());
         setSoftAssert(new SoftAssertExt());
     }
      public BaseAction(BaseAction bAction){

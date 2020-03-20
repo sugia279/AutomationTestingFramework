@@ -31,14 +31,12 @@ public abstract class BaseTest {
     protected LinkedHashMap<String, Object> actionClasses;
     protected LinkedHashMap<String, Object> systemVars;
     protected LinkedHashMap<String, Object> runtimeVars;
-    protected Boolean bStartBrowserAtBeforeClass;
 
     public BaseTest() {
         baseAction = new BaseAction();
         testDataManager = new TestDataManager();
         actionClasses = new LinkedHashMap<>();
         runtimeVars = new LinkedHashMap();
-        bStartBrowserAtBeforeClass = true;
     }
 
     @BeforeSuite
@@ -61,25 +59,27 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void beforeClass() {
-        if (configFile != null && !configFile.equals("")) {
-            String browserType = Config.getProperty(configFile, "browser");
-            String driverTimeOut = Config.getProperty(configFile, "driverTimeout");
-            if (browserType != null && !browserType.isEmpty()) {
-                baseAction.getWebAction().setBrowserType(BrowserType.find(browserType));
+        if(baseAction.getWebAction() != null) {
+            if (configFile != null && !configFile.equals("")) {
+                String browserType = Config.getProperty(configFile, "browser");
+                String driverTimeOut = Config.getProperty(configFile, "driverTimeout");
+                if (browserType != null && !browserType.isEmpty()) {
+                    baseAction.getWebAction().setBrowserType(BrowserType.find(browserType));
+                }
+                if (driverTimeOut != null && !driverTimeOut.isEmpty()) {
+                    baseAction.getWebAction().setTimeoutDefault(Integer.parseInt(driverTimeOut));
+                }
             }
-            if (driverTimeOut != null && !driverTimeOut.isEmpty()) {
-                baseAction.getWebAction().setTimeoutDefault(Integer.parseInt(driverTimeOut));
+            TestReportManager.getInstance().setSystemInfo("Product Version", prodVer);
+            if (baseAction.getWebAction().getBrowser() == null) {
+                baseAction.getWebAction().startBrowser();
             }
-        }
-        TestReportManager.getInstance().setSystemInfo("Product Version", prodVer);
-        if (baseAction.getWebAction().getBrowser() == null && bStartBrowserAtBeforeClass) {
-            baseAction.getWebAction().startBrowser();
         }
     }
 
     @AfterClass
     public void afterClass() {
-        afterTestClass(true);
+        afterTestClass();
     }
 
     @DataProvider
@@ -146,7 +146,7 @@ public abstract class BaseTest {
 
     @AfterMethod
     public void afterMethod(Object[] params, ITestResult result) {
-        afterTestMethod(curTestCase, result, false);
+        afterTestMethod(curTestCase, result);
     }
 
     protected Object[] fetchDataToDataSet(String... dataPaths) {
@@ -166,7 +166,7 @@ public abstract class BaseTest {
         return arrTestData.toArray();
     }
 
-    protected void afterTestMethod(TestCase tc, ITestResult result, boolean stopBrowser) {
+    protected void afterTestMethod(TestCase tc, ITestResult result) {
         Reporter.log(tc.getName());
 
         switch (result.getStatus()) {
@@ -194,17 +194,13 @@ public abstract class BaseTest {
 
         //keep duration time of test case running
         TestReportManager.getInstance().saveDurationTime("[" + tc.getId() + "] " + tc.getName());
-
-        if (stopBrowser) {
-            baseAction.getWebAction().stopAllBrowsers();
-        }
     }
 
-    protected void afterTestClass(boolean stopBrowser) {
+    protected void afterTestClass() {
         testDataManager.clearTestSuiteMap();
         systemVars.clear();
         actionClasses.clear();
-        if (stopBrowser && baseAction.getWebAction().getBrowser() != null) {
+        if (baseAction.getWebAction() != null && baseAction.getWebAction().getBrowser() != null) {
             baseAction.getWebAction().stopAllBrowsers();
         }
     }
