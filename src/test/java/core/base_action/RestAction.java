@@ -110,7 +110,7 @@ public class RestAction {
                 .filter(new RequestLoggingFilter(requestCapture))
                 .filter(new ResponseLoggingFilter(responseCapture))
                 .log().ifValidationFails()
-                .config(RestAssured.config().jsonConfig(jsonConfig().numberReturnType(numberReturnType)));;
+                .config(RestAssured.config().jsonConfig(jsonConfig().numberReturnType(numberReturnType)));
 
         return reqSpec;
     }

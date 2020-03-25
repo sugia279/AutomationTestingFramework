@@ -7,6 +7,7 @@ import core.testdata_manager.TestCase;
 import core.base_action.BrowserType;
 import core.testdata_manager.TestDataManager;
 import core.testdata_manager.TestStep;
+import core.testdata_manager.TestVariableManager;
 import core.utilities.Config;
 import core.utilities.DateTimeHandler;
 import core.utilities.NumberHandler;
@@ -29,14 +30,13 @@ public abstract class BaseTest {
     protected BaseAction baseAction;
     private String highLevelActionPackage;
     protected LinkedHashMap<String, Object> actionClasses;
-    protected LinkedHashMap<String, Object> systemVars;
-    protected LinkedHashMap<String, Object> runtimeVars;
+    protected TestVariableManager testVars;
 
     public BaseTest() {
         baseAction = new BaseAction();
         testDataManager = new TestDataManager();
         actionClasses = new LinkedHashMap<>();
-        runtimeVars = new LinkedHashMap();
+        testVars = new TestVariableManager();
     }
 
     @BeforeSuite
@@ -90,9 +90,9 @@ public abstract class BaseTest {
         Object[] testCaseInfo = (Object[]) params[0];
         testDataPath = (String) testCaseInfo[0];
         curTestCase = (TestCase) testCaseInfo[1];
-        loadSystemVariables();
-        testDataManager.updateVariable(curTestCase, systemVars);
-        testDataManager.updateTCInfoVariable(curTestCase, runtimeVars);
+        testVars.loadSystemVariables();
+        testDataManager.updateVariable(curTestCase, testVars.getSystemVars());
+        testDataManager.updateTCInfoVariable(curTestCase, testVars.getRuntimeVars());
         baseAction.initSoftAssert();
         String[] suiteNames = {testContext.getSuite().getName().toUpperCase(),
                 ((TestRunner) testContext).getTest().getName().toUpperCase().replace(" ", "&thinsp;"),
@@ -121,8 +121,8 @@ public abstract class BaseTest {
                         Method setSAAction = actionClass.getClass().getMethod("setSoftAssert", baseAction.getSoftAssert().getClass());
                         setSAAction.invoke(actionClass, baseAction.getSoftAssert());
 
-                        Method setTestVars = actionClass.getClass().getMethod("setTestVars", runtimeVars.getClass());
-                        setTestVars.invoke(actionClass, runtimeVars);
+                        Method setTestVars = actionClass.getClass().getMethod("setTestVars", testVars.getRuntimeVars().getClass());
+                        setTestVars.invoke(actionClass, testVars.getRuntimeVars());
                         Method action = actionClass.getClass().getMethod(step.getMethod(), step.getClass());
                         action.invoke(actionClass, step);
 
@@ -198,52 +198,11 @@ public abstract class BaseTest {
 
     protected void afterTestClass() {
         testDataManager.clearTestSuiteMap();
-        systemVars.clear();
+        testVars.clear();
         actionClasses.clear();
         if (baseAction.getWebAction() != null && baseAction.getWebAction().getBrowser() != null) {
             baseAction.getWebAction().stopAllBrowsers();
         }
-    }
-
-    public void loadSystemVariables() {
-        systemVars = new LinkedHashMap<>();
-        systemVars.put("CURTIME_HH:mm", DateTimeHandler.currentDayPlus("HH:mm", 0));
-        systemVars.put("CURTIME_HHmm", DateTimeHandler.currentDayPlus("HHmm", 0));
-        systemVars.put("CURTIME_hhmma", DateTimeHandler.currentDayPlus("hhmma", 0));
-        systemVars.put("CURTIME_HHmmss", DateTimeHandler.currentDayPlus("HHmmss", 0));
-        systemVars.put("CURTIME-1_HHmm", DateTimeHandler.currentDayMinutePlus("HHmm", -1));
-        systemVars.put("CURTIME-1_hhmma", DateTimeHandler.currentDayMinutePlus("hhmma", -1));
-        systemVars.put("CURTIME-60_hhmma", DateTimeHandler.currentDayMinutePlus("hhmma", -60));
-        systemVars.put("NOW+1_HH:mm", DateTimeHandler.currentDayMinutePlus("HH:mm", 1));
-        systemVars.put("CURTIME+1_HHmm", DateTimeHandler.currentDayMinutePlus("HHmm", 1));
-        systemVars.put("CURTIME+1_hhmma", DateTimeHandler.currentDayMinutePlus("hhmma", 1));
-        systemVars.put("TODAY", DateTimeHandler.currentDayPlus("yyyy-MM-dd_HH-mm-ss", 0));
-        systemVars.put("TODAY_dd-MM-yyyy_HH-mm-ss", DateTimeHandler.currentDayPlus("yyyy-MM-dd_HH-mm-ss", 0));
-        systemVars.put("TODAY_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", 0));
-        systemVars.put("TODAY_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", 0));
-        systemVars.put("TODAY_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", 0));
-        systemVars.put("TODAY_yyyyMMdd", DateTimeHandler.currentDayPlus("yyyyMMdd", 0));
-        systemVars.put("YESTERDAY_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", -1));
-        systemVars.put("YESTERDAY_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", -1));
-        systemVars.put("YESTERDAY_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", -1));
-        systemVars.put("TOMORROW_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", +1));
-        systemVars.put("TOMORROW_yyyyMMdd", DateTimeHandler.currentDayPlus("yyyyMMdd", +1));
-        systemVars.put("TOMORROW_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", +1));
-        systemVars.put("TOMORROW_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", +1));
-        systemVars.put("NEXTMONTH_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", +30));
-        systemVars.put("NEXTMONTH_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", +30));
-        systemVars.put("NEXTMONTH_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", +30));
-        systemVars.put("NEXTMONTH_yyyyMMdd", DateTimeHandler.currentDayPlus("yyyyMMdd", +30));
-        systemVars.put("NEXTMONTH+2_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", +32));
-        systemVars.put("NEXTMONTH+2_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", +32));
-        systemVars.put("NEXTMONTH+2_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", +32));
-        systemVars.put("PREVIOUSMONTH_yyyy-MM-dd", DateTimeHandler.currentDayPlus("yyyy-MM-dd", -30));
-        systemVars.put("PREVIOUSMONTH_dd-MM-yyyy", DateTimeHandler.currentDayPlus("dd-MM-yyyy", -30));
-        systemVars.put("PREVIOUSMONTH_dd/MM/yyyy", DateTimeHandler.currentDayPlus("dd/MM/yyyy", -30));
-        systemVars.put("RANDOM_Integer_7", (new Random()).nextInt(9999999) + 1);
-        systemVars.put("RANDOM_IntegerString_7", "" + ((new Random()).nextInt(9999999) + 1));
-        systemVars.put("RANDOM_DoubleString_9_2", "" + NumberHandler.getNumberFormat("##0.00", 2).format(NumberHandler.getRandomDoubleBetweenRange(0, 999999999)));
-        systemVars.put("RANDOM_DoubleString_5_6", "" + NumberHandler.getNumberFormat("##0.00", 6).format(NumberHandler.getRandomDoubleBetweenRange(0, 99999)));
     }
 
     public String getHighLevelActionPackage() {
