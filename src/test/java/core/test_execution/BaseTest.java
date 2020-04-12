@@ -45,10 +45,6 @@ public abstract class BaseTest {
         configFile = cfgFile != null ? cfgFile : null;
         prodVer = prodVer!=null? prodVer:null;
         TestReportManager.getInstance().initializeReport(testContext.getSuite().getName().toUpperCase());
-        if (configFile != null && !configFile.equals("")) {
-            String browserType = Config.getProperty(configFile, "browser");
-            TestReportManager.getInstance().setSystemInfo("Browser", baseAction.getWebAction().getBrowserType().name());
-        }
     }
 
     @AfterSuite
@@ -59,22 +55,22 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void beforeClass() {
+        testVars.getRuntimeVars().putAll(Config.getHashMapProperties(configFile));
         if(baseAction.getWebAction() != null) {
-            if (configFile != null && !configFile.equals("")) {
-                String browserType = Config.getProperty(configFile, "browser");
-                String driverTimeOut = Config.getProperty(configFile, "driverTimeout");
-                if (browserType != null && !browserType.isEmpty()) {
-                    baseAction.getWebAction().setBrowserType(BrowserType.find(browserType));
-                }
-                if (driverTimeOut != null && !driverTimeOut.isEmpty()) {
-                    baseAction.getWebAction().setTimeoutDefault(Integer.parseInt(driverTimeOut));
-                }
+            String browserType = testVars.getRuntimeVars().get("browser").toString();
+            String driverTimeOut = testVars.getRuntimeVars().get("driverTimeout").toString();
+            if (browserType != null && !browserType.isEmpty()) {
+                baseAction.getWebAction().setBrowserType(BrowserType.find(browserType));
+                TestReportManager.getInstance().setSystemInfo("Browser", baseAction.getWebAction().getBrowserType().name());
             }
-            TestReportManager.getInstance().setSystemInfo("Product Version", prodVer);
+            if (driverTimeOut != null && !driverTimeOut.isEmpty()) {
+                baseAction.getWebAction().setTimeoutDefault(Integer.parseInt(driverTimeOut));
+            }
             if (baseAction.getWebAction().getBrowser() == null) {
                 baseAction.getWebAction().startBrowser();
             }
         }
+        TestReportManager.getInstance().setSystemInfo("Product Version", prodVer);
     }
 
     @AfterClass
