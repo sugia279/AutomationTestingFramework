@@ -1,4 +1,4 @@
-package jsonplaceholder_webapitesting.utilities;
+package githubsample_webapitesting.utilities;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;

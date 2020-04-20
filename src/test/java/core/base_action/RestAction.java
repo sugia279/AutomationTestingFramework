@@ -21,19 +21,18 @@ import static io.restassured.path.json.config.JsonPathConfig.NumberReturnType;
 
 public class RestAction {
     private StringWriter requestWriter;
-    protected static PrintStream requestCapture;
+    protected PrintStream requestCapture;
     private StringWriter responseWriter;
-    protected static PrintStream responseCapture;
+    protected PrintStream responseCapture;
     private ContentType contentType;
     private NumberReturnType numberReturnType;
 
     public RestAction() {
-        initLogWriter();
         contentType = ContentType.JSON;
         numberReturnType = NumberReturnType.BIG_DECIMAL;
     }
 
-    private void initLogWriter() {
+    public void initLogWriter() {
         requestWriter = new StringWriter();
         requestCapture = new PrintStream(new WriterOutputStream(getRequestWriter(), "UTF-8"), true);
 
@@ -93,26 +92,21 @@ public class RestAction {
             case "delete":
                 response = reqSpec.when().delete(url);
                 break;
+            case "patch":
+                response = reqSpec.when().patch(url);
+                break;
         }
         return response;
     }
 
-    public RequestSpecification specifyRequest(Map<String, Object> queryParams) {
-        for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
-            specifyRequest().queryParam((String) entry.getKey(), entry.getValue());
-        }
-        return specifyRequest();
-    }
-
     public RequestSpecification specifyRequest() {
-        RequestSpecification reqSpec = given()
+        initLogWriter();
+        return given()
                 .contentType(contentType)
                 .filter(new RequestLoggingFilter(requestCapture))
                 .filter(new ResponseLoggingFilter(responseCapture))
                 .log().ifValidationFails()
                 .config(RestAssured.config().jsonConfig(jsonConfig().numberReturnType(numberReturnType)));
-
-        return reqSpec;
     }
 
     public ContentType getContentType() {

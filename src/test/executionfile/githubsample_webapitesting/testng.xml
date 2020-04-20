@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="WebAPITesting">
+    <test name="Repositories WebAPI">
+        <classes>
+            <class name="githubsample_webapitesting.testclasses.repositories.RepositoriesTest"/>
+        </classes>
+    </test>
+</suite>

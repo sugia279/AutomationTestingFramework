@@ -1,0 +1,185 @@
+{
+  "suiteName": "Validate the CRUD functions of Repository",
+  "suiteDescription": "validate the business logic of CRUD by GET/POST/PUT/DELETE /user/repos endpoint",
+  "testCases": [
+    {
+      "testId": "Repos_01",
+      "testName": "Create the Hello-World repository",
+      "testDescription": "Use POST method to create repository",
+      "testSteps": [
+        {
+          "name": "Send POST request to create Hello-World repository",
+          "class": "RestAPIAction",
+          "method": "POST",
+          "parameters": {
+            "request": {
+              "url": "@var->githubapi@/user/repos",
+              "headers": {
+                "Authorization": "@var->authorization@"
+              },
+              "body": {
+                "name": "Hello-World",
+                "description": "This is your first repository",
+                "homepage": "https://github.com",
+                "private": false,
+                "has_issues": true,
+                "has_projects": true,
+                "has_wiki": true
+              }
+            },
+            "response": {
+              "statusCode": 201,
+              "body": {
+                "full_name": {
+                  "is": "automationtester304/Hello-World"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Store node_id value of the above response",
+          "class": "RestAPIAction",
+          "method": "storeResponseValue",
+          "parameters": {
+            "variables": [
+              {
+                "varName": "createdNodeId",
+                "key": "node_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Send GET request to get and verify Hello-World's repository",
+          "class": "RestAPIAction",
+          "method": "GET",
+          "parameters": {
+            "request": {
+              "url": "@var->githubapi@/repos/automationtester304/Hello-World",
+              "headers": {
+                "Authorization": "@var->authorization@"
+              }
+            },
+            "response": {
+              "statusCode": 200,
+              "body": {
+                "node_id": {
+                  "is": "@var->createdNodeId@"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "testId": "Repos_02",
+      "testName": "Update the Hello-World repository information",
+      "testDescription": "Use PATCH method to update the description & homepage fields",
+      "testSteps": [
+        {
+          "name": "Send PATCH request to update the description & homepage",
+          "class": "RestAPIAction",
+          "method": "PATCH",
+          "parameters": {
+            "request": {
+              "url": "@var->githubapi@/repos/automationtester304/Hello-World",
+              "headers": {
+                "Authorization": "@var->authorization@"
+              },
+              "body": {
+                "name": "Hello-World",
+                "description": "The repository is updated",
+                "homepage": "https://github.com/automationtester304",
+                "private": true,
+                "has_issues": true,
+                "has_projects": true,
+                "has_wiki": true
+              }
+            },
+            "response": {
+              "statusCode": 200,
+              "body": {
+                "description": {
+                  "is": "The repository is updated"
+                },
+                "homepage": {
+                  "is": "https://github.com/automationtester304"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Send GET request to get and verify the updated description and homepage",
+          "class": "RestAPIAction",
+          "method": "GET",
+          "parameters": {
+            "request": {
+              "url": "@var->githubapi@/repos/automationtester304/Hello-World",
+              "headers": {
+                "Authorization": "@var->authorization@"
+              }
+            },
+            "response": {
+              "statusCode": 200,
+              "body": {
+                "description": {
+                  "is": "The repository is updated"
+                },
+                "homepage": {
+                  "is": "https://github.com/automationtester304"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "testId": "Repos_03",
+      "testName": "Delete the created Hello-World repository",
+      "testDescription": "Use DELETE method to delete the Hello-World repository",
+      "testSteps": [
+        {
+          "name": "Send DELETE request to delete 'Hello-World' repo",
+          "class": "RestAPIAction",
+          "method": "DELETE",
+          "parameters": {
+            "request": {
+              "url": "@var->githubapi@/repos/automationtester304/Hello-World",
+              "headers": {
+                "Authorization": "@var->authorization@"
+              }
+            },
+            "response": {
+              "statusCode": 204
+            }
+          }
+        },
+        {
+          "name": "Send GET request to verify the inexistent of Hello-World repository",
+          "class": "RestAPIAction",
+          "method": "GET",
+          "parameters": {
+            "request": {
+              "url": "@var->githubapi@/user/repos/automationtester304/Hello-World",
+              "headers": {
+                "Authorization": "@var->authorization@"
+              }
+            },
+            "response": {
+              "statusCode": 404,
+              "body": {
+                "message": {
+                  "is": "Not Found"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -13,18 +13,21 @@ public class TestReportManager {
     protected static String REPORT_CONFIG = "src/test/java/core/extent_report/extReportConfig.xml";
     private String reportOutput = System.getProperty("user.dir") + "\\reports\\[TestReport]_[date].html";
 
-    public static volatile TestReportManager instance;
-    private static Object mutex = new Object();
+//    public static volatile TestReportManager instance;
+//    private static Object mutex = new Object();
+    public static TestReportManager instance;
 
     public static TestReportManager getInstance() {
         TestReportManager result = instance;
-        if (result == null) {
-            synchronized (mutex) {
-                result = instance;
-                if (result == null)
-                    instance = result = new TestReportManager();
-            }
-        }
+//        if (result == null) {
+//            synchronized (mutex) {
+//                result = instance;
+//                if (result == null)
+//                    instance = result = new TestReportManager();
+//            }
+//        }
+        if (result == null)
+            instance = result = new TestReportManager();
         return result;
     }
 
@@ -50,7 +53,6 @@ public class TestReportManager {
                     }
                 });
     }
-
 
     public void setSystemInfo(String key, String value) {
         testReport.getExtentReports().setSystemInfo(key, value);

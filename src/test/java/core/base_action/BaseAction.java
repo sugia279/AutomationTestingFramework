@@ -1,5 +1,8 @@
 package core.base_action;
 
+import core.extent_report.ReportLogLevel;
+import core.extent_report.TestReportManager;
+import core.testdata_manager.TestStep;
 import org.openqa.selenium.TakesScreenshot;
 
 import java.util.LinkedHashMap;
@@ -25,7 +28,7 @@ public class BaseAction {
     }
 
     public void initSoftAssert() {
-        if(webAction.getBrowser() !=null) {
+        if(webAction != null && webAction.getBrowser() !=null) {
             setSoftAssert(new SoftAssertExt((TakesScreenshot) webAction.getBrowser()));
         }
         else
@@ -58,5 +61,15 @@ public class BaseAction {
 
     public void setRestAction(RestAction restAction) {
         this.restAction = restAction;
+    }
+
+
+    public void delayTime(TestStep step) {
+        Long delayMillis = (Long) step.getTestParams().get("delayMillis");
+        try {
+            Thread.sleep(delayMillis);
+        } catch (InterruptedException e) {
+            TestReportManager.getInstance().getTestReport().testFail(ReportLogLevel.LOG_LVL_4 + "InterruptedException: " + e.getMessage(), "");
+        }
     }
 }

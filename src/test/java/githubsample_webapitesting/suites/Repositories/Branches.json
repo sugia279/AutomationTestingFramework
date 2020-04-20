@@ -1,0 +1,80 @@
+{
+  "suiteName": "GET /repos/:owner/:repo/branches",
+  "suiteDescription": "validate the responses from GET /repos/:owner/:repo/branches",
+  "testCases": [
+    {
+      "testId": "Branches_01",
+      "testName": "Search repository and store repoName and owner",
+      "testDescription": "Verify the existing repository and store repoName and owner",
+      "testSteps": [
+        {
+          "name": "Search repository",
+          "class": "RestAPIAction",
+          "method": "GET",
+          "parameters": {
+            "request": {
+              "url": "@var->githubapi@/search/repositories",
+              "headers": {
+                "Authorization": "@var->authorization@"
+              },
+              "queryParams": {
+                "q": "automationtestingframework",
+                "sort": "stars",
+                "order": "desc"
+              }
+            },
+            "response": {
+              "statusCode": 200,
+              "bodyValue": {
+                "total_count": {
+                  "greaterThan": 1
+                },
+                "items.any{it.full_name = 'automationtester304/automationtestingframework'}": {
+                  "is": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Store owner and repoName values of the above response",
+          "class": "RestAPIAction",
+          "method": "storeResponseValue",
+          "parameters": {
+            "variables": [
+              {
+                "varName": "owner",
+                "key": "items.find{it.full_name = 'automationtester304/AutomationTestingFramework'}.owner.login"
+              },
+              {
+                "varName": "repoName",
+                "key": "items.find{it.full_name = 'automationtester304/AutomationTestingFramework'}.name"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Send GET request to get branches",
+          "class": "RestAPIAction",
+          "method": "GET",
+          "parameters": {
+            "request": {
+              "url": "@var->githubapi@/repos/@var->owner@/@var->repoName@/branches",
+              "headers": {
+                "Authorization": "@var->authorization@"
+              }
+            },
+            "response": {
+              "statusCode": 200,
+              "body": {
+                "any{it.name == 'master'}": {
+                  "is": true
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

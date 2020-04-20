@@ -8,9 +8,7 @@ import core.base_action.BrowserType;
 import core.testdata_manager.TestDataManager;
 import core.testdata_manager.TestStep;
 import core.testdata_manager.TestVariableManager;
-import core.utilities.Config;
-import core.utilities.DateTimeHandler;
-import core.utilities.NumberHandler;
+import core.utilities.*;
 import org.testng.*;
 import org.testng.annotations.*;
 import org.testng.annotations.Optional;
@@ -88,6 +86,7 @@ public abstract class BaseTest {
         curTestCase = (TestCase) testCaseInfo[1];
         testVars.loadSystemVariables();
         testDataManager.updateVariable(curTestCase, testVars.getSystemVars());
+        // just update the runtime var for testcase info (if yes), updating the runtime vars for the test step must be done inside each test action
         testDataManager.updateTCInfoVariable(curTestCase, testVars.getRuntimeVars());
         baseAction.initSoftAssert();
         String[] suiteNames = {testContext.getSuite().getName().toUpperCase(),
@@ -101,8 +100,10 @@ public abstract class BaseTest {
         String stepInfo = "";
         if (curTestCase.isActive()) {
             for (TestStep step : curTestCase.get_testSteps()) {
+                step.setName((String)StringHandler.replaceValueByMapData(step.getName(),"@var->", "@", testVars.getRuntimeVars()));
                 stepInfo = step.getName() + "</br><u>Action Class:</u> " + step.getClassExecution() + "</br><u>Action:</u> " + step.getMethod();
                 TestReportManager.getInstance().setStepInfo(stepInfo);
+                step.setTestParams(HashMapHandler.replaceValueByMapData(step.getTestParams(), "@var->", "@", testVars.getRuntimeVars()));
 
                 if(step.getClassExecution() != null) {
                     try {

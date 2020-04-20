@@ -1,4 +1,4 @@
-package jsonplaceholder_webapitesting.keywords;
+package githubsample_webapitesting.keywords;
 
 import core.base_action.BaseAction;
 import core.base_action.RestAction;
@@ -7,11 +7,11 @@ import core.extent_report.TestReportManager;
 import core.testdata_manager.TestStep;
 import core.utilities.HashMapHandler;
 import core.utilities.StringHandler;
+import githubsample_webapitesting.utilities.CaseInsensitiveStringMatcher;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import jsonplaceholder_webapitesting.utilities.CaseInsensitiveStringMatcher;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.json.simple.JSONArray;
@@ -27,6 +27,8 @@ import java.util.Map;
 
 public class RestAPIAction extends BaseAction {
     private String outputString = "";
+    private RequestSpecification reqSpec;
+    private Response response;
     public RestAPIAction(BaseAction action){
         super(action);
     }
@@ -46,110 +48,89 @@ public class RestAPIAction extends BaseAction {
     public void DELETE(TestStep step){
         restAPIActionHandler(step);
     }
+    public void PATCH(TestStep step){
+        restAPIActionHandler(step);
+    }
 
     private void restAPIActionHandler(TestStep step){
         ArrayList<String> passTexts = new ArrayList<>();
         ArrayList<AssertionError> errors = new ArrayList<>();
 
-        Boolean returnSkipAsFailed = (Boolean) step.getTestParams().get("returnSkipAsFailed");
+        JSONObject requestJObj = (JSONObject) step.getTestParams().get("request");
 
-        JSONObject requestSection = (JSONObject) step.getTestParams().get("request");
-        String requestUrl = (String) StringHandler.replaceValueByMapData((String)requestSection.get("url"), "@var->", "@", testVars);
-        RequestSpecification reqSpec = getRestAction().specifyRequest();
-
-        LinkedHashMap<String, Object> headerItems = HashMapHandler.ConvertJsonObjectToHashMap((JSONObject)requestSection.get("headers"));
-        if(headerItems.keySet().size() > 0){
-            reqSpec = reqSpec.headers(headerItems);
-        }
-
-        String contentType = requestSection.get("contentType").toString();
-        if(contentType != null){
-            reqSpec = reqSpec.contentType(contentType);
-        }
-
-        LinkedHashMap<String, Object> formParams = HashMapHandler.ConvertJsonObjectToHashMap((JSONObject)requestSection.get("formParams"));
-        if(formParams.keySet().size() > 0){
-            reqSpec = reqSpec.formParams(formParams);
-        }
-
-        LinkedHashMap<String, Object> queryParams = HashMapHandler.ConvertJsonObjectToHashMap((JSONObject)requestSection.get("queryParams"));
-        if(queryParams.keySet().size() > 0){
-            reqSpec = reqSpec.queryParams(queryParams);
-        }
-        String requestBody = requestSection.get("body").toString();
-        if(requestBody != null){
-            reqSpec = reqSpec.body(requestBody);
-        }
-
-        // delay time
-        String requestDelayMillis = requestSection.get("delayMillis").toString();
-        if (requestDelayMillis != null) {
-            Long delayMillis = Long.parseLong(requestDelayMillis);
-            delayTime(delayMillis);
-        }
-
-        Response res = getRestAction().executeMethod(step.getMethod(), requestUrl, reqSpec);
+        sendRequest(step.getMethod(), requestJObj, passTexts, errors);
 
         outputString = "Request: <br><pre>" + getRestAction().getRequestWriter().toString() + "</pre><br>";
 
         JSONObject responseJsonObj = (JSONObject) step.getTestParams().get("response");
         LinkedHashMap<String, Object> responseSection = HashMapHandler.ConvertJsonObjectToHashMap(responseJsonObj);
-        //store runtime wars
-        JSONArray storedParams = (JSONArray) responseJsonObj.get("storeParamValue");
-        if(storedParams != null) {
-            testVars.putAll(storeParamValueHandle(storedParams, res));
-        }
 
-        responseSection = HashMapHandler.replaceValueByMapData(responseSection, "@var->", "@", testVars);
         //validate response
-        validateResponse(responseSection, res, passTexts, errors);
-
+        validateResponse(responseSection, response, passTexts, errors);
         outputString = outputString + "Response: <br><pre>" + getRestAction().getResponseWriter().toString() + "</pre><br>";
+
         TestReportManager.getInstance().getTestReport().testLog(outputString);
 
         boolean resultStep = errors.size() <= 0;
-        if (!resultStep) {
-            if (returnSkipAsFailed != null && returnSkipAsFailed) {
-                throw new SkipException(formatPassTexts(passTexts) + formatErrors(errors) + "<br><b>" +
-                        "Skipping this exception since the returnAsFailed field is 'skip'" + "</b>");
-            }
-        }
         softAssert.assertTrue(resultStep, formatPassTexts(passTexts) + formatErrors(errors));
     }
 
-    public LinkedHashMap<String, Object> storeParamValueHandle(JSONArray resValueToVar, Response response) {
-        LinkedHashMap<String, Object> vars = new LinkedHashMap<String, Object>();
-        if (resValueToVar != null) {
-            resValueToVar.forEach(ele -> {
-                        String varName = (String) ((JSONObject) ele).get("varName");
-                        String valueName = (String) ((JSONObject) ele).get("key");
-                        Object value = response.getBody().path(valueName);
-                        String cast = (String) ((JSONObject) ele).get("cast");
-                        if (cast != null) {
-                            switch (cast) {
-                                case "int":
-                                    if (value instanceof String)
-                                        value = Integer.valueOf((String) value);
-                                    break;
-                                case "String":
-                                    break;
-                            }
-                        }
-                        vars.put(varName, value);
-                    }
-            );
+    private void sendRequest(String method, JSONObject requestJObj, ArrayList<String> passText, ArrayList<AssertionError> errors){
+        try {
+            getRestAction().initLogWriter();
+
+            String requestUrl = (String) requestJObj.get("url");
+            reqSpec = getRestAction().specifyRequest();
+
+            LinkedHashMap<String, Object> headerItems = HashMapHandler.ConvertJsonObjectToHashMap((JSONObject) requestJObj.get("headers"));
+            if (headerItems.keySet().size() > 0) {
+                reqSpec = reqSpec.headers(headerItems);
+            }
+
+            String contentType = (String) requestJObj.get("contentType");
+            if (contentType != null) {
+                reqSpec = reqSpec.contentType(contentType);
+            }
+
+            LinkedHashMap<String, Object> formParams = HashMapHandler.ConvertJsonObjectToHashMap((JSONObject) requestJObj.get("formParams"));
+            if (formParams.keySet().size() > 0) {
+                reqSpec = reqSpec.formParams(formParams);
+            }
+
+            LinkedHashMap<String, Object> queryParams = HashMapHandler.ConvertJsonObjectToHashMap((JSONObject) requestJObj.get("queryParams"));
+            if (queryParams.keySet().size() > 0) {
+                reqSpec = reqSpec.queryParams(queryParams);
+            }
+
+            JSONObject requestBody = (JSONObject) requestJObj.get("body");
+            if (requestBody != null) {
+                reqSpec = reqSpec.body(requestBody.toJSONString());
+            }
+
+            response = getRestAction().executeMethod(method, requestUrl, reqSpec);
+            passText.add("The request is sent successfully.");
         }
-        return vars;
+        catch(AssertionError e){
+            errors.add(e);
+        }
     }
 
+    public void validateResponse(TestStep step){
+        ArrayList<String> passTexts = new ArrayList<>();
+        ArrayList<AssertionError> errors = new ArrayList<>();
 
-    public ValidatableResponse validateResponse(LinkedHashMap<String, Object> responseSection, Response response, ArrayList<String> passText, ArrayList<AssertionError> errors) {
+        validateResponse(step.getTestParams(), response, passTexts, errors);
+        boolean resultStep = errors.size() <= 0;
+        softAssert.assertTrue(resultStep, formatPassTexts(passTexts) + formatErrors(errors));
+    }
+
+    public ValidatableResponse validateResponse(LinkedHashMap<String, Object> responseJObj, Response response, ArrayList<String> passText, ArrayList<AssertionError> errors) {
         ValidatableResponse validRes = response.then();
-        for (Map.Entry<String, Object> entry : responseSection.entrySet()) {
+        for (Map.Entry<String, Object> entry : responseJObj.entrySet()) {
             try {
                 switch (entry.getKey()) {
                     case "statusCode":
-                        int status = (entry.getValue() instanceof Integer) ? (int) entry.getValue() : ((java.lang.Long) entry.getValue()).intValue();
+                        int status = (entry.getValue() instanceof Integer) ? (int) entry.getValue() : ((Long) entry.getValue()).intValue();
                         validRes.statusCode(status);
                         passText.add("Ensure the status code is " + status);
                         break;
@@ -157,7 +138,7 @@ public class RestAPIAction extends BaseAction {
                         validRes.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("data\\api\\" + entry.getValue()));
                         passText.add("Ensure the response data schema match to the defined schema at" + entry.getValue());
                         break;
-                    case "bodyValue":
+                    case "body":
                         JSONObject fieldPaths = (JSONObject) entry.getValue();
                         for (Object fieldPath : fieldPaths.keySet()) {
                             JSONObject jsonMatchers = (JSONObject) fieldPaths.get(fieldPath);
@@ -174,6 +155,37 @@ public class RestAPIAction extends BaseAction {
             }
         }
         return validRes;
+    }
+
+    public void storeResponseValue(TestStep step){
+        //store runtime wars
+        JSONArray storedParams = (JSONArray) step.getTestParams().get("variables");
+        if(storedParams != null) {
+            storedParams.forEach(ele -> {
+                        try {
+                            String varName = (String) ((JSONObject) ele).get("varName");
+                            String valueName = (String) ((JSONObject) ele).get("key");
+                            Object value = response.getBody().path(valueName);
+                            String cast = (String) ((JSONObject) ele).get("cast");
+                            if (cast != null) {
+                                switch (cast) {
+                                    case "int":
+                                        if (value instanceof String)
+                                            value = Integer.valueOf((String) value);
+                                        break;
+                                    case "String":
+                                        break;
+                                }
+                            }
+                            testVars.put(varName, value);
+                            getSoftAssert().assertTrue(true, "Store the value of field '" + valueName + "' : '" + value + "' into the run time variable list.");
+                        } catch (AssertionError e) {
+                            getSoftAssert().assertTrue(false, e.getMessage());
+                        }
+                    }
+
+            );
+        }
     }
 
     private Matcher<?> buildMatcherPattern(String matcherPattern, Object valueMatcher) {
@@ -320,13 +332,5 @@ public class RestAPIAction extends BaseAction {
         }
         temp.append("</pre>");
         return temp.toString();
-    }
-
-    public void delayTime(long delayMillis) {
-        try {
-            Thread.sleep(delayMillis);
-        } catch (InterruptedException e) {
-            TestReportManager.getInstance().getTestReport().testFail(ReportLogLevel.LOG_LVL_4 + "InterruptedException: " + e.getMessage(), "");
-        }
     }
 }
