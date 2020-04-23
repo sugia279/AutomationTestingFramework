@@ -1,4 +1,4 @@
-package githubsample_webapitesting.utilities;
+package core.utilities.restassuredmatcher;
 
 import org.hamcrest.Description;
 import org.hamcrest.Factory;

@@ -13,9 +13,11 @@ import org.testng.*;
 import org.testng.annotations.*;
 import org.testng.annotations.Optional;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
 import java.util.*;
 
 public abstract class BaseTest {
@@ -26,7 +28,7 @@ public abstract class BaseTest {
     protected TestCase curTestCase = null;
     protected TestDataManager testDataManager;
     protected BaseAction baseAction;
-    private String highLevelActionPackage;
+    private String userKeywordPackage;
     protected LinkedHashMap<String, Object> actionClasses;
     protected TestVariableManager testVars;
 
@@ -109,8 +111,16 @@ public abstract class BaseTest {
                     try {
                         Object actionClass = actionClasses.get(step.getClassExecution());
                         if (actionClass == null) {
-                            Class<?> cl = Class.forName(getHighLevelActionPackage() + "." + step.getClassExecution());
-                            Constructor<?> cons = cl.getConstructor(BaseAction.class);
+                            Class<?> clazz = null;
+                            try {
+                                // find keyword in core package first
+                                clazz = Class.forName("core.keywords." + step.getClassExecution());
+                            } catch (ClassNotFoundException e) {
+                                // then find keyword in the defined user package
+                                clazz = Class.forName(getUserKeywordPackage() + "." + step.getClassExecution());
+                            }
+
+                            Constructor<?> cons = clazz.getConstructor(BaseAction.class);
                             actionClass = cons.newInstance(baseAction);
                             actionClasses.put(step.getClassExecution(), actionClass);
                         }
@@ -202,12 +212,12 @@ public abstract class BaseTest {
         }
     }
 
-    public String getHighLevelActionPackage() {
-        return highLevelActionPackage;
+    public String getUserKeywordPackage() {
+        return userKeywordPackage;
     }
 
-    public void setHighLevelActionPackage(String highLevelActionPackage) {
-        this.highLevelActionPackage = highLevelActionPackage;
+    public void setUserKeywordPackage(String highLevelActionPackage) {
+        this.userKeywordPackage = highLevelActionPackage;
     }
 }
 

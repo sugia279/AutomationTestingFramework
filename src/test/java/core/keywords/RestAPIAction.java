@@ -1,13 +1,10 @@
-package githubsample_webapitesting.keywords;
+package core.keywords;
 
 import core.base_action.BaseAction;
-import core.base_action.RestAction;
-import core.extent_report.ReportLogLevel;
 import core.extent_report.TestReportManager;
 import core.testdata_manager.TestStep;
 import core.utilities.HashMapHandler;
-import core.utilities.StringHandler;
-import githubsample_webapitesting.utilities.CaseInsensitiveStringMatcher;
+import core.utilities.restassuredmatcher.CaseInsensitiveStringMatcher;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
@@ -16,7 +13,6 @@ import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.testng.SkipException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -59,8 +55,8 @@ public class RestAPIAction extends BaseAction {
         JSONObject requestJObj = (JSONObject) step.getTestParams().get("request");
 
         sendRequest(step.getMethod(), requestJObj, passTexts, errors);
-
-        outputString = "Request: <br><pre>" + getRestAction().getRequestWriter().toString() + "</pre><br>";
+        //outputString = "<button type=\"button\" class=\"collapsible\">Request & Response</button><div class=\"content\">";
+        outputString = outputString + "Request: <br><pre>" + getRestAction().getRequestWriter().toString() + "</pre><br>";
 
         JSONObject responseJsonObj = (JSONObject) step.getTestParams().get("response");
         LinkedHashMap<String, Object> responseSection = HashMapHandler.ConvertJsonObjectToHashMap(responseJsonObj);
@@ -68,7 +64,7 @@ public class RestAPIAction extends BaseAction {
         //validate response
         validateResponse(responseSection, response, passTexts, errors);
         outputString = outputString + "Response: <br><pre>" + getRestAction().getResponseWriter().toString() + "</pre><br>";
-
+        //outputString = outputString + "</div>";
         TestReportManager.getInstance().getTestReport().testLog(outputString);
 
         boolean resultStep = errors.size() <= 0;
