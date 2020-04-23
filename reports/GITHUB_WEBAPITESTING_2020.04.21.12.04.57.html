@@ -13,42 +13,20 @@
 	<link href='http://cdn.rawgit.com/extent-framework/extent-github-cdn/39026ad/v3html/css/extent.css' type='text/css' rel='stylesheet' />
 	
 	<title>HiAffinity</title>
+
 	<style type='text/css'>
 		/* json-tree */
 		.jstBracket,.jstComma,.jstValue{white-space:pre-wrap}.jstValue{font-size:10px;font-weight:400;font-family:"Lucida Console",Monaco,monospace}.jstProperty{color:#666;word-wrap:break-word}.jstBool{color:#2525CC}.jstNum{color:#D036D0}.jstNull{color:gray}.jstStr{color:#2DB669}.jstFold:after{content:' -';cursor:pointer}.jstExpand{white-space:normal}.jstExpand:after{content:' +';cursor:pointer}.jstFolded{white-space:normal!important}.jstHiddenBlock{display:none}
 			
             
-.collapsible {
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  margin: 1px;
-}
 
-.active, .collapsible:hover {
-  background-color: #555;
-}
-
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
             
         
 	</style>
 	
-	<script type="text/javascript">	
+	<script type="text/javascript">
 		/*! json-tree - v0.2.2 - 2017-09-25, MIT LICENSE */
 		var JSONTree=function(){var n={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;","/":"&#x2F;"},t=0,r=0;this.create=function(n,t){return r+=1,N(u(n,0,!1),{class:"jstValue"})};var e=function(t){return t.replace(/[&<>'"]/g,function(t){return n[t]})},s=function(){return r+"_"+t++},u=function(n,t,r){if(null===n)return f(r?t:0);switch(typeof n){case"boolean":return l(n,r?t:0);case"number":return i(n,r?t:0);case"string":return o(n,r?t:0);default:return n instanceof Array?a(n,t,r):c(n,t,r)}},c=function(n,t,r){var e=s(),u=Object.keys(n).map(function(r){return j(r,n[r],t+1,!0)}).join(m()),c=[g("{",r?t:0,e),N(u,{id:e}),p("}",t)].join("\n");return N(c,{})},a=function(n,t,r){var e=s(),c=n.map(function(n){return u(n,t+1,!0)}).join(m());return[g("[",r?t:0,e),N(c,{id:e}),p("]",t)].join("\n")},o=function(n,t){var r=e(JSON.stringify(n));return N(v(r,t),{class:"jstStr"})},i=function(n,t){return N(v(n,t),{class:"jstNum"})},l=function(n,t){return N(v(n,t),{class:"jstBool"})},f=function(n){return N(v("null",n),{class:"jstNull"})},j=function(n,t,r){var s=v(e(JSON.stringify(n))+": ",r),c=N(u(t,r,!1),{});return N(s+c,{class:"jstProperty"})},m=function(){return N(",\n",{class:"jstComma"})},N=function(n,t){return d("span",t,n)},d=function(n,t,r){return"<"+n+Object.keys(t).map(function(n){return" "+n+'="'+t[n]+'"'}).join("")+">"+r+"</"+n+">"},g=function(n,t,r){return N(v(n,t),{class:"jstBracket"})+N("",{class:"jstFold",onclick:"JSONTree.toggle('"+r+"')"})};this.toggle=function(n){var t=document.getElementById(n),r=t.parentNode,e=t.previousElementSibling;""===t.className?(t.className="jstHiddenBlock",r.className="jstFolded",e.className="jstExpand"):(t.className="",r.className="",e.className="jstFold")};var p=function(n,t){return N(v(n,t),{})},v=function(n,t){return Array(2*t+1).join(" ")+n};return this}();
-		
 	</script>
 </head>
 	<body class='extent standard default hide-overflow '>
@@ -71,7 +49,7 @@
 		<!-- nav-right -->
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<a href='#!'>
-			<span class='label blue darken-3 suite-start-time'>Apr 20, 2020 06:20:49 PM</span>
+			<span class='label blue darken-3 suite-start-time'>Apr 21, 2020 12:04:57 PM</span>
 			</a>
 		</ul>
 	</div>
@@ -98,8 +76,9 @@
 				<i class='material-icons'>local_offer</i> Category
 				</a>
 				<ul id='category-toggle' class='dropdown-content'>
-					<li><a href='#'><b>DEFAULTSUITE</b></a></li>
-					<li><a href='#'><b>&emsp;AUTOTEST</b></a></li>
+					<li><a href='#'><b>GITHUB_WEBAPITESTING</b></a></li>
+					<li><a href='#'><b>&emsp;REPOSITORIES&thinsp;WEBAPI</b></a></li>
+					<li><a href='#'><b>&emsp;&emsp;Validate&thinsp;the&thinsp;CRUD&thinsp;functions&thinsp;of&thinsp;Repository</b></a></li>
 					<li><a href='#'><b>&emsp;&emsp;GET&thinsp;/repos/:owner/:repo/branches</b></a></li>
 					<li class='divider'></li>
 					<li class='clear'><a href='#!' clear='true'>Clear Filters</a></li>
@@ -141,7 +120,7 @@
                     <canvas id='parent-analysis' width='90' height='70'></canvas>
                 </div>
                 <div class='block text-small'>
-                    <span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>1</span> test(s) passed</span>
+                    <span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>4</span> test(s) passed</span>
                 </div>
                 <div class='block text-small'>
                     <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
@@ -164,21 +143,986 @@
 			<ul id='test-collection' class='test-collection'>
 				<li class='test displayed active  pass' status='pass' bdd='false' test-id='1'>
 					<div class='test-heading'>
-						<span class='test-name'>[Branches_01] Search repository and store repoName and owner</span>
-						<span class='test-time'>Apr 20, 2020 06:20:49 PM</span>
+						<span class='test-name'>[Repos_01] Create the Hello-World repository</span>
+						<span class='test-time'>Apr 21, 2020 12:04:57 PM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Apr 20, 2020 06:20:49 PM</span>
-	<span class='label end-time'>Apr 20, 2020 06:20:54 PM</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 4s+607ms</span>
+	<span class='label start-time'>Apr 21, 2020 12:04:57 PM</span>
+	<span class='label end-time'>Apr 21, 2020 12:05:06 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 8s+126ms</span>
+</div>
+<div class='test-desc'>Use POST method to create repository </div>
+<div class='test-attributes'>
+	<div class='category-list'>
+		<span class='category label'><b>GITHUB_WEBAPITESTING</b></span>
+		<span class='category label'><b>&emsp;REPOSITORIES&thinsp;WEBAPI</b></span>
+		<span class='category label'><b>&emsp;&emsp;Validate&thinsp;the&thinsp;CRUD&thinsp;functions&thinsp;of&thinsp;Repository</b></span>
+	</div>
+</div>
+<div class='test-steps'>
+	<table class='bordered table-results'>
+		<thead>
+			<tr>
+				<th>Status</th>
+				<th>Timestamp</th>
+				<th>Details</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:04:57 PM</td>
+				<td class='step-details'>
+						<b><font color="blue"><u>Step 1:</u></font> Send POST request to create Hello-World repository</br><u>Action Class:</u> RestAPIAction</br><u>Action:</u> POST</b>
+					
+				</td>
+			</tr>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:05 PM</td>
+				<td class='step-details'>
+						Request: <br><pre>Request method:	POST
+Request URI:	https://api.github.com/user/repos
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Authorization=token ffb93324beb7a75ef38eee06b44f431d58828d91
+				Accept=*/*
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "has_projects": true,
+    "private": false,
+    "has_wiki": true,
+    "name": "Hello-World",
+    "description": "This is your first repository",
+    "has_issues": true,
+    "homepage": "https://github.com"
+}
+</pre><br>Response: <br><pre>HTTP/1.1 201 Created
+Date: Tue, 21 Apr 2020 05:05:07 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 5682
+Server: GitHub.com
+Status: 201 Created
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4999
+X-RateLimit-Reset: 1587449107
+Cache-Control: private, max-age=60, s-maxage=60
+Vary: Accept, Authorization, Cookie, X-GitHub-OTP
+ETag: "5bcd8ffe86ce920e482813a85be1d548"
+X-OAuth-Scopes: admin:repo_hook, delete_repo, repo
+X-Accepted-OAuth-Scopes: public_repo, repo
+Location: https://api.github.com/repos/automationtester304/Hello-World
+X-GitHub-Media-Type: github.v3; format=json
+Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset
+Access-Control-Allow-Origin: *
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+X-Frame-Options: deny
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+Content-Security-Policy: default-src 'none'
+Vary: Accept-Encoding, Accept, X-Requested-With
+X-GitHub-Request-Id: 6527:7B9E:91E88D:B310AC:5E9E7F01
+
+{
+    "id": 257485606,
+    "node_id": "MDEwOlJlcG9zaXRvcnkyNTc0ODU2MDY=",
+    "name": "Hello-World",
+    "full_name": "automationtester304/Hello-World",
+    "private": false,
+    "owner": {
+        "login": "automationtester304",
+        "id": 63831026,
+        "node_id": "MDQ6VXNlcjYzODMxMDI2",
+        "avatar_url": "https://avatars1.githubusercontent.com/u/63831026?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/automationtester304",
+        "html_url": "https://github.com/automationtester304",
+        "followers_url": "https://api.github.com/users/automationtester304/followers",
+        "following_url": "https://api.github.com/users/automationtester304/following{/other_user}",
+        "gists_url": "https://api.github.com/users/automationtester304/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/automationtester304/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/automationtester304/subscriptions",
+        "organizations_url": "https://api.github.com/users/automationtester304/orgs",
+        "repos_url": "https://api.github.com/users/automationtester304/repos",
+        "events_url": "https://api.github.com/users/automationtester304/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/automationtester304/received_events",
+        "type": "User",
+        "site_admin": false
+    },
+    "html_url": "https://github.com/automationtester304/Hello-World",
+    "description": "This is your first repository",
+    "fork": false,
+    "url": "https://api.github.com/repos/automationtester304/Hello-World",
+    "forks_url": "https://api.github.com/repos/automationtester304/Hello-World/forks",
+    "keys_url": "https://api.github.com/repos/automationtester304/Hello-World/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/automationtester304/Hello-World/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/automationtester304/Hello-World/teams",
+    "hooks_url": "https://api.github.com/repos/automationtester304/Hello-World/hooks",
+    "issue_events_url": "https://api.github.com/repos/automationtester304/Hello-World/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/automationtester304/Hello-World/events",
+    "assignees_url": "https://api.github.com/repos/automationtester304/Hello-World/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/automationtester304/Hello-World/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/automationtester304/Hello-World/tags",
+    "blobs_url": "https://api.github.com/repos/automationtester304/Hello-World/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/automationtester304/Hello-World/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/automationtester304/Hello-World/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/automationtester304/Hello-World/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/automationtester304/Hello-World/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/automationtester304/Hello-World/languages",
+    "stargazers_url": "https://api.github.com/repos/automationtester304/Hello-World/stargazers",
+    "contributors_url": "https://api.github.com/repos/automationtester304/Hello-World/contributors",
+    "subscribers_url": "https://api.github.com/repos/automationtester304/Hello-World/subscribers",
+    "subscription_url": "https://api.github.com/repos/automationtester304/Hello-World/subscription",
+    "commits_url": "https://api.github.com/repos/automationtester304/Hello-World/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/automationtester304/Hello-World/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/automationtester304/Hello-World/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/automationtester304/Hello-World/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/automationtester304/Hello-World/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/automationtester304/Hello-World/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/automationtester304/Hello-World/merges",
+    "archive_url": "https://api.github.com/repos/automationtester304/Hello-World/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/automationtester304/Hello-World/downloads",
+    "issues_url": "https://api.github.com/repos/automationtester304/Hello-World/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/automationtester304/Hello-World/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/automationtester304/Hello-World/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/automationtester304/Hello-World/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/automationtester304/Hello-World/labels{/name}",
+    "releases_url": "https://api.github.com/repos/automationtester304/Hello-World/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/automationtester304/Hello-World/deployments",
+    "created_at": "2020-04-21T05:05:06Z",
+    "updated_at": "2020-04-21T05:05:06Z",
+    "pushed_at": "2020-04-21T05:05:07Z",
+    "git_url": "git://github.com/automationtester304/Hello-World.git",
+    "ssh_url": "git@github.com:automationtester304/Hello-World.git",
+    "clone_url": "https://github.com/automationtester304/Hello-World.git",
+    "svn_url": "https://github.com/automationtester304/Hello-World",
+    "homepage": "https://github.com",
+    "size": 0,
+    "stargazers_count": 0,
+    "watchers_count": 0,
+    "language": null,
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "has_pages": false,
+    "forks_count": 0,
+    "mirror_url": null,
+    "archived": false,
+    "disabled": false,
+    "open_issues_count": 0,
+    "license": null,
+    "forks": 0,
+    "open_issues": 0,
+    "watchers": 0,
+    "default_branch": "master",
+    "permissions": {
+        "admin": true,
+        "push": true,
+        "pull": true
+    },
+    "allow_squash_merge": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "delete_branch_on_merge": false,
+    "network_count": 0,
+    "subscribers_count": 1
+}
+</pre><br>
+					
+				</td>
+			</tr>
+			<tr class='log' status='pass'>
+				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+				<td class='timestamp'>12:05:05 PM</td>
+				<td class='step-details'>
+						------------<font color="green"><b>Validation:</b></font><br><pre><font color="green">1. </font>The request is sent successfully.<br><font color="green">2. </font>Ensure the field [full_name] - is "automationtester304/Hello-World".<br><font color="green">3. </font>Ensure the status code is 201<br></pre> <PASSED>
+					
+				</td>
+			</tr>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:05 PM</td>
+				<td class='step-details'>
+						<b><font color="blue"><u>Step 2:</u></font> Store node_id value of the above response</br><u>Action Class:</u> RestAPIAction</br><u>Action:</u> storeResponseValue</b>
+					
+				</td>
+			</tr>
+			<tr class='log' status='pass'>
+				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+				<td class='timestamp'>12:05:05 PM</td>
+				<td class='step-details'>
+						------------Store the value of field 'node_id' : 'MDEwOlJlcG9zaXRvcnkyNTc0ODU2MDY=' into the run time variable list. <PASSED>
+					
+				</td>
+			</tr>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:05 PM</td>
+				<td class='step-details'>
+						<b><font color="blue"><u>Step 3:</u></font> Send GET request to get and verify Hello-World's repository</br><u>Action Class:</u> RestAPIAction</br><u>Action:</u> GET</b>
+					
+				</td>
+			</tr>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:06 PM</td>
+				<td class='step-details'>
+						Request: <br><pre>Request method:	GET
+Request URI:	https://api.github.com/repos/automationtester304/Hello-World
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Authorization=token ffb93324beb7a75ef38eee06b44f431d58828d91
+				Accept=*/*
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+</pre><br>Response: <br><pre>HTTP/1.1 200 OK
+Date: Tue, 21 Apr 2020 05:05:09 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Server: GitHub.com
+Status: 200 OK
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4998
+X-RateLimit-Reset: 1587449107
+Cache-Control: private, max-age=60, s-maxage=60
+Vary: Accept, Authorization, Cookie, X-GitHub-OTP
+ETag: W/"4a9faf9981232cfa3a2280a0dce89480"
+Last-Modified: Tue, 21 Apr 2020 05:05:06 GMT
+X-OAuth-Scopes: admin:repo_hook, delete_repo, repo
+X-Accepted-OAuth-Scopes: repo
+X-GitHub-Media-Type: github.v3; format=json
+Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset
+Access-Control-Allow-Origin: *
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+X-Frame-Options: deny
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+Content-Security-Policy: default-src 'none'
+Vary: Accept-Encoding, Accept, X-Requested-With
+Content-Encoding: gzip
+X-GitHub-Request-Id: EBC2:7B9E:91E93E:B31187:5E9E7F05
+
+{
+    "id": 257485606,
+    "node_id": "MDEwOlJlcG9zaXRvcnkyNTc0ODU2MDY=",
+    "name": "Hello-World",
+    "full_name": "automationtester304/Hello-World",
+    "private": false,
+    "owner": {
+        "login": "automationtester304",
+        "id": 63831026,
+        "node_id": "MDQ6VXNlcjYzODMxMDI2",
+        "avatar_url": "https://avatars1.githubusercontent.com/u/63831026?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/automationtester304",
+        "html_url": "https://github.com/automationtester304",
+        "followers_url": "https://api.github.com/users/automationtester304/followers",
+        "following_url": "https://api.github.com/users/automationtester304/following{/other_user}",
+        "gists_url": "https://api.github.com/users/automationtester304/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/automationtester304/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/automationtester304/subscriptions",
+        "organizations_url": "https://api.github.com/users/automationtester304/orgs",
+        "repos_url": "https://api.github.com/users/automationtester304/repos",
+        "events_url": "https://api.github.com/users/automationtester304/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/automationtester304/received_events",
+        "type": "User",
+        "site_admin": false
+    },
+    "html_url": "https://github.com/automationtester304/Hello-World",
+    "description": "This is your first repository",
+    "fork": false,
+    "url": "https://api.github.com/repos/automationtester304/Hello-World",
+    "forks_url": "https://api.github.com/repos/automationtester304/Hello-World/forks",
+    "keys_url": "https://api.github.com/repos/automationtester304/Hello-World/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/automationtester304/Hello-World/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/automationtester304/Hello-World/teams",
+    "hooks_url": "https://api.github.com/repos/automationtester304/Hello-World/hooks",
+    "issue_events_url": "https://api.github.com/repos/automationtester304/Hello-World/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/automationtester304/Hello-World/events",
+    "assignees_url": "https://api.github.com/repos/automationtester304/Hello-World/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/automationtester304/Hello-World/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/automationtester304/Hello-World/tags",
+    "blobs_url": "https://api.github.com/repos/automationtester304/Hello-World/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/automationtester304/Hello-World/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/automationtester304/Hello-World/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/automationtester304/Hello-World/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/automationtester304/Hello-World/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/automationtester304/Hello-World/languages",
+    "stargazers_url": "https://api.github.com/repos/automationtester304/Hello-World/stargazers",
+    "contributors_url": "https://api.github.com/repos/automationtester304/Hello-World/contributors",
+    "subscribers_url": "https://api.github.com/repos/automationtester304/Hello-World/subscribers",
+    "subscription_url": "https://api.github.com/repos/automationtester304/Hello-World/subscription",
+    "commits_url": "https://api.github.com/repos/automationtester304/Hello-World/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/automationtester304/Hello-World/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/automationtester304/Hello-World/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/automationtester304/Hello-World/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/automationtester304/Hello-World/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/automationtester304/Hello-World/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/automationtester304/Hello-World/merges",
+    "archive_url": "https://api.github.com/repos/automationtester304/Hello-World/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/automationtester304/Hello-World/downloads",
+    "issues_url": "https://api.github.com/repos/automationtester304/Hello-World/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/automationtester304/Hello-World/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/automationtester304/Hello-World/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/automationtester304/Hello-World/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/automationtester304/Hello-World/labels{/name}",
+    "releases_url": "https://api.github.com/repos/automationtester304/Hello-World/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/automationtester304/Hello-World/deployments",
+    "created_at": "2020-04-21T05:05:06Z",
+    "updated_at": "2020-04-21T05:05:06Z",
+    "pushed_at": "2020-04-21T05:05:07Z",
+    "git_url": "git://github.com/automationtester304/Hello-World.git",
+    "ssh_url": "git@github.com:automationtester304/Hello-World.git",
+    "clone_url": "https://github.com/automationtester304/Hello-World.git",
+    "svn_url": "https://github.com/automationtester304/Hello-World",
+    "homepage": "https://github.com",
+    "size": 0,
+    "stargazers_count": 0,
+    "watchers_count": 0,
+    "language": null,
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "has_pages": false,
+    "forks_count": 0,
+    "mirror_url": null,
+    "archived": false,
+    "disabled": false,
+    "open_issues_count": 0,
+    "license": null,
+    "forks": 0,
+    "open_issues": 0,
+    "watchers": 0,
+    "default_branch": "master",
+    "permissions": {
+        "admin": true,
+        "push": true,
+        "pull": true
+    },
+    "temp_clone_token": "",
+    "allow_squash_merge": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "delete_branch_on_merge": false,
+    "network_count": 0,
+    "subscribers_count": 1
+}
+</pre><br>
+					
+				</td>
+			</tr>
+			<tr class='log' status='pass'>
+				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+				<td class='timestamp'>12:05:06 PM</td>
+				<td class='step-details'>
+						------------<font color="green"><b>Validation:</b></font><br><pre><font color="green">1. </font>The request is sent successfully.<br><font color="green">2. </font>Ensure the field [node_id] - is "MDEwOlJlcG9zaXRvcnkyNTc0ODU2MDY=".<br><font color="green">3. </font>Ensure the status code is 200<br></pre> <PASSED>
+					
+				</td>
+			</tr>
+			<tr class='log' status='pass'>
+				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+				<td class='timestamp'>12:05:06 PM</td>
+				<td class='step-details'>
+						<span class="label white-text green" style="font: normal 12pt Source Sans Pro">Repos_01: Create the Hello-World repository</span><br>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+					</div>
+				</li>
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='2'>
+					<div class='test-heading'>
+						<span class='test-name'>[Repos_02] Update the Hello-World repository information</span>
+						<span class='test-time'>Apr 21, 2020 12:05:06 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 21, 2020 12:05:06 PM</span>
+	<span class='label end-time'>Apr 21, 2020 12:05:08 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 2s+23ms</span>
+</div>
+<div class='test-desc'>Use PATCH method to update the description & homepage fields </div>
+<div class='test-attributes'>
+	<div class='category-list'>
+		<span class='category label'><b>GITHUB_WEBAPITESTING</b></span>
+		<span class='category label'><b>&emsp;REPOSITORIES&thinsp;WEBAPI</b></span>
+		<span class='category label'><b>&emsp;&emsp;Validate&thinsp;the&thinsp;CRUD&thinsp;functions&thinsp;of&thinsp;Repository</b></span>
+	</div>
+</div>
+<div class='test-steps'>
+	<table class='bordered table-results'>
+		<thead>
+			<tr>
+				<th>Status</th>
+				<th>Timestamp</th>
+				<th>Details</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:06 PM</td>
+				<td class='step-details'>
+						<b><font color="blue"><u>Step 1:</u></font> Send PATCH request to update the description & homepage</br><u>Action Class:</u> RestAPIAction</br><u>Action:</u> PATCH</b>
+					
+				</td>
+			</tr>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:07 PM</td>
+				<td class='step-details'>
+						Request: <br><pre>Request method:	PATCH
+Request URI:	https://api.github.com/repos/automationtester304/Hello-World
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Authorization=token ffb93324beb7a75ef38eee06b44f431d58828d91
+				Accept=*/*
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Multiparts:		<none>
+Body:
+{
+    "has_projects": true,
+    "private": true,
+    "has_wiki": true,
+    "name": "Hello-World",
+    "description": "The repository is updated",
+    "has_issues": true,
+    "homepage": "https://github.com/automationtester304"
+}
+</pre><br>Response: <br><pre>HTTP/1.1 200 OK
+Date: Tue, 21 Apr 2020 05:05:10 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Server: GitHub.com
+Status: 200 OK
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4997
+X-RateLimit-Reset: 1587449107
+Cache-Control: private, max-age=60, s-maxage=60
+Vary: Accept, Authorization, Cookie, X-GitHub-OTP
+ETag: W/"c20d0b27862cd90d9d207a9e2f8f0307"
+X-OAuth-Scopes: admin:repo_hook, delete_repo, repo
+X-Accepted-OAuth-Scopes: 
+X-GitHub-Media-Type: github.v3; format=json
+Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset
+Access-Control-Allow-Origin: *
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+X-Frame-Options: deny
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+Content-Security-Policy: default-src 'none'
+Vary: Accept-Encoding, Accept, X-Requested-With
+Content-Encoding: gzip
+X-GitHub-Request-Id: F3B1:4CE4:10E074:14EF79:5E9E7F05
+
+{
+    "id": 257485606,
+    "node_id": "MDEwOlJlcG9zaXRvcnkyNTc0ODU2MDY=",
+    "name": "Hello-World",
+    "full_name": "automationtester304/Hello-World",
+    "private": true,
+    "owner": {
+        "login": "automationtester304",
+        "id": 63831026,
+        "node_id": "MDQ6VXNlcjYzODMxMDI2",
+        "avatar_url": "https://avatars1.githubusercontent.com/u/63831026?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/automationtester304",
+        "html_url": "https://github.com/automationtester304",
+        "followers_url": "https://api.github.com/users/automationtester304/followers",
+        "following_url": "https://api.github.com/users/automationtester304/following{/other_user}",
+        "gists_url": "https://api.github.com/users/automationtester304/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/automationtester304/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/automationtester304/subscriptions",
+        "organizations_url": "https://api.github.com/users/automationtester304/orgs",
+        "repos_url": "https://api.github.com/users/automationtester304/repos",
+        "events_url": "https://api.github.com/users/automationtester304/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/automationtester304/received_events",
+        "type": "User",
+        "site_admin": false
+    },
+    "html_url": "https://github.com/automationtester304/Hello-World",
+    "description": "The repository is updated",
+    "fork": false,
+    "url": "https://api.github.com/repos/automationtester304/Hello-World",
+    "forks_url": "https://api.github.com/repos/automationtester304/Hello-World/forks",
+    "keys_url": "https://api.github.com/repos/automationtester304/Hello-World/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/automationtester304/Hello-World/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/automationtester304/Hello-World/teams",
+    "hooks_url": "https://api.github.com/repos/automationtester304/Hello-World/hooks",
+    "issue_events_url": "https://api.github.com/repos/automationtester304/Hello-World/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/automationtester304/Hello-World/events",
+    "assignees_url": "https://api.github.com/repos/automationtester304/Hello-World/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/automationtester304/Hello-World/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/automationtester304/Hello-World/tags",
+    "blobs_url": "https://api.github.com/repos/automationtester304/Hello-World/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/automationtester304/Hello-World/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/automationtester304/Hello-World/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/automationtester304/Hello-World/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/automationtester304/Hello-World/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/automationtester304/Hello-World/languages",
+    "stargazers_url": "https://api.github.com/repos/automationtester304/Hello-World/stargazers",
+    "contributors_url": "https://api.github.com/repos/automationtester304/Hello-World/contributors",
+    "subscribers_url": "https://api.github.com/repos/automationtester304/Hello-World/subscribers",
+    "subscription_url": "https://api.github.com/repos/automationtester304/Hello-World/subscription",
+    "commits_url": "https://api.github.com/repos/automationtester304/Hello-World/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/automationtester304/Hello-World/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/automationtester304/Hello-World/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/automationtester304/Hello-World/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/automationtester304/Hello-World/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/automationtester304/Hello-World/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/automationtester304/Hello-World/merges",
+    "archive_url": "https://api.github.com/repos/automationtester304/Hello-World/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/automationtester304/Hello-World/downloads",
+    "issues_url": "https://api.github.com/repos/automationtester304/Hello-World/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/automationtester304/Hello-World/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/automationtester304/Hello-World/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/automationtester304/Hello-World/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/automationtester304/Hello-World/labels{/name}",
+    "releases_url": "https://api.github.com/repos/automationtester304/Hello-World/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/automationtester304/Hello-World/deployments",
+    "created_at": "2020-04-21T05:05:06Z",
+    "updated_at": "2020-04-21T05:05:10Z",
+    "pushed_at": "2020-04-21T05:05:07Z",
+    "git_url": "git://github.com/automationtester304/Hello-World.git",
+    "ssh_url": "git@github.com:automationtester304/Hello-World.git",
+    "clone_url": "https://github.com/automationtester304/Hello-World.git",
+    "svn_url": "https://github.com/automationtester304/Hello-World",
+    "homepage": "https://github.com/automationtester304",
+    "size": 0,
+    "stargazers_count": 0,
+    "watchers_count": 0,
+    "language": null,
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "has_pages": false,
+    "forks_count": 0,
+    "mirror_url": null,
+    "archived": false,
+    "disabled": false,
+    "open_issues_count": 0,
+    "license": null,
+    "forks": 0,
+    "open_issues": 0,
+    "watchers": 0,
+    "default_branch": "master",
+    "permissions": {
+        "admin": true,
+        "push": true,
+        "pull": true
+    },
+    "allow_squash_merge": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "delete_branch_on_merge": false,
+    "network_count": 0,
+    "subscribers_count": 1
+}
+</pre><br>
+					
+				</td>
+			</tr>
+			<tr class='log' status='pass'>
+				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+				<td class='timestamp'>12:05:07 PM</td>
+				<td class='step-details'>
+						------------<font color="green"><b>Validation:</b></font><br><pre><font color="green">1. </font>The request is sent successfully.<br><font color="green">2. </font>Ensure the field [description] - is "The repository is updated".<br><font color="green">3. </font>Ensure the field [homepage] - is "https://github.com/automationtester304".<br><font color="green">4. </font>Ensure the status code is 200<br></pre> <PASSED>
+					
+				</td>
+			</tr>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:07 PM</td>
+				<td class='step-details'>
+						<b><font color="blue"><u>Step 2:</u></font> Send GET request to get and verify the updated description and homepage</br><u>Action Class:</u> RestAPIAction</br><u>Action:</u> GET</b>
+					
+				</td>
+			</tr>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:08 PM</td>
+				<td class='step-details'>
+						Request: <br><pre>Request method:	GET
+Request URI:	https://api.github.com/repos/automationtester304/Hello-World
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Authorization=token ffb93324beb7a75ef38eee06b44f431d58828d91
+				Accept=*/*
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+</pre><br>Response: <br><pre>HTTP/1.1 200 OK
+Date: Tue, 21 Apr 2020 05:05:11 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Server: GitHub.com
+Status: 200 OK
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4996
+X-RateLimit-Reset: 1587449107
+Cache-Control: private, max-age=60, s-maxage=60
+Vary: Accept, Authorization, Cookie, X-GitHub-OTP
+ETag: W/"3063298c62022422c64e6b085f82dd18"
+Last-Modified: Tue, 21 Apr 2020 05:05:11 GMT
+X-OAuth-Scopes: admin:repo_hook, delete_repo, repo
+X-Accepted-OAuth-Scopes: repo
+X-GitHub-Media-Type: github.v3; format=json
+Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset
+Access-Control-Allow-Origin: *
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+X-Frame-Options: deny
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+Content-Security-Policy: default-src 'none'
+Vary: Accept-Encoding, Accept, X-Requested-With
+Content-Encoding: gzip
+X-GitHub-Request-Id: B2C1:7B9E:91E995:B311FF:5E9E7F07
+
+{
+    "id": 257485606,
+    "node_id": "MDEwOlJlcG9zaXRvcnkyNTc0ODU2MDY=",
+    "name": "Hello-World",
+    "full_name": "automationtester304/Hello-World",
+    "private": true,
+    "owner": {
+        "login": "automationtester304",
+        "id": 63831026,
+        "node_id": "MDQ6VXNlcjYzODMxMDI2",
+        "avatar_url": "https://avatars1.githubusercontent.com/u/63831026?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/automationtester304",
+        "html_url": "https://github.com/automationtester304",
+        "followers_url": "https://api.github.com/users/automationtester304/followers",
+        "following_url": "https://api.github.com/users/automationtester304/following{/other_user}",
+        "gists_url": "https://api.github.com/users/automationtester304/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/automationtester304/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/automationtester304/subscriptions",
+        "organizations_url": "https://api.github.com/users/automationtester304/orgs",
+        "repos_url": "https://api.github.com/users/automationtester304/repos",
+        "events_url": "https://api.github.com/users/automationtester304/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/automationtester304/received_events",
+        "type": "User",
+        "site_admin": false
+    },
+    "html_url": "https://github.com/automationtester304/Hello-World",
+    "description": "The repository is updated",
+    "fork": false,
+    "url": "https://api.github.com/repos/automationtester304/Hello-World",
+    "forks_url": "https://api.github.com/repos/automationtester304/Hello-World/forks",
+    "keys_url": "https://api.github.com/repos/automationtester304/Hello-World/keys{/key_id}",
+    "collaborators_url": "https://api.github.com/repos/automationtester304/Hello-World/collaborators{/collaborator}",
+    "teams_url": "https://api.github.com/repos/automationtester304/Hello-World/teams",
+    "hooks_url": "https://api.github.com/repos/automationtester304/Hello-World/hooks",
+    "issue_events_url": "https://api.github.com/repos/automationtester304/Hello-World/issues/events{/number}",
+    "events_url": "https://api.github.com/repos/automationtester304/Hello-World/events",
+    "assignees_url": "https://api.github.com/repos/automationtester304/Hello-World/assignees{/user}",
+    "branches_url": "https://api.github.com/repos/automationtester304/Hello-World/branches{/branch}",
+    "tags_url": "https://api.github.com/repos/automationtester304/Hello-World/tags",
+    "blobs_url": "https://api.github.com/repos/automationtester304/Hello-World/git/blobs{/sha}",
+    "git_tags_url": "https://api.github.com/repos/automationtester304/Hello-World/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/automationtester304/Hello-World/git/refs{/sha}",
+    "trees_url": "https://api.github.com/repos/automationtester304/Hello-World/git/trees{/sha}",
+    "statuses_url": "https://api.github.com/repos/automationtester304/Hello-World/statuses/{sha}",
+    "languages_url": "https://api.github.com/repos/automationtester304/Hello-World/languages",
+    "stargazers_url": "https://api.github.com/repos/automationtester304/Hello-World/stargazers",
+    "contributors_url": "https://api.github.com/repos/automationtester304/Hello-World/contributors",
+    "subscribers_url": "https://api.github.com/repos/automationtester304/Hello-World/subscribers",
+    "subscription_url": "https://api.github.com/repos/automationtester304/Hello-World/subscription",
+    "commits_url": "https://api.github.com/repos/automationtester304/Hello-World/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/automationtester304/Hello-World/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/automationtester304/Hello-World/comments{/number}",
+    "issue_comment_url": "https://api.github.com/repos/automationtester304/Hello-World/issues/comments{/number}",
+    "contents_url": "https://api.github.com/repos/automationtester304/Hello-World/contents/{+path}",
+    "compare_url": "https://api.github.com/repos/automationtester304/Hello-World/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/automationtester304/Hello-World/merges",
+    "archive_url": "https://api.github.com/repos/automationtester304/Hello-World/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/automationtester304/Hello-World/downloads",
+    "issues_url": "https://api.github.com/repos/automationtester304/Hello-World/issues{/number}",
+    "pulls_url": "https://api.github.com/repos/automationtester304/Hello-World/pulls{/number}",
+    "milestones_url": "https://api.github.com/repos/automationtester304/Hello-World/milestones{/number}",
+    "notifications_url": "https://api.github.com/repos/automationtester304/Hello-World/notifications{?since,all,participating}",
+    "labels_url": "https://api.github.com/repos/automationtester304/Hello-World/labels{/name}",
+    "releases_url": "https://api.github.com/repos/automationtester304/Hello-World/releases{/id}",
+    "deployments_url": "https://api.github.com/repos/automationtester304/Hello-World/deployments",
+    "created_at": "2020-04-21T05:05:06Z",
+    "updated_at": "2020-04-21T05:05:11Z",
+    "pushed_at": "2020-04-21T05:05:07Z",
+    "git_url": "git://github.com/automationtester304/Hello-World.git",
+    "ssh_url": "git@github.com:automationtester304/Hello-World.git",
+    "clone_url": "https://github.com/automationtester304/Hello-World.git",
+    "svn_url": "https://github.com/automationtester304/Hello-World",
+    "homepage": "https://github.com/automationtester304",
+    "size": 0,
+    "stargazers_count": 0,
+    "watchers_count": 0,
+    "language": null,
+    "has_issues": true,
+    "has_projects": true,
+    "has_downloads": true,
+    "has_wiki": true,
+    "has_pages": false,
+    "forks_count": 0,
+    "mirror_url": null,
+    "archived": false,
+    "disabled": false,
+    "open_issues_count": 0,
+    "license": null,
+    "forks": 0,
+    "open_issues": 0,
+    "watchers": 0,
+    "default_branch": "master",
+    "permissions": {
+        "admin": true,
+        "push": true,
+        "pull": true
+    },
+    "temp_clone_token": "APG7X4VYJS7NV5L72S27RLK6T2ADG",
+    "allow_squash_merge": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "delete_branch_on_merge": false,
+    "network_count": 0,
+    "subscribers_count": 1
+}
+</pre><br>
+					
+				</td>
+			</tr>
+			<tr class='log' status='pass'>
+				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+				<td class='timestamp'>12:05:08 PM</td>
+				<td class='step-details'>
+						------------<font color="green"><b>Validation:</b></font><br><pre><font color="green">1. </font>The request is sent successfully.<br><font color="green">2. </font>Ensure the field [description] - is "The repository is updated".<br><font color="green">3. </font>Ensure the field [homepage] - is "https://github.com/automationtester304".<br><font color="green">4. </font>Ensure the status code is 200<br></pre> <PASSED>
+					
+				</td>
+			</tr>
+			<tr class='log' status='pass'>
+				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+				<td class='timestamp'>12:05:08 PM</td>
+				<td class='step-details'>
+						<span class="label white-text green" style="font: normal 12pt Source Sans Pro">Repos_02: Update the Hello-World repository information</span><br>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+					</div>
+				</li>
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='3'>
+					<div class='test-heading'>
+						<span class='test-name'>[Repos_03] Delete the created Hello-World repository</span>
+						<span class='test-time'>Apr 21, 2020 12:05:08 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 21, 2020 12:05:08 PM</span>
+	<span class='label end-time'>Apr 21, 2020 12:05:10 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 2s+227ms</span>
+</div>
+<div class='test-desc'>Use DELETE method to delete the Hello-World repository </div>
+<div class='test-attributes'>
+	<div class='category-list'>
+		<span class='category label'><b>GITHUB_WEBAPITESTING</b></span>
+		<span class='category label'><b>&emsp;REPOSITORIES&thinsp;WEBAPI</b></span>
+		<span class='category label'><b>&emsp;&emsp;Validate&thinsp;the&thinsp;CRUD&thinsp;functions&thinsp;of&thinsp;Repository</b></span>
+	</div>
+</div>
+<div class='test-steps'>
+	<table class='bordered table-results'>
+		<thead>
+			<tr>
+				<th>Status</th>
+				<th>Timestamp</th>
+				<th>Details</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:08 PM</td>
+				<td class='step-details'>
+						<b><font color="blue"><u>Step 1:</u></font> Send DELETE request to delete 'Hello-World' repo</br><u>Action Class:</u> RestAPIAction</br><u>Action:</u> DELETE</b>
+					
+				</td>
+			</tr>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:09 PM</td>
+				<td class='step-details'>
+						Request: <br><pre>Request method:	DELETE
+Request URI:	https://api.github.com/repos/automationtester304/Hello-World
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Authorization=token ffb93324beb7a75ef38eee06b44f431d58828d91
+				Accept=*/*
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+</pre><br>Response: <br><pre>HTTP/1.1 204 No Content
+Date: Tue, 21 Apr 2020 05:05:13 GMT
+Server: GitHub.com
+Status: 204 No Content
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4995
+X-RateLimit-Reset: 1587449107
+X-OAuth-Scopes: admin:repo_hook, delete_repo, repo
+X-Accepted-OAuth-Scopes: 
+X-GitHub-Media-Type: github.v3; format=json
+Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset
+Access-Control-Allow-Origin: *
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+X-Frame-Options: deny
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+Content-Security-Policy: default-src 'none'
+Vary: Accept-Encoding, Accept, X-Requested-With
+X-GitHub-Request-Id: 520B:4CE5:3E37B4:4B55D5:5E9E7F07
+</pre><br>
+					
+				</td>
+			</tr>
+			<tr class='log' status='pass'>
+				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+				<td class='timestamp'>12:05:09 PM</td>
+				<td class='step-details'>
+						------------<font color="green"><b>Validation:</b></font><br><pre><font color="green">1. </font>The request is sent successfully.<br><font color="green">2. </font>Ensure the status code is 204<br></pre> <PASSED>
+					
+				</td>
+			</tr>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:09 PM</td>
+				<td class='step-details'>
+						<b><font color="blue"><u>Step 2:</u></font> Send GET request to verify the inexistent of Hello-World repository</br><u>Action Class:</u> RestAPIAction</br><u>Action:</u> GET</b>
+					
+				</td>
+			</tr>
+			<tr class='log' status='info'>
+				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+				<td class='timestamp'>12:05:10 PM</td>
+				<td class='step-details'>
+						Request: <br><pre>Request method:	GET
+Request URI:	https://api.github.com/user/repos/automationtester304/Hello-World
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Authorization=token ffb93324beb7a75ef38eee06b44f431d58828d91
+				Accept=*/*
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+</pre><br>Response: <br><pre>HTTP/1.1 404 Not Found
+Date: Tue, 21 Apr 2020 05:05:13 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Server: GitHub.com
+Status: 404 Not Found
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4994
+X-RateLimit-Reset: 1587449106
+X-OAuth-Scopes: admin:repo_hook, delete_repo, repo
+X-Accepted-OAuth-Scopes: repo
+X-GitHub-Media-Type: github.v3; format=json
+Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset
+Access-Control-Allow-Origin: *
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+X-Frame-Options: deny
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+Content-Security-Policy: default-src 'none'
+Vary: Accept-Encoding, Accept, X-Requested-With
+Content-Encoding: gzip
+X-GitHub-Request-Id: 70A1:33AB:9BB2C9:BE40BC:5E9E7F09
+
+{
+    "message": "Not Found",
+    "documentation_url": "https://developer.github.com/v3"
+}
+</pre><br>
+					
+				</td>
+			</tr>
+			<tr class='log' status='pass'>
+				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+				<td class='timestamp'>12:05:10 PM</td>
+				<td class='step-details'>
+						------------<font color="green"><b>Validation:</b></font><br><pre><font color="green">1. </font>The request is sent successfully.<br><font color="green">2. </font>Ensure the field [message] - is "Not Found".<br><font color="green">3. </font>Ensure the status code is 404<br></pre> <PASSED>
+					
+				</td>
+			</tr>
+			<tr class='log' status='pass'>
+				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+				<td class='timestamp'>12:05:10 PM</td>
+				<td class='step-details'>
+						<span class="label white-text green" style="font: normal 12pt Source Sans Pro">Repos_03: Delete the created Hello-World repository</span><br>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+					</div>
+				</li>
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='4'>
+					<div class='test-heading'>
+						<span class='test-name'>[Branches_01] Search repository and store repoName and owner</span>
+						<span class='test-time'>Apr 21, 2020 12:05:10 PM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 21, 2020 12:05:10 PM</span>
+	<span class='label end-time'>Apr 21, 2020 12:05:12 PM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 1s+948ms</span>
 </div>
 <div class='test-desc'>Verify the existing repository and store repoName and owner </div>
 <div class='test-attributes'>
 	<div class='category-list'>
-		<span class='category label'><b>DEFAULTSUITE</b></span>
-		<span class='category label'><b>&emsp;AUTOTEST</b></span>
+		<span class='category label'><b>GITHUB_WEBAPITESTING</b></span>
+		<span class='category label'><b>&emsp;REPOSITORIES&thinsp;WEBAPI</b></span>
 		<span class='category label'><b>&emsp;&emsp;GET&thinsp;/repos/:owner/:repo/branches</b></span>
 	</div>
 </div>
@@ -194,7 +1138,7 @@
 		<tbody>
 			<tr class='log' status='info'>
 				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-				<td class='timestamp'>6:20:49 PM</td>
+				<td class='timestamp'>12:05:10 PM</td>
 				<td class='step-details'>
 						<b><font color="blue"><u>Step 1:</u></font> Search repository</br><u>Action Class:</u> RestAPIAction</br><u>Action:</u> GET</b>
 					
@@ -202,11 +1146,9 @@
 			</tr>
 			<tr class='log' status='info'>
 				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-				<td class='timestamp'>6:20:52 PM</td>
+				<td class='timestamp'>12:05:11 PM</td>
 				<td class='step-details'>
-				<button type="button" class="collapsible" >Request</button>
-				<div class="content">
-						 <pre>Request method:	GET
+						Request: <br><pre>Request method:	GET
 Request URI:	https://api.github.com/search/repositories?q=automationtestingframework&sort=stars&order=desc
 Proxy:			<none>
 Request params:	<none>
@@ -215,26 +1157,23 @@ Query params:	q=automationtestingframework
 				order=desc
 Form params:	<none>
 Path params:	<none>
-Headers:		Authorization=token adbd023ee1a484a0878a7df920bc346f90ec56d1
+Headers:		Authorization=token ffb93324beb7a75ef38eee06b44f431d58828d91
 				Accept=*/*
 				Content-Type=application/json; charset=UTF-8
 Cookies:		<none>
 Multiparts:		<none>
 Body:			<none>
-</pre></div>
-<button type="button" class="collapsible" >Response</button>
-<div class="content">
-<pre>HTTP/1.1 200 OK
-Date: Mon, 20 Apr 2020 11:20:56 GMT
+</pre><br>Response: <br><pre>HTTP/1.1 200 OK
+Date: Tue, 21 Apr 2020 05:05:14 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Server: GitHub.com
 Status: 200 OK
 X-RateLimit-Limit: 30
 X-RateLimit-Remaining: 29
-X-RateLimit-Reset: 1587381715
+X-RateLimit-Reset: 1587445574
 Cache-Control: no-cache
-X-OAuth-Scopes: admin:repo_hook, delete_repo, gist, repo
+X-OAuth-Scopes: admin:repo_hook, delete_repo, repo
 X-Accepted-OAuth-Scopes: 
 X-GitHub-Media-Type: github.v3; format=json
 Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset
@@ -247,7 +1186,7 @@ Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
 Content-Security-Policy: default-src 'none'
 Vary: Accept-Encoding, Accept, X-Requested-With
 Content-Encoding: gzip
-X-GitHub-Request-Id: 680E:33AA:2E558F:3849C4:5E9D8597
+X-GitHub-Request-Id: 7B4E:33AA:3A4B89:474656:5E9E7F0A
 
 {
     "total_count": 7,
@@ -320,14 +1259,14 @@ X-GitHub-Request-Id: 680E:33AA:2E558F:3849C4:5E9D8597
             "releases_url": "https://api.github.com/repos/sugia279/AutomationTestingFramework/releases{/id}",
             "deployments_url": "https://api.github.com/repos/sugia279/AutomationTestingFramework/deployments",
             "created_at": "2019-05-16T02:35:05Z",
-            "updated_at": "2020-04-12T05:13:51Z",
-            "pushed_at": "2020-04-12T05:13:48Z",
+            "updated_at": "2020-04-20T13:09:28Z",
+            "pushed_at": "2020-04-20T13:09:25Z",
             "git_url": "git://github.com/sugia279/AutomationTestingFramework.git",
             "ssh_url": "git@github.com:sugia279/AutomationTestingFramework.git",
             "clone_url": "https://github.com/sugia279/AutomationTestingFramework.git",
             "svn_url": "https://github.com/sugia279/AutomationTestingFramework",
             "homepage": "",
-            "size": 707,
+            "size": 734,
             "stargazers_count": 1,
             "watchers_count": 1,
             "language": "HTML",
@@ -961,13 +1900,13 @@ X-GitHub-Request-Id: 680E:33AA:2E558F:3849C4:5E9D8597
         }
     ]
 }
-</pre>
-					</div>
+</pre><br>
+					
 				</td>
 			</tr>
 			<tr class='log' status='pass'>
 				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-				<td class='timestamp'>6:20:52 PM</td>
+				<td class='timestamp'>12:05:11 PM</td>
 				<td class='step-details'>
 						------------<font color="green"><b>Validation:</b></font><br><pre><font color="green">1. </font>The request is sent successfully.<br><font color="green">2. </font>Ensure the status code is 200<br></pre> <PASSED>
 					
@@ -975,7 +1914,7 @@ X-GitHub-Request-Id: 680E:33AA:2E558F:3849C4:5E9D8597
 			</tr>
 			<tr class='log' status='info'>
 				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-				<td class='timestamp'>6:20:52 PM</td>
+				<td class='timestamp'>12:05:11 PM</td>
 				<td class='step-details'>
 						<b><font color="blue"><u>Step 2:</u></font> Store owner and repoName values of the above response</br><u>Action Class:</u> RestAPIAction</br><u>Action:</u> storeResponseValue</b>
 					
@@ -983,7 +1922,7 @@ X-GitHub-Request-Id: 680E:33AA:2E558F:3849C4:5E9D8597
 			</tr>
 			<tr class='log' status='pass'>
 				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-				<td class='timestamp'>6:20:53 PM</td>
+				<td class='timestamp'>12:05:11 PM</td>
 				<td class='step-details'>
 						------------Store the value of field 'items.find{it.full_name = 'automationtester304/AutomationTestingFramework'}.owner.login' : 'sugia279' into the run time variable list. <PASSED>
 					
@@ -991,7 +1930,7 @@ X-GitHub-Request-Id: 680E:33AA:2E558F:3849C4:5E9D8597
 			</tr>
 			<tr class='log' status='pass'>
 				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-				<td class='timestamp'>6:20:53 PM</td>
+				<td class='timestamp'>12:05:11 PM</td>
 				<td class='step-details'>
 						------------Store the value of field 'items.find{it.full_name = 'automationtester304/AutomationTestingFramework'}.name' : 'AutomationTestingFramework' into the run time variable list. <PASSED>
 					
@@ -999,7 +1938,7 @@ X-GitHub-Request-Id: 680E:33AA:2E558F:3849C4:5E9D8597
 			</tr>
 			<tr class='log' status='info'>
 				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-				<td class='timestamp'>6:20:53 PM</td>
+				<td class='timestamp'>12:05:11 PM</td>
 				<td class='step-details'>
 						<b><font color="blue"><u>Step 3:</u></font> Send GET request to get branches</br><u>Action Class:</u> RestAPIAction</br><u>Action:</u> GET</b>
 					
@@ -1007,39 +1946,34 @@ X-GitHub-Request-Id: 680E:33AA:2E558F:3849C4:5E9D8597
 			</tr>
 			<tr class='log' status='info'>
 				<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-				<td class='timestamp'>6:20:54 PM</td>
+				<td class='timestamp'>12:05:12 PM</td>
 				<td class='step-details'>
-                        <button type="button" class="collapsible" >Request</button>
-                        <div class="content">
-						<pre>Request method:	GET
+						Request: <br><pre>Request method:	GET
 Request URI:	https://api.github.com/repos/sugia279/AutomationTestingFramework/branches
 Proxy:			<none>
 Request params:	<none>
 Query params:	<none>
 Form params:	<none>
 Path params:	<none>
-Headers:		Authorization=token adbd023ee1a484a0878a7df920bc346f90ec56d1
+Headers:		Authorization=token ffb93324beb7a75ef38eee06b44f431d58828d91
 				Accept=*/*
 				Content-Type=application/json; charset=UTF-8
 Cookies:		<none>
 Multiparts:		<none>
 Body:			<none>
-</p></div>
-<button type="button" class="collapsible" >Response</button>
-<div class="content">						
-<p>HTTP/1.1 200 OK
-Date: Mon, 20 Apr 2020 11:20:57 GMT
+</pre><br>Response: <br><pre>HTTP/1.1 200 OK
+Date: Tue, 21 Apr 2020 05:05:15 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Server: GitHub.com
 Status: 200 OK
 X-RateLimit-Limit: 5000
-X-RateLimit-Remaining: 4997
-X-RateLimit-Reset: 1587383820
+X-RateLimit-Remaining: 4993
+X-RateLimit-Reset: 1587449107
 Cache-Control: private, max-age=60, s-maxage=60
 Vary: Accept, Authorization, Cookie, X-GitHub-OTP
-ETag: W/"6bd0c6c7b3bb777454c400b85a7f0933"
-X-OAuth-Scopes: admin:repo_hook, delete_repo, gist, repo
+ETag: W/"17eebe86e21ecf5cd60ef02ea3d697f7"
+X-OAuth-Scopes: admin:repo_hook, delete_repo, repo
 X-Accepted-OAuth-Scopes: 
 X-GitHub-Media-Type: github.v3; format=json
 Access-Control-Expose-Headers: ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset
@@ -1052,7 +1986,7 @@ Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
 Content-Security-Policy: default-src 'none'
 Vary: Accept-Encoding, Accept, X-Requested-With
 Content-Encoding: gzip
-X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
+X-GitHub-Request-Id: E287:4CE6:9E6F86:C04961:5E9E7F0B
 
 [
     {
@@ -1066,19 +2000,19 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
     {
         "name": "master",
         "commit": {
-            "sha": "78cbbfb9726620736902007e4f9b0237386ab370",
-            "url": "https://api.github.com/repos/sugia279/AutomationTestingFramework/commits/78cbbfb9726620736902007e4f9b0237386ab370"
+            "sha": "447ccd47f6dd2c407e16d4cebbb077ed2f4207ea",
+            "url": "https://api.github.com/repos/sugia279/AutomationTestingFramework/commits/447ccd47f6dd2c407e16d4cebbb077ed2f4207ea"
         },
         "protected": false
     }
 ]
-</pre></div>
+</pre><br>
 					
 				</td>
 			</tr>
 			<tr class='log' status='pass'>
 				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-				<td class='timestamp'>6:20:54 PM</td>
+				<td class='timestamp'>12:05:12 PM</td>
 				<td class='step-details'>
 						------------<font color="green"><b>Validation:</b></font><br><pre><font color="green">1. </font>The request is sent successfully.<br><font color="green">2. </font>Ensure the field [any{it.name == 'master'}] - is <true>.<br><font color="green">3. </font>Ensure the status code is 200<br></pre> <PASSED>
 					
@@ -1086,7 +2020,7 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 			</tr>
 			<tr class='log' status='pass'>
 				<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-				<td class='timestamp'>6:20:54 PM</td>
+				<td class='timestamp'>12:05:12 PM</td>
 				<td class='step-details'>
 						<span class="label white-text green" style="font: normal 12pt Source Sans Pro">Branches_01: Search repository and store repoName and owner</span><br>
 					
@@ -1137,14 +2071,14 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 			<ul id='category-collection' class='category-collection'>
 				<li class='category displayed active'>
 					<div class='category-heading'>
-						<span class='category-name'><b>DEFAULTSUITE</b></span>
+						<span class='category-name'><b>GITHUB_WEBAPITESTING</b></span>
 						<span class='category-status right'>
-						<span class='label pass'>1</span>
+						<span class='label pass'>4</span>
 						</span>
 					</div>
 					<div class='category-content hide'>
 						<div class='category-status-counts'>
-							<span class='label green accent-4 white-text'>Passed: 1</span>
+							<span class='label green accent-4 white-text'>Passed: 4</span>
 							
 							
 						</div>
@@ -1159,8 +2093,23 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 								</thead>
 								<tbody>
 									<tr>
-										<td>Apr 20, 2020 06:20:49 PM</td>
-										<td class='linked' test-id='1'>[Branches_01] Search repository and store repoName and owner</td>
+										<td>Apr 21, 2020 12:04:57 PM</td>
+										<td class='linked' test-id='1'>[Repos_01] Create the Hello-World repository</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Apr 21, 2020 12:05:06 PM</td>
+										<td class='linked' test-id='2'>[Repos_02] Update the Hello-World repository information</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Apr 21, 2020 12:05:08 PM</td>
+										<td class='linked' test-id='3'>[Repos_03] Delete the created Hello-World repository</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Apr 21, 2020 12:05:10 PM</td>
+										<td class='linked' test-id='4'>[Branches_01] Search repository and store repoName and owner</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 								</tbody>
@@ -1170,14 +2119,14 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 				</li>
 				<li class='category displayed active'>
 					<div class='category-heading'>
-						<span class='category-name'><b>&emsp;AUTOTEST</b></span>
+						<span class='category-name'><b>&emsp;REPOSITORIES&thinsp;WEBAPI</b></span>
 						<span class='category-status right'>
-						<span class='label pass'>1</span>
+						<span class='label pass'>4</span>
 						</span>
 					</div>
 					<div class='category-content hide'>
 						<div class='category-status-counts'>
-							<span class='label green accent-4 white-text'>Passed: 1</span>
+							<span class='label green accent-4 white-text'>Passed: 4</span>
 							
 							
 						</div>
@@ -1192,8 +2141,66 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 								</thead>
 								<tbody>
 									<tr>
-										<td>Apr 20, 2020 06:20:49 PM</td>
-										<td class='linked' test-id='1'>[Branches_01] Search repository and store repoName and owner</td>
+										<td>Apr 21, 2020 12:04:57 PM</td>
+										<td class='linked' test-id='1'>[Repos_01] Create the Hello-World repository</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Apr 21, 2020 12:05:06 PM</td>
+										<td class='linked' test-id='2'>[Repos_02] Update the Hello-World repository information</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Apr 21, 2020 12:05:08 PM</td>
+										<td class='linked' test-id='3'>[Repos_03] Delete the created Hello-World repository</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Apr 21, 2020 12:05:10 PM</td>
+										<td class='linked' test-id='4'>[Branches_01] Search repository and store repoName and owner</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</li>
+				<li class='category displayed active'>
+					<div class='category-heading'>
+						<span class='category-name'><b>&emsp;&emsp;Validate&thinsp;the&thinsp;CRUD&thinsp;functions&thinsp;of&thinsp;Repository</b></span>
+						<span class='category-status right'>
+						<span class='label pass'>3</span>
+						</span>
+					</div>
+					<div class='category-content hide'>
+						<div class='category-status-counts'>
+							<span class='label green accent-4 white-text'>Passed: 3</span>
+							
+							
+						</div>
+						<div class='category-tests'>
+							<table class='bordered table-results'>
+								<thead>
+									<tr>
+										<th>Timestamp</th>
+										<th>TestName</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Apr 21, 2020 12:04:57 PM</td>
+										<td class='linked' test-id='1'>[Repos_01] Create the Hello-World repository</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Apr 21, 2020 12:05:06 PM</td>
+										<td class='linked' test-id='2'>[Repos_02] Update the Hello-World repository information</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Apr 21, 2020 12:05:08 PM</td>
+										<td class='linked' test-id='3'>[Repos_03] Delete the created Hello-World repository</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 								</tbody>
@@ -1225,8 +2232,8 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 								</thead>
 								<tbody>
 									<tr>
-										<td>Apr 20, 2020 06:20:49 PM</td>
-										<td class='linked' test-id='1'>[Branches_01] Search repository and store repoName and owner</td>
+										<td>Apr 21, 2020 12:05:10 PM</td>
+										<td class='linked' test-id='4'>[Branches_01] Search repository and store repoName and owner</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 								</tbody>
@@ -1251,7 +2258,7 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Tests
-					<div class='panel-lead'>1</div>
+					<div class='panel-lead'>4</div>
 				</div>
 			</div>
 			<div class='col s2'>
@@ -1263,19 +2270,19 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>Apr 20, 2020 06:20:49 PM</div>
+					<div class='panel-lead'>Apr 21, 2020 12:04:57 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>Apr 20, 2020 06:20:54 PM</div>
+			 		<div class='panel-lead'>Apr 21, 2020 12:05:12 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>0h 0m 5s+71ms</div>
+					<div class='panel-lead'>0h 0m 15s+64ms</div>
 				</div>
 			</div>
 			<div class='col s4'>
@@ -1319,8 +2326,8 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 							<th>Passed %</th>
 						</tr>
 						<tr>
-							<td><b>DEFAULTSUITE</b></td>
-							<td>1</td>
+							<td><b>GITHUB_WEBAPITESTING</b></td>
+							<td>4</td>
 							<td>0</td>
 							<td>0</td>
 							<td>
@@ -1328,8 +2335,17 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 							</td>
 						</tr>
 						<tr>
-							<td><b>&emsp;AUTOTEST</b></td>
-							<td>1</td>
+							<td><b>&emsp;REPOSITORIES&thinsp;WEBAPI</b></td>
+							<td>4</td>
+							<td>0</td>
+							<td>0</td>
+							<td>
+									100%
+							</td>
+						</tr>
+						<tr>
+							<td><b>&emsp;&emsp;Validate&thinsp;the&thinsp;CRUD&thinsp;functions&thinsp;of&thinsp;Repository</b></td>
+							<td>3</td>
 							<td>0</td>
 							<td>0</td>
 							<td>
@@ -1355,10 +2371,9 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 <!-- testrunner-logs view -->		</div>
 		<!-- container -->
 		<script>
-            
 			var statusGroup = {
-                parentCount: 1,
-				passParent: 1,
+                parentCount: 4,
+				passParent: 4,
 				failParent: 0,
 				fatalParent: 0,
 				errorParent: 0,
@@ -1386,39 +2401,19 @@ X-GitHub-Request-Id: D8EE:33AB:786106:92EC1C:5E9D8598
 				debugGrandChild: 0,
 				exceptionsGrandChild: 0,
 			};
-			
-            
-			
-// function myFunction() {
-
-// }
-                
 		</script>
 		<script>
 			var timeline = {
-			        "[Branches_01] Search repository and store repoName and owner":4.607
+			        "[Repos_01] Create the Hello-World repository":8.126,"[Repos_02] Update the Hello-World repository information":2.023,"[Repos_03] Delete the created Hello-World repository":2.227,"[Branches_01] Search repository and store repoName and owner":1.948
 			};
 		</script>
 		<script src='http://cdn.rawgit.com/extent-framework/extent-github-cdn/c23457b/v3html/js/extent.js' type='text/javascript'></script>
 		<script type='text/javascript'>
 			
+            
                 $(document).ready(function() {
-                    var coll = document.getElementsByClassName("collapsible");
-                    var i;
 
-                    for (i = 0; i < coll.length; i++) {
-                    coll[i].addEventListener("click", function() {
-                        this.classList.toggle("active");
-                        var content = this.nextElementSibling;
-                        if (content.style.display === "block") {
-                        content.style.display = "none";
-                        } else {
-                        content.style.display = "block";
-                        }
-                    });
-                    }
                 });
-				
             
         
 		</script>

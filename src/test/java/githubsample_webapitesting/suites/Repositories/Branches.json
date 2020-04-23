@@ -25,7 +25,7 @@
             },
             "response": {
               "statusCode": 200,
-              "bodyValue": {
+              "body": {
                 "total_count": {
                   "greaterThan": 1
                 },

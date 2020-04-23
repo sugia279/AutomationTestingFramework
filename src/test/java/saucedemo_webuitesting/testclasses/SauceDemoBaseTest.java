@@ -9,7 +9,7 @@ public abstract class SauceDemoBaseTest extends BaseTest {
         baseAction.setWebAction(new WebAction());
         baseAction.setRestAction(new RestAction());
 
-        setHighLevelActionPackage("saucedemo_webuitesting.highlevel_action");
+        setUserKeywordPackage("saucedemo_webuitesting.highlevel_action");
         baseAction.getWebAction().setAttributeAsElementName("id","class");
         testDataManager.setTestDataPath("src/test/java/saucedemo_webuitesting/suites/");
 
