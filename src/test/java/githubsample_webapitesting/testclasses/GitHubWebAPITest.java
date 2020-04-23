@@ -11,6 +11,6 @@ public abstract class GitHubWebAPITest extends BaseTest {
         testDataManager.setTestDataPath("src/test/java/githubsample_webapitesting/suites/");
 
         testVars.getRuntimeVars().put("githubapi","https://api.github.com");
-        testVars.getRuntimeVars().put("authorization","token ffb93324beb7a75ef38eee06b44f431d58828d91");
+        testVars.getRuntimeVars().put("authorization","Basic YXV0b21hdGlvbnRlc3RlcjMwNDpBdXRvVGVzdDMwNA==");
     }
 }
