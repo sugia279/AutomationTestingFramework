@@ -1,5 +1,6 @@
 package core.utilities;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedHashMap;
@@ -38,10 +39,10 @@ public class HashMapHandler {
             {
                 result.put(key, replaceValueByMapData((LinkedHashMap<String, Object>)source.get(key), beginPattern, endPattern,map));
             }
-            if(source.get(key) instanceof JSONObject)
-            {
-                result.put(key, JsonHandler.replaceValueByMapData((JSONObject)source.get(key), beginPattern, endPattern,map));
-            }
+//            if(source.get(key) instanceof JsonNode)
+//            {
+//                result.put(key, JsonHandler.replaceValueByMapData((JsonNode)source.get(key), beginPattern, endPattern,map));
+//            }
         }
         return result;
     }

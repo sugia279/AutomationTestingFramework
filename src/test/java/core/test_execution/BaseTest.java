@@ -40,10 +40,10 @@ public abstract class BaseTest {
     }
 
     @BeforeSuite
-    @Parameters({"config-file","product-version"})
-    public void setup(@Optional String cfgFile, @Optional String prodVer, ITestContext testContext) {
-        configFile = cfgFile != null ? cfgFile : null;
-        prodVer = prodVer!=null? prodVer:null;
+    @Parameters({"config-file"})
+    public void setup(@Optional String cfgFile, ITestContext testContext) {
+        if(cfgFile != null)
+            configFile = cfgFile;
         TestReportManager.getInstance().initializeReport(testContext.getSuite().getName().toUpperCase());
     }
 
@@ -54,11 +54,11 @@ public abstract class BaseTest {
     }
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass(ITestContext testContext) {
         testVars.getRuntimeVars().putAll(Config.getHashMapProperties(configFile));
         if(baseAction.getWebAction() != null) {
-            String browserType = testVars.getRuntimeVars().get("browser").toString();
-            String driverTimeOut = testVars.getRuntimeVars().get("driverTimeout").toString();
+            String browserType = (String)testVars.getRuntimeVars().get("browser");
+            String driverTimeOut = (String)testVars.getRuntimeVars().get("driverTimeout");
             if (browserType != null && !browserType.isEmpty()) {
                 baseAction.getWebAction().setBrowserType(BrowserType.find(browserType));
                 TestReportManager.getInstance().setSystemInfo("Browser", baseAction.getWebAction().getBrowserType().name());
@@ -70,7 +70,11 @@ public abstract class BaseTest {
                 baseAction.getWebAction().startBrowser();
             }
         }
+        if(testVars.getRuntimeVars().get("productVersion") !=null){
+            prodVer = (String)testVars.getRuntimeVars().get("productVersion");
+        }
         TestReportManager.getInstance().setSystemInfo("Product Version", prodVer);
+
     }
 
     @AfterClass
@@ -130,8 +134,23 @@ public abstract class BaseTest {
 
                         Method setTestVars = actionClass.getClass().getMethod("setTestVars", testVars.getRuntimeVars().getClass());
                         setTestVars.invoke(actionClass, testVars.getRuntimeVars());
-                        Method action = actionClass.getClass().getMethod(step.getMethod(), step.getClass());
-                        action.invoke(actionClass, step);
+
+                        Class<?>[] methodClasses = null;
+                        for(Method m : actionClass.getClass().getMethods()){
+                            if(m.getName().equals(step.getMethod()) && m.getParameterCount() == step.getTestParams().size()){
+                                methodClasses = new Class<?>[m.getParameterCount()];
+                                for(int i =0 ; i< m.getParameterTypes().length; i++){
+                                    methodClasses[i] = m.getParameterTypes()[i];
+                                }
+                            }
+                        }
+
+                        Method action = actionClass.getClass().getMethod(step.getMethod(), methodClasses);
+                        Object[] values = new Object[methodClasses.length];
+//                        for(int i = 0; i < methodClasses.length; i++){
+//                            values[i] = .get(i);
+//                        }
+                        action.invoke(actionClass, step.getTestParams().values().toArray());
 
                         Method getSAAction = actionClass.getClass().getMethod("getSoftAssert");
                         baseAction.setSoftAssert((SoftAssertExt) getSAAction.invoke(actionClass));

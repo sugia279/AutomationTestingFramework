@@ -1,10 +1,8 @@
-package saucedemo_webuitesting.highlevel_action;
+package saucedemo_webuitesting.keywords;
 
 import core.base_action.BaseAction;
-import core.base_action.WebAction;
 import core.extent_report.TestReportManager;
 import core.testdata_manager.TestStep;
-import org.jsoup.Connection;
 import saucedemo_webuitesting.uiview.pages.login.LoginPage;
 import saucedemo_webuitesting.uiview.pages.main.inventory.InventoryPage;
 
@@ -13,11 +11,7 @@ public class LoginAction extends BaseAction {
         super(action);
     }
 
-    public void login(TestStep step){
-        String user = (String)step.getTestParams().get("user");
-        String password = (String)step.getTestParams().get("password");
-        String errorMessage = (String)step.getTestParams().get("errorMessage");
-
+    public void login(String user, String password, String errorMessage){
         LoginPage lg = new LoginPage(getWebAction());
         lg.navigate("https://www.saucedemo.com/index.html")
                 .login(user,password);

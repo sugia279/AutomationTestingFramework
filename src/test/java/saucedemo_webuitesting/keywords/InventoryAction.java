@@ -1,28 +1,28 @@
-package saucedemo_webuitesting.highlevel_action;
+package saucedemo_webuitesting.keywords;
 
 import core.base_action.BaseAction;
-import core.base_action.WebAction;
 import core.extent_report.TestReportManager;
 import core.testdata_manager.TestStep;
 import org.json.simple.JSONArray;
 import saucedemo_webuitesting.uiview.controls.inventoryitem.InventoryItem;
 import saucedemo_webuitesting.uiview.pages.main.inventory.InventoryPage;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
 public class InventoryAction extends BaseAction {
     public InventoryAction(BaseAction action){
         super(action);
     }
 
-    public void addToCartTest(TestStep step){
-        Object[] item_names = ((JSONArray)step.getTestParams().get("Item Names")).toArray();
-        Long counter = (Long)step.getTestParams().get("Counter");
+    public void addToCartTest(ArrayList<String> item_names, int counter){
 
         //2. Navigate to Inventory page
         InventoryPage invPage = new InventoryPage(getWebAction());
         invPage.waitForPageLoadComplete();
 
-        for(Object item: item_names){
-            InventoryItem inItem =invPage.Map().getInventoryItem((String)item)
+        for(String item: item_names){
+            InventoryItem inItem =invPage.Map().getInventoryItem(item)
                     .clickAddToCart();
             TestReportManager.getInstance().setStepInfo("validate the Remove button is presented.");
 
@@ -32,6 +32,6 @@ public class InventoryAction extends BaseAction {
         }
 
         TestReportManager.getInstance().setStepInfo("Validate the shopping cart counter");
-        getSoftAssert().assertEquals(invPage.getHeaderContainer().Map().getLinkShoppingCart().getText(),Integer.toString(counter.intValue()), "Ensure number of added items is [" + getSoftAssert() + "]");
+        getSoftAssert().assertEquals(invPage.getHeaderContainer().Map().getLinkShoppingCart().getText(),Integer.toString(counter), "Ensure number of added items is [" + getSoftAssert() + "]");
     }
 }

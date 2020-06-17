@@ -1,11 +1,11 @@
 package core.testdata_manager;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import core.utilities.HashMapHandler;
 import core.utilities.JsonHandler;
 import core.utilities.JsonTableModel;
 import core.utilities.StringHandler;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -47,26 +47,25 @@ public class TestDataManager {
 
     protected TestSuite loadTestDataFromJson(String testPath) {
         TestSuite tSuite = new TestSuite();
-        JSONObject jsonObj = JsonHandler.getDataFile(getTestDataFolder() + testPath);
-        tSuite.set_name((String) jsonObj.get("suiteName"));
-        tSuite.set_description((String) jsonObj.get("suiteDescription"));
-        tSuite.set_note(jsonObj.get("note"));
-        JSONArray testCases =  ((JSONArray) JsonHandler.GetValueJSONObject(jsonObj,"testCases"));
+        //JSONObject jsonObj = JsonHandler.getDataFile(getTestDataFolder() + testPath);
+        JsonNode jsonObj = JsonHandler.readJsonFromFile(getTestDataFolder() + testPath);
+        tSuite.set_name(JsonHandler.getTextValue(jsonObj,"suiteName"));
+        tSuite.set_description(JsonHandler.getTextValue(jsonObj,"suiteDescription"));
+        tSuite.set_note(JsonHandler.getTextValue(jsonObj,"note"));
+        ArrayNode testCases= (ArrayNode)JsonHandler.getJsonNode(jsonObj,"testCases");
         if(testCases!= null) {
-
             for (int i = 1; i <= testCases.size(); i++) {
-                JSONObject jsonTestCase = (JSONObject) testCases.get(i - 1);
+                JsonNode jsonTestCase = testCases.get(i - 1);
                 tSuite.get_testCases().addAll(loadTestCasesFromJson(jsonTestCase));
             }
         }
-
         return tSuite;
     }
 
-    private ArrayList<TestCase> loadTestCasesFromJson(JSONObject jsonTestCase) {
+    private ArrayList<TestCase> loadTestCasesFromJson(JsonNode jsonTestCase) {
         ArrayList<TestCase> arr = new ArrayList<>();
         TestCase tcSource = loadTestCaseFromJson(jsonTestCase);
-        JSONObject dataTB = JsonHandler.GetJSONObject(jsonTestCase,"dataTable");
+        JsonNode dataTB = JsonHandler.getJsonNode(jsonTestCase,"dataTable");
         if(dataTB!=null) {
             JsonTableModel jsonTable = new JsonTableModel(dataTB);
             for (int i = 0; i < jsonTable.getRowCount(); i++) {
@@ -102,20 +101,19 @@ public class TestDataManager {
         return tcRefined;
     }
 
-    private TestCase loadTestCaseFromJson(JSONObject jsonTestCase)    {
+    private TestCase loadTestCaseFromJson(JsonNode jsonTestCase)    {
         // Load TestCase from JSONObject
-        TestCase tc = new TestCase(jsonTestCase.get("testId"), jsonTestCase.get("testName"), jsonTestCase.get("testDescription"));
-        tc.setObjectives(jsonTestCase.get("testObjectives"));
-        tc.setNote(jsonTestCase.get("note"));
-        tc.setActive(jsonTestCase.get("active"));
-        tc.setTag(jsonTestCase.get("tag"));
-        JSONArray testSteps = ((JSONArray) jsonTestCase.get("testSteps"));
-        for (int i = 0; i < testSteps.size(); i++) {
-            JSONObject jsonTestStep = (JSONObject) testSteps.get(i);
-            JSONObject params = (JSONObject) jsonTestStep.get("parameters");
-            TestStep testStep = new TestStep((String) jsonTestStep.get("name"), (String) jsonTestStep.get("testDescription"), (String) jsonTestStep.get("class"),(String) jsonTestStep.get("method"));
+        TestCase tc = new TestCase(JsonHandler.getTextValue(jsonTestCase,"testId"), JsonHandler.getTextValue(jsonTestCase,"testName"), JsonHandler.getTextValue(jsonTestCase,"testDescription"));
+        tc.setObjectives(JsonHandler.getTextValue(jsonTestCase,"testObjectives"));
+        tc.setNote(JsonHandler.getTextValue(jsonTestCase,"note"));
+        tc.setActive(JsonHandler.getTextValue(jsonTestCase,"active"));
+        tc.setTag(JsonHandler.getTextValue(jsonTestCase,"tag"));
+        ArrayNode testSteps = JsonHandler.getArrayNode(jsonTestCase,"testSteps");
+        for(JsonNode jsonStep : testSteps) {
+            JsonNode params = JsonHandler.getJsonNode(jsonStep,"parameters");
+            TestStep testStep = new TestStep(JsonHandler.getTextValue(jsonStep,"name"), JsonHandler.getTextValue(jsonStep,"testDescription"), JsonHandler.getTextValue(jsonStep,"class"),JsonHandler.getTextValue(jsonStep,"method"));
             if(params!=null) {
-                testStep.getTestParams().putAll(params);
+                testStep.setTestParams(JsonHandler.convertJsonToLinkedHashMap(params));
             }
             tc.get_testSteps().add(testStep);
         }

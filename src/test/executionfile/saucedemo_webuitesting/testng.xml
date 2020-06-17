@@ -1,16 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <!--<suite name="Smoke_Test" parallel="tests" thread-count="2">-->
 <suite name="Smoke_Test">
-    <!--<parameter name="config-file" value="src/test/resources/configFiles/WebUI_Chrome.properties" />-->
-    <parameter name="config-file" value="src/test/resources/configFiles/WebUI_IE.properties" />
+    <parameter name="config-file" value="src/test/resources/configFiles/WebUI_Chrome.properties" />
+    <!--<parameter name="config-file" value="src/test/resources/configFiles/WebUI_IE.properties" />-->
     <test name="Logon">
         <classes>
             <class name="saucedemo_webuitesting.testclasses.login.LoginTest"/>
         </classes>
     </test>
-    <test name="Inventory">
-        <classes>
-            <class name="saucedemo_webuitesting.testclasses.inventory.InventoryTest"/>
-        </classes>
-    </test>
+    <!--<test name="Inventory">-->
+        <!--<classes>-->
+            <!--<class name="saucedemo_webuitesting.testclasses.inventory.InventoryTest"/>-->
+        <!--</classes>-->
+    <!--</test>-->
 </suite>

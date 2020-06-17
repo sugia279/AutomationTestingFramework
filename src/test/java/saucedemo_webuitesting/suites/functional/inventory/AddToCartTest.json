@@ -15,7 +15,8 @@
           "method": "login",
           "parameters": {
             "user": "standard_user",
-            "password": "secret_sauce"
+            "password": "secret_sauce",
+            "errorMessage": null
           }
         },
         {
@@ -42,7 +43,8 @@
           "method": "login",
           "parameters": {
             "user": "standard_user",
-            "password": "secret_sauce"
+            "password": "secret_sauce",
+            "errorMessage": null
           }
         },
         {

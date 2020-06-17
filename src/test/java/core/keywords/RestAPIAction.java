@@ -13,6 +13,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import sun.plugin.javascript.navig.Link;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,40 +30,35 @@ public class RestAPIAction extends BaseAction {
         super(action);
     }
 
-    public void GET(TestStep step){
-        restAPIActionHandler(step);
+    public void GET(LinkedHashMap<String,Object> request, LinkedHashMap<String, Object> response){
+        restAPIActionHandler("get", request, response);
     }
 
-    public void POST(TestStep step){
-        restAPIActionHandler(step);
+    public void POST(LinkedHashMap<String,Object> request, LinkedHashMap<String, Object> response){
+        restAPIActionHandler("post", request, response);
     }
 
-    public void PUT(TestStep step){
-        restAPIActionHandler(step);
+    public void PUT(LinkedHashMap<String,Object> request, LinkedHashMap<String, Object> response){
+        restAPIActionHandler("put", request, response);
     }
 
-    public void DELETE(TestStep step){
-        restAPIActionHandler(step);
+    public void DELETE(LinkedHashMap<String,Object> request, LinkedHashMap<String, Object> response){
+        restAPIActionHandler("delete", request, response);
     }
-    public void PATCH(TestStep step){
-        restAPIActionHandler(step);
+    public void PATCH(LinkedHashMap<String,Object> request, LinkedHashMap<String, Object> response){
+        restAPIActionHandler("patch", request, response);
     }
 
-    private void restAPIActionHandler(TestStep step){
+    private void restAPIActionHandler(String method,LinkedHashMap<String,Object> requestJson, LinkedHashMap<String, Object> responseJson){
         ArrayList<String> passTexts = new ArrayList<>();
         ArrayList<AssertionError> errors = new ArrayList<>();
 
-        JSONObject requestJObj = (JSONObject) step.getTestParams().get("request");
-
-        sendRequest(step.getMethod(), requestJObj, passTexts, errors);
+        sendRequest(method, requestJson, passTexts, errors);
         //outputString = "<button type=\"button\" class=\"collapsible\">Request & Response</button><div class=\"content\">";
         outputString = outputString + "Request: <br><pre>" + getRestAction().getRequestWriter().toString() + "</pre><br>";
 
-        JSONObject responseJsonObj = (JSONObject) step.getTestParams().get("response");
-        LinkedHashMap<String, Object> responseSection = HashMapHandler.ConvertJsonObjectToHashMap(responseJsonObj);
-
         //validate response
-        validateResponse(responseSection, response, passTexts, errors);
+        validateResponse(responseJson, response, passTexts, errors);
         outputString = outputString + "Response: <br><pre>" + getRestAction().getResponseWriter().toString() + "</pre><br>";
         //outputString = outputString + "</div>";
         TestReportManager.getInstance().getTestReport().testLog(outputString);
@@ -71,36 +67,36 @@ public class RestAPIAction extends BaseAction {
         softAssert.assertTrue(resultStep, formatPassTexts(passTexts) + formatErrors(errors));
     }
 
-    private void sendRequest(String method, JSONObject requestJObj, ArrayList<String> passText, ArrayList<AssertionError> errors){
+    private void sendRequest(String method, LinkedHashMap<String, Object> request, ArrayList<String> passText, ArrayList<AssertionError> errors){
         try {
             getRestAction().initLogWriter();
 
-            String requestUrl = (String) requestJObj.get("url");
+            String requestUrl = (String) request.get("url");
             reqSpec = getRestAction().specifyRequest();
 
-            LinkedHashMap<String, Object> headerItems = HashMapHandler.ConvertJsonObjectToHashMap((JSONObject) requestJObj.get("headers"));
-            if (headerItems.keySet().size() > 0) {
+            LinkedHashMap<String, Object> headerItems = (LinkedHashMap<String, Object>)request.get("headers");
+            if (headerItems != null && headerItems.keySet().size() > 0) {
                 reqSpec = reqSpec.headers(headerItems);
             }
 
-            String contentType = (String) requestJObj.get("contentType");
+            String contentType = (String) request.get("contentType");
             if (contentType != null) {
                 reqSpec = reqSpec.contentType(contentType);
             }
 
-            LinkedHashMap<String, Object> formParams = HashMapHandler.ConvertJsonObjectToHashMap((JSONObject) requestJObj.get("formParams"));
-            if (formParams.keySet().size() > 0) {
+            LinkedHashMap<String, Object> formParams = (LinkedHashMap<String, Object>)request.get("formParams");
+            if (formParams != null && formParams.keySet().size() > 0) {
                 reqSpec = reqSpec.formParams(formParams);
             }
 
-            LinkedHashMap<String, Object> queryParams = HashMapHandler.ConvertJsonObjectToHashMap((JSONObject) requestJObj.get("queryParams"));
-            if (queryParams.keySet().size() > 0) {
+            LinkedHashMap<String, Object> queryParams = (LinkedHashMap<String, Object>)request.get("queryParams");
+            if (queryParams != null && queryParams.keySet().size() > 0) {
                 reqSpec = reqSpec.queryParams(queryParams);
             }
 
-            JSONObject requestBody = (JSONObject) requestJObj.get("body");
+            LinkedHashMap<String, Object>  requestBody = (LinkedHashMap<String, Object>)request.get("body");
             if (requestBody != null) {
-                reqSpec = reqSpec.body(requestBody.toJSONString());
+                reqSpec = reqSpec.body(requestBody);
             }
 
             response = getRestAction().executeMethod(method, requestUrl, reqSpec);
@@ -111,11 +107,11 @@ public class RestAPIAction extends BaseAction {
         }
     }
 
-    public void validateResponse(TestStep step){
+    public void validateResponse(LinkedHashMap<String, Object> responseJson){
         ArrayList<String> passTexts = new ArrayList<>();
         ArrayList<AssertionError> errors = new ArrayList<>();
 
-        validateResponse(step.getTestParams(), response, passTexts, errors);
+        validateResponse(responseJson, response, passTexts, errors);
         boolean resultStep = errors.size() <= 0;
         softAssert.assertTrue(resultStep, formatPassTexts(passTexts) + formatErrors(errors));
     }
@@ -135,12 +131,12 @@ public class RestAPIAction extends BaseAction {
                         passText.add("Ensure the response data schema match to the defined schema at" + entry.getValue());
                         break;
                     case "body":
-                        JSONObject fieldPaths = (JSONObject) entry.getValue();
-                        for (Object fieldPath : fieldPaths.keySet()) {
-                            JSONObject jsonMatchers = (JSONObject) fieldPaths.get(fieldPath);
-                            for (Object matcher : jsonMatchers.keySet()) {
-                                Matcher<?> definedMatcher = buildMatcherPattern((String) matcher, jsonMatchers.get(matcher));
-                                validRes.body((String) fieldPath, definedMatcher);
+                        LinkedHashMap<String, Object> fieldPaths = (LinkedHashMap<String, Object>) entry.getValue();
+                        for (String fieldPath : fieldPaths.keySet()) {
+                            LinkedHashMap<String, Object> jsonMatchers = (LinkedHashMap<String, Object>) fieldPaths.get(fieldPath);
+                            for (String matcher : jsonMatchers.keySet()) {
+                                Matcher<?> definedMatcher = buildMatcherPattern(matcher, jsonMatchers.get(matcher));
+                                validRes.body(fieldPath, definedMatcher);
                                 passText.add("Ensure the field [" + fieldPath + "] - " + definedMatcher.toString() + ".");
                             }
                         }
@@ -153,16 +149,16 @@ public class RestAPIAction extends BaseAction {
         return validRes;
     }
 
-    public void storeResponseValue(TestStep step){
+    public void storeResponseValue(ArrayList<LinkedHashMap<String, Object>> variables){
         //store runtime wars
-        JSONArray storedParams = (JSONArray) step.getTestParams().get("variables");
+        ArrayList<LinkedHashMap<String, Object>> storedParams = variables;
         if(storedParams != null) {
             storedParams.forEach(ele -> {
                         try {
-                            String varName = (String) ((JSONObject) ele).get("varName");
-                            String valueName = (String) ((JSONObject) ele).get("key");
+                            String varName = (String) ele.get("varName");
+                            String valueName = (String) ele.get("key");
                             Object value = response.getBody().path(valueName);
-                            String cast = (String) ((JSONObject) ele).get("cast");
+                            String cast = (String) ele.get("cast");
                             if (cast != null) {
                                 switch (cast) {
                                     case "int":
