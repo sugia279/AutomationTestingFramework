@@ -6,11 +6,11 @@ import core.test_execution.BaseTest;
 
 public abstract class SauceDemoBaseTest extends BaseTest {
     public SauceDemoBaseTest(){
-        baseAction.setWebAction(new WebAction());
-        baseAction.setRestAction(new RestAction());
+        actions.setWebAction(new WebAction());
+        actions.setRestAction(new RestAction());
 
         setUserKeywordPackage("saucedemo_webuitesting.keywords");
-        baseAction.getWebAction().setAttributeAsElementName("id","class");
+        actions.getWebAction().setAttributeAsElementName("id","class");
         testDataManager.setTestDataPath("src/test/java/saucedemo_webuitesting/suites/");
 
         testVars.getRuntimeVars().put("loginPageURL","https://www.saucedemo.com/index.html");

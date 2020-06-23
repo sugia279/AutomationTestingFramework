@@ -1,13 +1,12 @@
 package saucedemo_webuitesting.keywords;
 
-import core.base_action.BaseAction;
+import core.base_action.Action;
 import core.extent_report.TestReportManager;
-import core.testdata_manager.TestStep;
 import saucedemo_webuitesting.uiview.pages.login.LoginPage;
 import saucedemo_webuitesting.uiview.pages.main.inventory.InventoryPage;
 
-public class LoginAction extends BaseAction {
-    public LoginAction(BaseAction action){
+public class LoginAction extends Action {
+    public LoginAction(Action action){
         super(action);
     }
 

@@ -5,7 +5,7 @@ import core.test_execution.BaseTest;
 
 public abstract class GitHubWebAPITest extends BaseTest {
     public GitHubWebAPITest(){
-        baseAction.setRestAction(new RestAction());
+        actions.setRestAction(new RestAction());
 
         setUserKeywordPackage("githubsample_webapitesting.keywords");
         testDataManager.setTestDataPath("src/test/java/githubsample_webapitesting/suites/");

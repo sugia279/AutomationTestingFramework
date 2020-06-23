@@ -1,6 +1,6 @@
 package core.test_execution;
 
-import core.base_action.BaseAction;
+import core.base_action.Action;
 import core.base_action.SoftAssertExt;
 import core.extent_report.TestReportManager;
 import core.testdata_manager.TestCase;
@@ -13,11 +13,9 @@ import org.testng.*;
 import org.testng.annotations.*;
 import org.testng.annotations.Optional;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.file.Files;
 import java.util.*;
 
 public abstract class BaseTest {
@@ -27,13 +25,13 @@ public abstract class BaseTest {
     protected String testDataPath;
     protected TestCase curTestCase = null;
     protected TestDataManager testDataManager;
-    protected BaseAction baseAction;
+    protected Action actions;
     private String userKeywordPackage;
     protected LinkedHashMap<String, Object> actionClasses;
     protected TestVariableManager testVars;
 
     public BaseTest() {
-        baseAction = new BaseAction();
+        actions = new Action();
         testDataManager = new TestDataManager();
         actionClasses = new LinkedHashMap<>();
         testVars = new TestVariableManager();
@@ -56,18 +54,18 @@ public abstract class BaseTest {
     @BeforeClass
     public void beforeClass(ITestContext testContext) {
         testVars.getRuntimeVars().putAll(Config.getHashMapProperties(configFile));
-        if(baseAction.getWebAction() != null) {
+        if(actions.getWebAction() != null) {
             String browserType = (String)testVars.getRuntimeVars().get("browser");
             String driverTimeOut = (String)testVars.getRuntimeVars().get("driverTimeout");
             if (browserType != null && !browserType.isEmpty()) {
-                baseAction.getWebAction().setBrowserType(BrowserType.find(browserType));
-                TestReportManager.getInstance().setSystemInfo("Browser", baseAction.getWebAction().getBrowserType().name());
+                actions.getWebAction().setBrowserType(BrowserType.find(browserType));
+                TestReportManager.getInstance().setSystemInfo("Browser", actions.getWebAction().getBrowserType().name());
             }
             if (driverTimeOut != null && !driverTimeOut.isEmpty()) {
-                baseAction.getWebAction().setTimeoutDefault(Integer.parseInt(driverTimeOut));
+                actions.getWebAction().setTimeoutDefault(Integer.parseInt(driverTimeOut));
             }
-            if (baseAction.getWebAction().getBrowser() == null) {
-                baseAction.getWebAction().startBrowser();
+            if (actions.getWebAction().getBrowser() == null) {
+                actions.getWebAction().startBrowser();
             }
         }
         if(testVars.getRuntimeVars().get("productVersion") !=null){
@@ -94,7 +92,7 @@ public abstract class BaseTest {
         testDataManager.updateVariable(curTestCase, testVars.getSystemVars());
         // just update the runtime var for testcase info (if yes), updating the runtime vars for the test step must be done inside each test action
         testDataManager.updateTCInfoVariable(curTestCase, testVars.getRuntimeVars());
-        baseAction.initSoftAssert();
+        actions.initSoftAssert();
         String[] suiteNames = {testContext.getSuite().getName().toUpperCase(),
                 ((TestRunner) testContext).getTest().getName().toUpperCase().replace(" ", "&thinsp;"),
                 testDataManager.getTestSuiteMap().get(testDataPath).get_name().replace(" ", "&thinsp;")};
@@ -124,13 +122,13 @@ public abstract class BaseTest {
                                 clazz = Class.forName(getUserKeywordPackage() + "." + step.getClassExecution());
                             }
 
-                            Constructor<?> cons = clazz.getConstructor(BaseAction.class);
-                            actionClass = cons.newInstance(baseAction);
+                            Constructor<?> cons = clazz.getConstructor(Action.class);
+                            actionClass = cons.newInstance(actions);
                             actionClasses.put(step.getClassExecution(), actionClass);
                         }
 
-                        Method setSAAction = actionClass.getClass().getMethod("setSoftAssert", baseAction.getSoftAssert().getClass());
-                        setSAAction.invoke(actionClass, baseAction.getSoftAssert());
+                        Method setSAAction = actionClass.getClass().getMethod("setSoftAssert", actions.getSoftAssert().getClass());
+                        setSAAction.invoke(actionClass, actions.getSoftAssert());
 
                         Method setTestVars = actionClass.getClass().getMethod("setTestVars", testVars.getRuntimeVars().getClass());
                         setTestVars.invoke(actionClass, testVars.getRuntimeVars());
@@ -153,18 +151,18 @@ public abstract class BaseTest {
                         action.invoke(actionClass, step.getTestParams().values().toArray());
 
                         Method getSAAction = actionClass.getClass().getMethod("getSoftAssert");
-                        baseAction.setSoftAssert((SoftAssertExt) getSAAction.invoke(actionClass));
+                        actions.setSoftAssert((SoftAssertExt) getSAAction.invoke(actionClass));
                     } catch (InvocationTargetException e) {
                         if (e.getTargetException() instanceof SkipException) {
                             throw (SkipException) e.getTargetException();
                         } else
-                            baseAction.getSoftAssert().assertTrue(false, e.getTargetException().getMessage());
+                            actions.getSoftAssert().assertTrue(false, e.getTargetException().getMessage());
                     } catch (Exception e) {
-                        baseAction.getSoftAssert().assertTrue(false, e.toString());
+                        actions.getSoftAssert().assertTrue(false, e.toString());
                     }
                 }
             }
-            baseAction.getSoftAssert().assertAll();
+            actions.getSoftAssert().assertAll();
         } else {
             TestReportManager.getInstance().getTestReport().testSkip(curTestCase.getNote());
         }
@@ -226,8 +224,8 @@ public abstract class BaseTest {
         testDataManager.clearTestSuiteMap();
         testVars.clear();
         actionClasses.clear();
-        if (baseAction.getWebAction() != null && baseAction.getWebAction().getBrowser() != null) {
-            baseAction.getWebAction().stopAllBrowsers();
+        if (actions.getWebAction() != null && actions.getWebAction().getBrowser() != null) {
+            actions.getWebAction().stopAllBrowsers();
         }
     }
 

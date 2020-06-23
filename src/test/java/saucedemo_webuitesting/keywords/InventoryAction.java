@@ -1,17 +1,14 @@
 package saucedemo_webuitesting.keywords;
 
-import core.base_action.BaseAction;
+import core.base_action.Action;
 import core.extent_report.TestReportManager;
-import core.testdata_manager.TestStep;
-import org.json.simple.JSONArray;
 import saucedemo_webuitesting.uiview.controls.inventoryitem.InventoryItem;
 import saucedemo_webuitesting.uiview.pages.main.inventory.InventoryPage;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
-public class InventoryAction extends BaseAction {
-    public InventoryAction(BaseAction action){
+public class InventoryAction extends Action {
+    public InventoryAction(Action action){
         super(action);
     }
 

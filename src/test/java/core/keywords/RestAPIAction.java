@@ -1,9 +1,7 @@
 package core.keywords;
 
-import core.base_action.BaseAction;
+import core.base_action.Action;
 import core.extent_report.TestReportManager;
-import core.testdata_manager.TestStep;
-import core.utilities.HashMapHandler;
 import core.utilities.restassuredmatcher.CaseInsensitiveStringMatcher;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
@@ -12,8 +10,6 @@ import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import sun.plugin.javascript.navig.Link;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,11 +18,11 @@ import java.util.List;
 import java.util.Map;
 
 
-public class RestAPIAction extends BaseAction {
+public class RestAPIAction extends Action {
     private String outputString = "";
     private RequestSpecification reqSpec;
     private Response response;
-    public RestAPIAction(BaseAction action){
+    public RestAPIAction(Action action){
         super(action);
     }
 

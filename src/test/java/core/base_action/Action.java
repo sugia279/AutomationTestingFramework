@@ -7,15 +7,15 @@ import org.openqa.selenium.TakesScreenshot;
 
 import java.util.LinkedHashMap;
 
-public class BaseAction {
+public class Action {
     private WebAction webAction;
     private RestAction restAction;
     protected LinkedHashMap<String, Object> testVars;
     protected SoftAssertExt softAssert;
-    public BaseAction(){
+    public Action(){
         setSoftAssert(new SoftAssertExt());
     }
-     public BaseAction(BaseAction bAction){
+     public Action(Action bAction){
          webAction = bAction.getWebAction();
          restAction = bAction.getRestAction();
          softAssert = bAction.getSoftAssert();
