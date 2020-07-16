@@ -1,4 +1,4 @@
-# Automation Testing Framework using JSON Data Driven
+# Keyword-driven Automation Testing Framework using JSON Format
 A framework helps the automation engineer build the complete test automation easily by integrating the various automation libraries, tools and supporting the way to execute Test Suite/ Test case using JSON for Data Driven.
 ## The automation libraries, tools are used in this framework.
 - [TestNG](https://testng.org/doc/index.html)                - A Testing framework
@@ -68,10 +68,8 @@ public class InventoryAction extends BaseAction {
         super(action);
     }
 
-    public void addToCartTest(TestStep step){
-        Object[] item_names = ((JSONArray)step.getTestParams().get("Item Names")).toArray();
-        Long counter = (Long)step.getTestParams().get("Counter");
-
+    public void addToCartTest(ArrayList<String> item_names, int counter){
+        
         //2. Navigate to Inventory page
         InventoryPage invPage = new InventoryPage(webAction);
         invPage.waitForPageLoadComplete();
