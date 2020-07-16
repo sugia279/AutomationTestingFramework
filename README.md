@@ -165,8 +165,8 @@ public class LoginPageMap extends BaseWebUIMap {
                        actionClasses.put(step.getClassExecution(),actionClass);
                    }
 
-                   Method setTestVars = actionClass.getClass().getMethod("setTestVars", runtimeVars.getClass());
-                   setTestVars.invoke(actionClass, runtimeVars);
+                   Method setTestVars = actionClass.getClass().getMethod("setTestVars", configVars.getClass());
+                   setTestVars.invoke(actionClass, configVars);
                    Method action = actionClass.getClass().getMethod(step.getMethod(),step.getClass());
                    action.invoke(actionClass, step);
                }

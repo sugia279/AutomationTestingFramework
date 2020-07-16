@@ -8,11 +8,13 @@ import java.util.Random;
 
 public class TestVariableManager {
     private LinkedHashMap<String, Object> systemVars;
-    private LinkedHashMap<String, Object> runtimeVars;
+    private LinkedHashMap<String, Object> configVars;
+    private LinkedHashMap<String, Object> testVars;
 
     public TestVariableManager(){
         systemVars = new LinkedHashMap<>();
-        runtimeVars = new LinkedHashMap<>();
+        configVars = new LinkedHashMap<>();
+        setTestVars(new LinkedHashMap<>());
     }
 
     public LinkedHashMap<String, Object> getSystemVars() {
@@ -23,17 +25,17 @@ public class TestVariableManager {
         this.systemVars = systemVars;
     }
 
-    public LinkedHashMap<String, Object> getRuntimeVars() {
-        return runtimeVars;
+    public LinkedHashMap<String, Object> getConfigVars() {
+        return configVars;
     }
 
-    public void setRuntimeVars(LinkedHashMap<String, Object> runtimeVars) {
-        this.runtimeVars = runtimeVars;
+    public void setConfigVars(LinkedHashMap<String, Object> configVars) {
+        this.configVars = configVars;
     }
 
     public void clear(){
         systemVars.clear();
-        runtimeVars.clear();
+        configVars.clear();
     }
 
     public void loadSystemVariables() {
@@ -76,4 +78,11 @@ public class TestVariableManager {
         systemVars.put("RANDOM_DoubleString_5_6", "" + NumberHandler.getNumberFormat("##0.00", 6).format(NumberHandler.getRandomDoubleBetweenRange(0, 99999)));
     }
 
+    public LinkedHashMap<String, Object> getTestVars() {
+        return testVars;
+    }
+
+    public void setTestVars(LinkedHashMap<String, Object> testVars) {
+        this.testVars = testVars;
+    }
 }

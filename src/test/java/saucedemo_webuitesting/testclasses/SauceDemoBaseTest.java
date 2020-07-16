@@ -13,6 +13,6 @@ public abstract class SauceDemoBaseTest extends BaseTest {
         actions.getWebAction().setAttributeAsElementName("id","class");
         testDataManager.setTestDataPath("src/test/java/saucedemo_webuitesting/suites/");
 
-        testVars.getRuntimeVars().put("loginPageURL","https://www.saucedemo.com/index.html");
+        testVars.getConfigVars().put("loginPageURL","https://www.saucedemo.com/index.html");
     }
 }

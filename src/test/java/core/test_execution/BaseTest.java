@@ -35,6 +35,7 @@ public abstract class BaseTest {
         testDataManager = new TestDataManager();
         actionClasses = new LinkedHashMap<>();
         testVars = new TestVariableManager();
+        testDataPath = "";
     }
 
     @BeforeSuite
@@ -53,10 +54,10 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void beforeClass(ITestContext testContext) {
-        testVars.getRuntimeVars().putAll(Config.getHashMapProperties(configFile));
+        testVars.getConfigVars().putAll(Config.getHashMapProperties(configFile));
         if(actions.getWebAction() != null) {
-            String browserType = (String)testVars.getRuntimeVars().get("browser");
-            String driverTimeOut = (String)testVars.getRuntimeVars().get("driverTimeout");
+            String browserType = (String)testVars.getConfigVars().get("browser");
+            String driverTimeOut = (String)testVars.getConfigVars().get("driverTimeout");
             if (browserType != null && !browserType.isEmpty()) {
                 actions.getWebAction().setBrowserType(BrowserType.find(browserType));
                 TestReportManager.getInstance().setSystemInfo("Browser", actions.getWebAction().getBrowserType().name());
@@ -68,8 +69,8 @@ public abstract class BaseTest {
                 actions.getWebAction().startBrowser();
             }
         }
-        if(testVars.getRuntimeVars().get("productVersion") !=null){
-            prodVer = (String)testVars.getRuntimeVars().get("productVersion");
+        if(testVars.getConfigVars().get("productVersion") !=null){
+            prodVer = (String)testVars.getConfigVars().get("productVersion");
         }
         TestReportManager.getInstance().setSystemInfo("Product Version", prodVer);
 
@@ -86,12 +87,17 @@ public abstract class BaseTest {
     @BeforeMethod
     public void beforeMethod(Object[] params, ITestContext testContext) {
         Object[] testCaseInfo = (Object[]) params[0];
-        testDataPath = (String) testCaseInfo[0];
         curTestCase = (TestCase) testCaseInfo[1];
         testVars.loadSystemVariables();
         testDataManager.updateVariable(curTestCase, testVars.getSystemVars());
+
+        if(testDataPath != (String) testCaseInfo[0]){
+            testVars.getTestVars().clear();
+            testVars.getTestVars().putAll(testVars.getConfigVars());
+            testDataPath = (String) testCaseInfo[0];
+        }
         // just update the runtime var for testcase info (if yes), updating the runtime vars for the test step must be done inside each test action
-        testDataManager.updateTCInfoVariable(curTestCase, testVars.getRuntimeVars());
+        testDataManager.updateTCInfoVariable(curTestCase, testVars.getConfigVars());
         actions.initSoftAssert();
         String[] suiteNames = {testContext.getSuite().getName().toUpperCase(),
                 ((TestRunner) testContext).getTest().getName().toUpperCase().replace(" ", "&thinsp;"),
@@ -104,10 +110,10 @@ public abstract class BaseTest {
         String stepInfo = "";
         if (curTestCase.isActive()) {
             for (TestStep step : curTestCase.get_testSteps()) {
-                step.setName((String)StringHandler.replaceValueByMapData(step.getName(),"@var->", "@", testVars.getRuntimeVars()));
+                step.setName((String)StringHandler.replaceValueByMapData(step.getName(),"@var->", "@", testVars.getTestVars()));
                 stepInfo = step.getName() + "</br><u>Action Class:</u> " + step.getClassExecution() + "</br><u>Action:</u> " + step.getMethod();
                 TestReportManager.getInstance().setStepInfo(stepInfo);
-                step.setTestParams(HashMapHandler.replaceValueByMapData(step.getTestParams(), "@var->", "@", testVars.getRuntimeVars()));
+                step.setTestParams(HashMapHandler.replaceValueByMapData(step.getTestParams(), "@var->", "@", testVars.getTestVars()));
 
                 if(step.getClassExecution() != null) {
                     try {
@@ -130,8 +136,8 @@ public abstract class BaseTest {
                         Method setSAAction = actionClass.getClass().getMethod("setSoftAssert", actions.getSoftAssert().getClass());
                         setSAAction.invoke(actionClass, actions.getSoftAssert());
 
-                        Method setTestVars = actionClass.getClass().getMethod("setTestVars", testVars.getRuntimeVars().getClass());
-                        setTestVars.invoke(actionClass, testVars.getRuntimeVars());
+                        Method setTestVars = actionClass.getClass().getMethod("setTestVars", testVars.getTestVars().getClass());
+                        setTestVars.invoke(actionClass, testVars.getTestVars());
 
                         Class<?>[] methodClasses = null;
                         for(Method m : actionClass.getClass().getMethods()){
@@ -180,6 +186,9 @@ public abstract class BaseTest {
             testDataManager.setTestData(path);
             ArrayList<TestCase> allTestCase = testDataManager.getTestSuiteMap().get(path).get_testCases();
             for (int i = 0; i < allTestCase.size(); i++) {
+                if(!allTestCase.get(i).isActive()){
+                    continue;
+                }
                 if (testIdList != null && !Arrays.stream(testIdList).anyMatch(allTestCase.get(i).getId()::equals)) {
                     continue;
                 }
